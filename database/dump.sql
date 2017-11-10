@@ -51,7 +51,7 @@ CREATE TABLE `foods` (
   `idc` int(11) DEFAULT NULL,
   `datetime_in` datetime DEFAULT NULL,
   `datetime_out` datetime DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
+  `price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`idf`),
   KEY `foods_categories_idc_fk` (`idc`),
   CONSTRAINT `foods_categories_idc_fk` FOREIGN KEY (`idc`) REFERENCES `categories` (`idc`)
@@ -259,4 +259,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-10 19:17:16
+-- Dump completed on 2017-11-10 20:42:13
