@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Win32 (AMD64)
 --
 -- Host: localhost    Database: restaurant
 -- ------------------------------------------------------
--- Server version	5.7.16
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `articles`
+--
+
+DROP TABLE IF EXISTS `articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles`
+--
+
+LOCK TABLES `articles` WRITE;
+/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `categories`
 --
 
@@ -23,9 +48,9 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
-  `idc` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`idc`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -39,6 +64,59 @@ LOCK TABLES `categories` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `clients`
+--
+
+DROP TABLE IF EXISTS `clients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clients` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clients`
+--
+
+LOCK TABLES `clients` WRITE;
+/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `food_order`
+--
+
+DROP TABLE IF EXISTS `food_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `food_order` (
+  `order_id` int(10) unsigned NOT NULL,
+  `food_id` int(10) unsigned NOT NULL,
+  `dataTimeAdd` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTimeInCook` datetime DEFAULT NULL,
+  `dateTimeOutCook` datetime DEFAULT NULL,
+  PRIMARY KEY (`order_id`,`food_id`,`dataTimeAdd`),
+  KEY `FK_food_order_foods` (`food_id`),
+  CONSTRAINT `FK_food_order_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_food_order_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `food_order`
+--
+
+LOCK TABLES `food_order` WRITE;
+/*!40000 ALTER TABLE `food_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `food_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `foods`
 --
 
@@ -46,15 +124,15 @@ DROP TABLE IF EXISTS `foods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `foods` (
-  `idf` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `idc` int(11) DEFAULT NULL,
-  `datetime_in` datetime DEFAULT NULL,
-  `datetime_out` datetime DEFAULT NULL,
-  `price` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`idf`),
-  KEY `foods_categories_idc_fk` (`idc`),
-  CONSTRAINT `foods_categories_idc_fk` FOREIGN KEY (`idc`) REFERENCES `categories` (`idc`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `category_id` int(10) unsigned NOT NULL,
+  `dateTimeIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTimeOut` datetime NOT NULL DEFAULT '2100-01-01 00:00:00',
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_foods_categories` (`category_id`),
+  CONSTRAINT `FK_foods_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -68,80 +146,54 @@ LOCK TABLES `foods` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `foods_orders`
+-- Table structure for table `ingradient_food`
 --
 
-DROP TABLE IF EXISTS `foods_orders`;
+DROP TABLE IF EXISTS `ingradient_food`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `foods_orders` (
-  `ido` int(11) DEFAULT NULL,
-  `idf` int(11) DEFAULT NULL,
-  `datetime_add` datetime DEFAULT NULL,
-  KEY `foods_orders_orders_ido_fk` (`ido`),
-  KEY `foods_orders_foods_idf_fk` (`idf`),
-  CONSTRAINT `foods_orders_foods_idf_fk` FOREIGN KEY (`idf`) REFERENCES `foods` (`idf`),
-  CONSTRAINT `foods_orders_orders_ido_fk` FOREIGN KEY (`ido`) REFERENCES `orders` (`ido`)
+CREATE TABLE `ingradient_food` (
+  `ingradient_id` int(10) unsigned NOT NULL,
+  `food_id` int(10) unsigned NOT NULL,
+  `mass` decimal(10,3) unsigned NOT NULL,
+  PRIMARY KEY (`ingradient_id`,`food_id`),
+  KEY `FK_ingradient_food_foods` (`food_id`),
+  CONSTRAINT `FK_ingradient_food_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ingradient_food_ingradients` FOREIGN KEY (`ingradient_id`) REFERENCES `ingradients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `foods_orders`
+-- Dumping data for table `ingradient_food`
 --
 
-LOCK TABLES `foods_orders` WRITE;
-/*!40000 ALTER TABLE `foods_orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `foods_orders` ENABLE KEYS */;
+LOCK TABLES `ingradient_food` WRITE;
+/*!40000 ALTER TABLE `ingradient_food` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ingradient_food` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ingredients`
+-- Table structure for table `ingradients`
 --
 
-DROP TABLE IF EXISTS `ingredients`;
+DROP TABLE IF EXISTS `ingradients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingredients` (
-  `idi` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`idi`)
+CREATE TABLE `ingradients` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `dateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ingredients`
+-- Dumping data for table `ingradients`
 --
 
-LOCK TABLES `ingredients` WRITE;
-/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ingredients_foods`
---
-
-DROP TABLE IF EXISTS `ingredients_foods`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingredients_foods` (
-  `idi` int(11) DEFAULT NULL,
-  `idf` int(11) DEFAULT NULL,
-  `mass` int(11) DEFAULT NULL,
-  KEY `ingredients_foods_ingredients_idi_fk` (`idi`),
-  KEY `ingredients_foods_foods_idf_fk` (`idf`),
-  CONSTRAINT `ingredients_foods_foods_idf_fk` FOREIGN KEY (`idf`) REFERENCES `foods` (`idf`),
-  CONSTRAINT `ingredients_foods_ingredients_idi_fk` FOREIGN KEY (`idi`) REFERENCES `ingredients` (`idi`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ingredients_foods`
---
-
-LOCK TABLES `ingredients_foods` WRITE;
-/*!40000 ALTER TABLE `ingredients_foods` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ingredients_foods` ENABLE KEYS */;
+LOCK TABLES `ingradients` WRITE;
+/*!40000 ALTER TABLE `ingradients` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ingradients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -152,14 +204,18 @@ DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orders` (
-  `ido` int(11) NOT NULL AUTO_INCREMENT,
-  `serial` int(11) NOT NULL,
-  `idt` int(11) DEFAULT NULL,
-  `datetime_in` datetime DEFAULT NULL,
-  `datetime_out` datetime DEFAULT NULL,
-  PRIMARY KEY (`ido`),
-  KEY `orders_tables_idt_fk` (`idt`),
-  CONSTRAINT `orders_tables_idt_fk` FOREIGN KEY (`idt`) REFERENCES `tables` (`idt`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `serial` varchar(100) DEFAULT NULL,
+  `table_id` int(10) unsigned NOT NULL,
+  `dateTimeIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTimeOut` datetime NOT NULL DEFAULT '2100-01-01 00:00:00',
+  `comment` varchar(200) DEFAULT NULL,
+  `personal_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_orders_personals` (`personal_id`),
+  KEY `FK_orders_tables` (`table_id`),
+  CONSTRAINT `FK_orders_personals` FOREIGN KEY (`personal_id`) REFERENCES `personals` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_orders_tables` FOREIGN KEY (`table_id`) REFERENCES `tables` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -180,15 +236,19 @@ DROP TABLE IF EXISTS `personals`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `personals` (
-  `idp` int(11) NOT NULL AUTO_INCREMENT,
-  `surname` varchar(100) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `middlename` varchar(100) DEFAULT NULL,
-  `date_birth` date DEFAULT NULL,
-  `idr` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idp`),
-  KEY `personals_roles_idr_fk` (`idr`),
-  CONSTRAINT `personals_roles_idr_fk` FOREIGN KEY (`idr`) REFERENCES `roles` (`idr`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `surname` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `midname` varchar(100) NOT NULL,
+  `dateBirth` date DEFAULT NULL,
+  `role_id` int(10) unsigned NOT NULL,
+  `dateTimeIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTimeOut` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `login` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_personals_roles` (`role_id`),
+  CONSTRAINT `FK_personals_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -202,6 +262,31 @@ LOCK TABLES `personals` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `prices`
+--
+
+DROP TABLE IF EXISTS `prices`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prices` (
+  `ingradient_id` int(10) unsigned NOT NULL,
+  `dateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`ingradient_id`,`dateTime`),
+  CONSTRAINT `FK_prices_ingradients` FOREIGN KEY (`ingradient_id`) REFERENCES `ingradients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prices`
+--
+
+LOCK TABLES `prices` WRITE;
+/*!40000 ALTER TABLE `prices` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prices` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roles`
 --
 
@@ -209,9 +294,9 @@ DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
-  `idr` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`idr`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -232,12 +317,9 @@ DROP TABLE IF EXISTS `tables`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tables` (
-  `idt` int(11) NOT NULL AUTO_INCREMENT,
-  `serial` int(11) NOT NULL,
-  `idp` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idt`),
-  KEY `tables_personals_idp_fk` (`idp`),
-  CONSTRAINT `tables_personals_idp_fk` FOREIGN KEY (`idp`) REFERENCES `personals` (`idp`)
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `serial` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -259,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-10 20:42:13
+-- Dump completed on 2017-11-20  4:16:25
