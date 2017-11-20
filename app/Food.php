@@ -17,4 +17,9 @@ class Food extends Model
     {
         return $this->belongsToMany('App\Order');
     }
+
+    public function ingradients()
+    {
+        return $this->belongsToMany('App\Ingradient')->withPivot('mass');
+    }
 }
