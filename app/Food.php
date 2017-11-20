@@ -12,4 +12,9 @@ class Food extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order');
+    }
 }
