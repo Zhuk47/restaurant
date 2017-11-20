@@ -12,4 +12,9 @@ class Ingradient extends Model
     {
         return $this->belongsToMany('App\Food');
     }
+
+    public function price()
+    {
+        return $this->belongsTo('App\Price');
+    }
 }
