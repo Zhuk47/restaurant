@@ -146,40 +146,40 @@ LOCK TABLES `foods` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ingradient_food`
+-- Table structure for table `ingredient_food`
 --
 
-DROP TABLE IF EXISTS `ingradient_food`;
+DROP TABLE IF EXISTS ingredient_food;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingradient_food` (
-  `ingradient_id` int(10) unsigned NOT NULL,
+CREATE TABLE `ingredient_food` (
+  `ingredient_id` int(10) unsigned NOT NULL,
   `food_id` int(10) unsigned NOT NULL,
   `mass` decimal(10,3) unsigned NOT NULL,
-  PRIMARY KEY (`ingradient_id`,`food_id`),
-  KEY `FK_ingradient_food_foods` (`food_id`),
-  CONSTRAINT `FK_ingradient_food_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_ingradient_food_ingradients` FOREIGN KEY (`ingradient_id`) REFERENCES `ingradients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`ingredient_id`,`food_id`),
+  KEY `FK_ingredient_food_foods` (`food_id`),
+  CONSTRAINT `FK_ingredient_food_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ingredient_food_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES ingredients (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ingradient_food`
+-- Dumping data for table `ingredient_food`
 --
 
-LOCK TABLES `ingradient_food` WRITE;
-/*!40000 ALTER TABLE `ingradient_food` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ingradient_food` ENABLE KEYS */;
+LOCK TABLES ingredient_food WRITE;
+/*!40000 ALTER TABLE ingredient_food DISABLE KEYS */;
+/*!40000 ALTER TABLE ingredient_food ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ingradients`
+-- Table structure for table `ingredients`
 --
 
-DROP TABLE IF EXISTS `ingradients`;
+DROP TABLE IF EXISTS ingredients;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingradients` (
+CREATE TABLE `ingredients` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `dateTime` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -188,12 +188,12 @@ CREATE TABLE `ingradients` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ingradients`
+-- Dumping data for table `ingredients`
 --
 
-LOCK TABLES `ingradients` WRITE;
-/*!40000 ALTER TABLE `ingradients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ingradients` ENABLE KEYS */;
+LOCK TABLES ingredients WRITE;
+/*!40000 ALTER TABLE ingredients DISABLE KEYS */;
+/*!40000 ALTER TABLE ingredients ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -269,11 +269,11 @@ DROP TABLE IF EXISTS `prices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `prices` (
-  `ingradient_id` int(10) unsigned NOT NULL,
+  `ingredient_id` int(10) unsigned NOT NULL,
   `dateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`ingradient_id`,`dateTime`),
-  CONSTRAINT `FK_prices_ingradients` FOREIGN KEY (`ingradient_id`) REFERENCES `ingradients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`ingredient_id`,`dateTime`),
+  CONSTRAINT `FK_prices_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES ingredients (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

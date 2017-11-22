@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ingradient extends Model
+class Ingredient extends Model
 {
-    protected $table = 'ingradients';
+    protected $table = 'ingredients';
 
     public function foods()
     {
-        return $this->belongsToMany('App\Food');
+        return $this->belongsToMany('App\Food')->withPivot('mass');
     }
 
     public function price()

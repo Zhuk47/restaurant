@@ -18,8 +18,8 @@ class Food extends Model
         return $this->belongsToMany('App\Order');
     }
 
-    public function ingradients()
+    public function ingredients()
     {
-        return $this->belongsToMany('App\Ingradient')->withPivot('mass');
+        return $this->belongsToMany('App\Ingredient')->withPivot('mass');
     }
 }
