@@ -14,8 +14,11 @@
             <div class="form-group">
                 <label for="role" class="col-sm-3 control-label">Добавление ингредиента</label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="ingredient-name" class="form-control">
+                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="Ингредиент">
                 </div>
+                {{--<div class="col-sm-6">--}}
+                    {{--<input type="text" name="price" id="ingredient-price" class="form-control" placeholder="Стоимость">--}}
+                {{--</div>--}}
             </div>
             <!-- Кнопка добавления ингредиента -->
             <div class="form-group">
@@ -52,6 +55,10 @@
                             <td class="table-text">
                                 <div>{{ $ingredient->name }}</div>
                             </td>
+                            {{--<!-- Стоимость категории -->--}}
+                            {{--<td class="table-text">--}}
+                                {{--<div>{{ $ingredient->price->value }}</div>--}}
+                            {{--</td>--}}
                             <!-- Кнопка Удалить -->
                             <td>
                                 <form action="{{ url('ingredient/'.$ingredient->id) }}" method="POST">

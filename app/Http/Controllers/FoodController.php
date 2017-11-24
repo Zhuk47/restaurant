@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Food;
+use App\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,6 +79,7 @@ class FoodController extends Controller
 
     public function delete(Food $food)
     {
+        $food->ingredients()->detach();
         $food->delete();
 
         return redirect('/food');
@@ -85,11 +87,27 @@ class FoodController extends Controller
 
     public function content(Food $food)
     {
+        $ingredients = $food->ingredients;
+        $allIngredients = Ingredient::get();
 
+        return view('/content', [
+            'food' => $food,
+            'ingredients' => $ingredients,
+            'allIngredients' => $allIngredients
+        ]);
     }
 
-    public function addContent()
+    public function addIngredient(Food $food, Ingredient $oneIngredient, Request $request)
     {
+        $food->ingredients()->attach($oneIngredient->id, ["mass" => $request->mass]);
 
+        return redirect('/food/'.$food->id.'/content');
+    }
+
+    public function delIngredient(Food $food, Ingredient $ingredient)
+    {
+        $ingredient->foods()->detach($food->id);
+
+        return redirect('/food/'.$food->id.'/content');
     }
 }

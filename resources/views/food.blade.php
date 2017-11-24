@@ -18,7 +18,6 @@
                     <select name="category_id" id="category-id">
                         @foreach ($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        {{--<option value="2">Десерты</option>--}}
                         @endforeach
                     </select>
                     <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда">
@@ -84,7 +83,7 @@
                                 </form>
                             </td>
                             <td>
-                                <form action="{{ url('food/content/'.$food->id) }}">
+                                <form action="{{ url('food/'.$food->id.'/content') }}">
                                     <button type="submit">Состав</button>
                                 </form>
                             </td>

@@ -25,11 +25,12 @@ Route::delete('/ingredient/{ingredient}', 'IngredientController@delete');
 
 Route::get('/food', 'FoodController@index');
 Route::post('/food', 'FoodController@create');
+Route::delete('/food/{food}', 'FoodController@delete');
 Route::get('/foodupd/{food}', 'FoodController@edit');
 Route::patch('/foodupd/{food}', 'FoodController@update');
-Route::get('/food/content/{food}', 'FoodController@content');
-Route::post('/food/content/{food}', 'FoodController@addContent');
-Route::delete('/food/{food}', 'FoodController@delete');
+Route::get('/food/{food}/content', 'FoodController@content');
+Route::post('/food/{food}/content/{oneIngredient}', 'FoodController@addIngredient');
+Route::delete('/food/{food}/content/{ingredient}', 'FoodController@delIngredient');
 
 Route::get('/category', 'CategoryController@index');
 Route::post('/category', 'CategoryController@create');

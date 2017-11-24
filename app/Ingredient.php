@@ -15,6 +15,6 @@ class Ingredient extends Model
 
     public function price()
     {
-        return $this->belongsTo('App\Price');
+        return $this->hasOne('App\Price');
     }
 }

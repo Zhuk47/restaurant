@@ -149,7 +149,7 @@ UNLOCK TABLES;
 -- Table structure for table `ingredient_food`
 --
 
-DROP TABLE IF EXISTS ingredient_food;
+DROP TABLE IF EXISTS food_ingredient;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ingredient_food` (
@@ -167,9 +167,9 @@ CREATE TABLE `ingredient_food` (
 -- Dumping data for table `ingredient_food`
 --
 
-LOCK TABLES ingredient_food WRITE;
-/*!40000 ALTER TABLE ingredient_food DISABLE KEYS */;
-/*!40000 ALTER TABLE ingredient_food ENABLE KEYS */;
+LOCK TABLES food_ingredient WRITE;
+/*!40000 ALTER TABLE food_ingredient DISABLE KEYS */;
+/*!40000 ALTER TABLE food_ingredient ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

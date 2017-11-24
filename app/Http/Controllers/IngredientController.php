@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ingredient;
+use App\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -10,7 +11,7 @@ class IngredientController extends Controller
 {
     public function index()
     {
-        $ingredients = Ingredient::orderBy('id', 'asc')->get();
+        $ingredients = Ingredient::get();
 
         return view('ingredient', [
             'ingredients' => $ingredients

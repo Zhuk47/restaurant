@@ -8,9 +8,9 @@ class Price extends Model
 {
     protected $table = 'prices';
 
-    public function ingredients()
+    public function ingredient()
     {
-        return $this->hasMany('App\Ingredients');
+        return $this->belongsTo('App\Ingredient');
     }
 
 }
