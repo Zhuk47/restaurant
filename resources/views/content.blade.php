@@ -46,6 +46,7 @@
                     </tr>
                 @endforeach
             </table>
+        <div>Себестоимость ингредиентов в блюде составляет <b>{{ $cost_price }} грн.</b></div>
     </div>
     <div>
         <table class="table table-striped task-table">

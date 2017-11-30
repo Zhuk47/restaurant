@@ -88,13 +88,20 @@ class FoodController extends Controller
     public function content(Food $food)
     {
         $ingredients = $food->ingredients;
-        $allIngredients = Ingredient::get();
+        $cost_price = 0;
+        foreach ($ingredients as $ingredient){
+            $mass = $ingredient->pivot->mass;
+            $price = $ingredient->prices->sortByDesc('dateTime')->first()->price;
+            $cost_price += $mass * $price / 100;
+        }
 
+        $allIngredients = Ingredient::get();
 
         return view('/content', [
             'food' => $food,
             'ingredients' => $ingredients,
-            'allIngredients' => $allIngredients
+            'allIngredients' => $allIngredients,
+            'cost_price' => $cost_price
         ]);
     }
 
