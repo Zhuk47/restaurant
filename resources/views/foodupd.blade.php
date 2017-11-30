@@ -10,13 +10,12 @@
         <form action="{{ url('foodupd/'.$food->id) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
-
+            <h5>Изменить блюдо</h5>
         <!-- Данные блюда -->
             <div class="form-group">
-                <label for="role" class="col-sm-3 control-label">Изменить блюдо</label>
                 <div class="col-sm-6">
                     <input type="text" name="name" id="food-name" class="form-control" placeholder="{{ $food->name }}">
-                    <select name="category_id" id="category-id">
+                    <select name="category_id" id="category-id" class="form-control">
                         @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach

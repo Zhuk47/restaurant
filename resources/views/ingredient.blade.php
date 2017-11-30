@@ -5,16 +5,16 @@
     <div class="panel-body">
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
-
+    </div>
     <!-- Форма нового ингредиента -->
         <form action="{{ url('ingredient') }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
-
+            <h5>Добавление ингредиента</h5>
         <!-- Имя ингредиента -->
             <div class="form-group">
-                <label for="role" class="col-sm-3 control-label">Добавление ингредиента</label>
+                {{--<label for="role" class="col-sm-3 control-label"></label>--}}
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="Ингредиент">
+                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
                 </div>
                 {{--<div class="col-sm-6">--}}
                     {{--<input type="text" name="price" id="ingredient-price" class="form-control" placeholder="Стоимость">--}}
@@ -29,7 +29,6 @@
                 </div>
             </div>
         </form>
-    </div>
 
     <!-- Текущие ингредиенты -->
     @if (count($ingredients) > 0)
@@ -43,8 +42,8 @@
 
                     <!-- Заголовок таблицы -->
                     <thead>
-                    <th>Ингредиенты</th>
-                    <th>&nbsp;</th>
+                    <th>Ингредиент</th>
+                    <th>Стоимость за 100г</th>
                     </thead>
 
                     <!-- Тело таблицы -->
@@ -55,10 +54,10 @@
                             <td class="table-text">
                                 <div>{{ $ingredient->name }}</div>
                             </td>
-                            {{--<!-- Стоимость категории -->--}}
-                            {{--<td class="table-text">--}}
-                                {{--<div>{{ $ingredient->price->value }}</div>--}}
-                            {{--</td>--}}
+                            <!-- Стоимость категории -->
+                            <td class="table-text">
+                                <div>{{ $ingredient->prices->sortByDesc('dateTime')->first()->price }}</div>
+                            </td>
                             <!-- Кнопка Удалить -->
                             <td>
                                 <form action="{{ url('ingredient/'.$ingredient->id) }}" method="POST">
@@ -72,7 +71,7 @@
                             </td>
                             <td>
                                 <form action="{{ url('ingredientupd/'.$ingredient->id) }}">
-                                    <button type="submit">Изменить</button>
+                                    <button type="submit" class="btn btn-default">Изменить</button>
                                 </form>
                             </td>
                         </tr>

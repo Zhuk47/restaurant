@@ -10,10 +10,9 @@
         <form action="{{ url('categoryupd/'.$category->id) }}" method="POST" class="form-horizontal">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
-
+            <h5>Изменить категорию</h5>
         <!-- Имя категории -->
             <div class="form-group">
-                <label for="role" class="col-sm-3 control-label">Изменить категорию</label>
                 <div class="col-sm-6">
                     <input type="text" name="name" id="category-name" class="form-control" placeholder="{{ $category->name }}">
                 </div>

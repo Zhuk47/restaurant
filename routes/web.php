@@ -22,6 +22,8 @@ Route::post('/ingredient', 'IngredientController@create');
 Route::get('/ingredientupd/{ingredient}', 'IngredientController@edit');
 Route::patch('/ingredientupd/{ingredient}', 'IngredientController@update');
 Route::delete('/ingredient/{ingredient}', 'IngredientController@delete');
+Route::get('/ingredient/{ingredient}/price', 'IngredientController@editPrice');
+Route::post('/ingredient/{ingredient}/price', 'IngredientController@setPrice');
 
 Route::get('/food', 'FoodController@index');
 Route::post('/food', 'FoodController@create');

@@ -4,17 +4,19 @@
 
     <div class="panel-body">
         <!-- Отображение ошибок проверки ввода -->
-        @include('common.errors')
+    @include('common.errors')
 
     <!-- Форма новой категории -->
         <form action="{{ url('category') }}" method="POST" class="form-horizontal">
-        {{ csrf_field() }}
+            {{ csrf_field() }}
 
-        <!-- Имя категории -->
+            <h5>Добавление категории</h5>
+            <!-- Имя категории -->
             <div class="form-group">
-                <label for="role" class="col-sm-3 control-label">Добавление категории</label>
+                <label for="role" class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="category-name" class="form-control" placeholder="Название категории">
+                    <input type="text" name="name" id="category-name" class="form-control"
+                           placeholder="категория">
                 </div>
             </div>
             <!-- Кнопка добавления категории -->
@@ -31,30 +33,23 @@
     <!-- Текущие категории -->
     @if (count($categories) > 0)
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <br>
-            </div>
-
             <div class="panel-body">
                 <table class="table table-striped task-table">
-
                     <!-- Заголовок таблицы -->
                     <thead>
-                    <th>Категории</th>
-                    <th>&nbsp;</th>
+                    <th>ID</th>
+                    <th>Категория</th>
                     </thead>
-
                     <!-- Тело таблицы -->
-                    <tbody>
                     @foreach ($categories as $category)
                         <tr>
                             <!-- ID категории -->
                             <td class="table-text">
-                                <div>{{ $category->id }}</div>
+                                {{ $category->id }}
                             </td>
                             <!-- Имя категории -->
                             <td class="table-text">
-                                <div>{{ $category->name }}</div>
+                                {{ $category->name }}
                             </td>
                             <!-- Кнопка Удалить -->
                             <td>
@@ -69,12 +64,11 @@
                             </td>
                             <td>
                                 <form action="{{ url('categoryupd/'.$category->id) }}">
-                                    <button type="submit">Изменить</button>
+                                    <button type="submit" class="btn btn-default">Изменить</button>
                                 </form>
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
                 </table>
             </div>
         </div>

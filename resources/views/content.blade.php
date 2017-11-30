@@ -5,23 +5,19 @@
     <div class="panel-body">
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
-
     </div>
-
     <!-- Состав -->
     <div class="panel panel-default">
-        <div class="panel-heading">
-            {{ $food->name }}
-            <br>
+        <div>
+            <h5>{{ $food->name }}</h5>
         </div>
-        <div class="panel-body">
             <table class="table table-striped task-table">
-                <!-- Заголовок таблицы -->
                 <thead>
-                <th>Состав</th>
+                <th>Ингредиент</th>
+                <th>Масса, г.</th>
+                <th>Стоимость (за 100г)</th>
                 </thead>
                 <!-- Тело таблицы -->
-                <tbody>
                 @foreach ($ingredients as $ingredient)
                     <tr>
                         <!-- Ингредиент -->
@@ -31,6 +27,10 @@
                         <!-- Масса -->
                         <td class="table-text">
                             <div>{{ $ingredient->pivot->mass }}</div>
+                        </td>
+                        <!-- Стоимость ингредиента -->
+                        <td class="table-text">
+                            <div>{{ $ingredient->prices->sortByDesc('dateTime')->first()->price }}</div>
                         </td>
                         <!-- Кнопка Удалить -->
                         <td>
@@ -45,16 +45,15 @@
                         </td>
                     </tr>
                 @endforeach
-                </tbody>
             </table>
-        </div>
     </div>
     <div>
         <table class="table table-striped task-table">
 
             <!-- Заголовок таблицы -->
             <thead>
-            <th>Все ингредиенты</th>
+            <th>ID</th>
+            <th>Ингредиент</th>
             </thead>
             <!-- Тело таблицы -->
             <tbody>
@@ -74,7 +73,7 @@
                             <div class="form-group">
                                 <label for="role" class="col-sm-3 control-label"></label>
                                 <div class="col-sm-6">
-                                    <input type="text" name="mass" id="ingredient-mass" class="form-control" placeholder="Масса ингредиента в блюде">
+                                    <input type="text" name="mass" id="ingredient-mass" class="form-control" placeholder="Масса г.">
                                 </div>
                             </div>
                         </td>

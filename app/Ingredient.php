@@ -13,8 +13,8 @@ class Ingredient extends Model
         return $this->belongsToMany('App\Food')->withPivot('mass');
     }
 
-    public function price()
+    public function prices()
     {
-        return $this->hasOne('App\Price');
+        return $this->hasMany('App\Price');
     }
 }

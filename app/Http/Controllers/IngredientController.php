@@ -12,10 +12,13 @@ class IngredientController extends Controller
     public function index()
     {
         $ingredients = Ingredient::get();
-
-        return view('ingredient', [
-            'ingredients' => $ingredients
-        ]);
+        foreach ($ingredients as $ingredient) {
+            $prices = $ingredient->prices->sortByDesc('dateTime')->first();
+            return view('ingredient', [
+                'ingredients' => $ingredients,
+                'prices' => $prices
+            ]);
+        }
     }
 
     public function create(Request $request)
@@ -32,9 +35,10 @@ class IngredientController extends Controller
 
         $ingredient = new Ingredient;
         $ingredient->name = $request->name;
+
         $ingredient->save();
 
-        return redirect('/ingredient');
+        return redirect('/ingredient/'.$ingredient->id.'/price');
     }
 
     public function edit(Ingredient $ingredient)
@@ -56,13 +60,33 @@ class IngredientController extends Controller
 
         $ingredient->name = $request->name;
         $ingredient->save();
+        $price = new Price;
+        $price->ingredient_id = $ingredient->id;
+        $price->price = $request->price;
+        $price->save();
 
         return redirect('/ingredient');
     }
 
     public function delete(Ingredient $ingredient)
     {
+        $ingredient->prices()->delete();
         $ingredient->delete();
+
+        return redirect('/ingredient');
+    }
+
+    public function editPrice(Ingredient $ingredient)
+    {
+        return view('price', ['ingredient' => $ingredient]);
+    }
+
+    public function setPrice(Request $request, Ingredient $ingredient)
+    {
+        $price = new Price;
+        $price->ingredient_id = $ingredient->id;
+        $price->price = $request->price;
+        $price->save();
 
         return redirect('/ingredient');
     }

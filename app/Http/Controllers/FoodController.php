@@ -90,6 +90,7 @@ class FoodController extends Controller
         $ingredients = $food->ingredients;
         $allIngredients = Ingredient::get();
 
+
         return view('/content', [
             'food' => $food,
             'ingredients' => $ingredients,
