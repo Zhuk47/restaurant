@@ -14,7 +14,7 @@ class FoodController extends Controller
     {
         $foods = Food::orderBy('id', 'asc')->get();
         $categories = Category::orderBy('id', 'asc')->get();
-
+        
         return view('food', [
             'foods' => $foods,
             'categories' => $categories
@@ -89,10 +89,12 @@ class FoodController extends Controller
     {
         $ingredients = $food->ingredients;
         $cost_price = 0;
+        $total_weight = 0;
         foreach ($ingredients as $ingredient){
             $mass = $ingredient->pivot->mass;
             $price = $ingredient->prices->sortByDesc('dateTime')->first()->price;
             $cost_price += $mass * $price / 100;
+            $total_weight += $mass;
         }
 
         $allIngredients = Ingredient::get();
@@ -101,7 +103,8 @@ class FoodController extends Controller
             'food' => $food,
             'ingredients' => $ingredients,
             'allIngredients' => $allIngredients,
-            'cost_price' => $cost_price
+            'cost_price' => $cost_price,
+            'total_weight' => $total_weight
         ]);
     }
 

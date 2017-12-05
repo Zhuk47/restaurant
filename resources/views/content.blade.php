@@ -46,6 +46,7 @@
                     </tr>
                 @endforeach
             </table>
+        <div>Выход: <b>{{ $total_weight }} г.</b></div>
         <div>Себестоимость ингредиентов в блюде составляет <b>{{ $cost_price }} грн.</b></div>
     </div>
     <div>
