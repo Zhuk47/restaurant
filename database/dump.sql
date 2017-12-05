@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.19, for Win32 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
 --
 -- Host: localhost    Database: restaurant
 -- ------------------------------------------------------
--- Server version	5.7.19
+-- Server version	5.7.16
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -50,8 +50,10 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,6 +62,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'Салаты','2017-11-22 14:07:08',NULL),(2,'Десерты','2017-11-22 14:07:15',NULL),(3,'Первые блюда','2017-11-22 14:06:20','2017-11-22 14:06:20'),(9,'Гарниры','2017-11-30 13:35:40','2017-11-24 15:15:21'),(10,'Гриль','2017-12-02 09:07:19','2017-12-02 09:07:19');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +88,34 @@ CREATE TABLE `clients` (
 LOCK TABLES `clients` WRITE;
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `food_ingredient`
+--
+
+DROP TABLE IF EXISTS `food_ingredient`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `food_ingredient` (
+  `ingredient_id` int(10) unsigned NOT NULL,
+  `food_id` int(10) unsigned NOT NULL,
+  `mass` decimal(10,3) unsigned NOT NULL,
+  PRIMARY KEY (`ingredient_id`,`food_id`),
+  KEY `FK_ingredient_food_foods` (`food_id`),
+  CONSTRAINT `FK_ingredient_food_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_ingredient_food_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `food_ingredient`
+--
+
+LOCK TABLES `food_ingredient` WRITE;
+/*!40000 ALTER TABLE `food_ingredient` DISABLE KEYS */;
+INSERT INTO `food_ingredient` VALUES (1,5,80.000),(1,20,100.000),(1,31,50.000),(1,35,50.000),(1,40,50.000),(4,5,15.000),(4,31,10.000),(4,40,50.000),(10,21,100.000),(10,32,150.000),(11,21,100.000),(11,32,50.000),(12,31,200.000),(13,21,100.000),(13,32,20.000),(30,37,200.000),(40,39,150.000),(41,39,100.000),(42,39,50.000),(42,40,70.000),(43,40,200.000),(44,40,100.000),(45,40,50.000),(46,40,5.000);
+/*!40000 ALTER TABLE `food_ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -129,11 +160,13 @@ CREATE TABLE `foods` (
   `category_id` int(10) unsigned NOT NULL,
   `dateTimeIn` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `dateTimeOut` datetime NOT NULL DEFAULT '2100-01-01 00:00:00',
-  `price` decimal(10,2) NOT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_foods_categories` (`category_id`),
   CONSTRAINT `FK_foods_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,58 +175,35 @@ CREATE TABLE `foods` (
 
 LOCK TABLES `foods` WRITE;
 /*!40000 ALTER TABLE `foods` DISABLE KEYS */;
+INSERT INTO `foods` VALUES (5,'Греческий',1,'2017-11-22 17:07:41','2100-01-01 00:00:00',40.50,NULL,NULL),(20,'Цезарь',1,'2017-11-22 17:27:58','2100-01-01 00:00:00',60.60,'2017-11-22 13:27:58','2017-11-22 13:27:58'),(21,'Тирамису',2,'2017-11-22 17:28:09','2100-01-01 00:00:00',99.99,'2017-11-22 13:28:09','2017-11-22 13:28:09'),(31,'Салат из капусты',1,'2017-11-24 08:53:42','2100-01-01 00:00:00',28.00,'2017-11-24 04:53:42','2017-11-24 04:53:42'),(32,'Панакота',2,'2017-11-24 08:53:53','2100-01-01 00:00:00',80.00,'2017-11-24 04:53:53','2017-11-24 04:53:53'),(33,'Борщ',3,'2017-11-24 10:43:26','2100-01-01 00:00:00',50.00,'2017-11-24 10:59:16','2017-11-24 06:43:26'),(35,'Домашний',1,'2017-11-24 18:45:56','2100-01-01 00:00:00',45.99,'2017-11-24 14:45:56','2017-11-24 14:45:56'),(37,'Каша гречневая',9,'2017-11-30 19:07:28','2100-01-01 00:00:00',10.00,'2017-11-30 15:10:00','2017-11-30 15:07:28'),(39,'Медовая вкусняшка',2,'2017-12-01 21:29:28','2100-01-01 00:00:00',150.00,'2017-12-01 17:30:49','2017-12-01 17:29:28'),(40,'Баранина на гриле',10,'2017-12-02 13:09:55','2100-01-01 00:00:00',100.00,'2017-12-02 09:11:50','2017-12-02 09:09:55');
 /*!40000 ALTER TABLE `foods` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ingredient_food`
---
-
-DROP TABLE IF EXISTS food_ingredient;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ingredient_food` (
-  `ingredient_id` int(10) unsigned NOT NULL,
-  `food_id` int(10) unsigned NOT NULL,
-  `mass` decimal(10,3) unsigned NOT NULL,
-  PRIMARY KEY (`ingredient_id`,`food_id`),
-  KEY `FK_ingredient_food_foods` (`food_id`),
-  CONSTRAINT `FK_ingredient_food_foods` FOREIGN KEY (`food_id`) REFERENCES `foods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_ingredient_food_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES ingredients (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ingredient_food`
---
-
-LOCK TABLES food_ingredient WRITE;
-/*!40000 ALTER TABLE food_ingredient DISABLE KEYS */;
-/*!40000 ALTER TABLE food_ingredient ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Table structure for table `ingredients`
 --
 
-DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS `ingredients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ingredients` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `dateTime` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `ingredients`
 --
 
-LOCK TABLES ingredients WRITE;
-/*!40000 ALTER TABLE ingredients DISABLE KEYS */;
-/*!40000 ALTER TABLE ingredients ENABLE KEYS */;
+LOCK TABLES `ingredients` WRITE;
+/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
+INSERT INTO `ingredients` VALUES (1,'Морковь','2017-11-22 14:21:28','2017-11-23 08:14:39',NULL),(4,'Перец','2017-11-22 14:29:53','2017-11-22 11:39:30',NULL),(5,'Пшено','2017-11-22 14:32:22','2017-11-22 10:32:22','2017-11-22 10:32:22'),(10,'Сливки','2017-11-23 12:25:06','2017-11-23 08:25:06','2017-11-23 08:25:06'),(11,'Какао','2017-11-23 13:07:54','2017-11-23 09:07:54','2017-11-23 09:07:54'),(12,'Капуста','2017-11-23 16:48:41','2017-11-23 12:48:41','2017-11-23 12:48:41'),(13,'Сахер','2017-11-23 17:12:45','2017-11-24 14:45:09','2017-11-23 13:12:45'),(29,'Имбирь','2017-11-30 14:02:49','2017-11-30 10:02:49','2017-11-30 10:02:49'),(30,'Греча','2017-11-30 14:04:33','2017-11-30 10:04:33','2017-11-30 10:04:33'),(37,'Семки','2017-11-30 17:00:16','2017-11-30 13:00:42','2017-11-30 13:00:16'),(38,'Кунжут','2017-11-30 17:56:51','2017-11-30 13:56:51','2017-11-30 13:56:51'),(40,'Мак','2017-12-01 21:28:05','2017-12-01 17:28:04','2017-12-01 17:28:04'),(41,'Курага','2017-12-01 21:28:20','2017-12-01 17:28:20','2017-12-01 17:28:20'),(42,'Мёд','2017-12-01 21:28:38','2017-12-01 17:28:38','2017-12-01 17:28:38'),(43,'Баранина','2017-12-02 13:07:44','2017-12-02 09:07:44','2017-12-02 09:07:44'),(44,'Баклажан','2017-12-02 13:08:15','2017-12-02 09:08:15','2017-12-02 09:08:15'),(45,'Лук','2017-12-02 13:08:42','2017-12-02 09:08:42','2017-12-02 09:08:42'),(46,'Соль','2017-12-02 13:09:19','2017-12-02 09:09:19','2017-12-02 09:09:19'),(47,'Пшено','2017-12-05 19:09:08','2017-12-05 15:09:08','2017-12-05 15:09:08');
+/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -272,8 +282,8 @@ CREATE TABLE `prices` (
   `ingredient_id` int(10) unsigned NOT NULL,
   `dateTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `price` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`ingredient_id`,`dateTime`),
-  CONSTRAINT `FK_prices_ingredients` FOREIGN KEY (`ingredient_id`) REFERENCES ingredients (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -283,6 +293,7 @@ CREATE TABLE `prices` (
 
 LOCK TABLES `prices` WRITE;
 /*!40000 ALTER TABLE `prices` DISABLE KEYS */;
+INSERT INTO `prices` VALUES (1,'2017-11-24 13:42:40',7.50,NULL,NULL),(4,'2017-11-24 15:07:41',20.00,NULL,NULL),(5,'2017-11-24 15:07:41',2.50,NULL,NULL),(10,'2017-11-24 15:07:41',30.00,NULL,NULL),(11,'2017-11-24 15:07:41',40.00,NULL,NULL),(12,'2017-11-24 15:07:41',10.00,NULL,NULL),(13,'2017-11-24 15:07:41',10.00,NULL,NULL),(29,'2017-11-30 14:02:56',18.00,'2017-11-30 10:02:56','2017-11-30 10:02:56'),(30,'2017-11-30 14:04:42',0.30,'2017-11-30 10:04:42','2017-11-30 10:04:42'),(30,'2017-11-30 14:11:35',0.50,NULL,NULL),(30,'2017-11-30 16:33:23',1.50,NULL,NULL),(37,'2017-11-30 17:00:29',6.50,'2017-11-30 13:00:29','2017-11-30 13:00:29'),(37,'2017-11-30 17:00:42',7.00,'2017-11-30 13:00:42','2017-11-30 13:00:42'),(38,'2017-11-30 17:57:45',20.00,'2017-11-30 13:57:45','2017-11-30 13:57:45'),(38,'2017-11-30 17:57:58',23.00,'2017-11-30 13:57:58','2017-11-30 13:57:58'),(40,'2017-12-01 21:28:14',40.00,'2017-12-01 17:28:14','2017-12-01 17:28:14'),(41,'2017-12-01 21:28:28',25.00,'2017-12-01 17:28:28','2017-12-01 17:28:28'),(42,'2017-12-01 21:28:46',36.00,'2017-12-01 17:28:46','2017-12-01 17:28:46'),(43,'2017-12-02 13:08:01',10.00,'2017-12-02 09:08:01','2017-12-02 09:08:01'),(44,'2017-12-02 13:08:24',5.00,'2017-12-02 09:08:24','2017-12-02 09:08:24'),(45,'2017-12-02 13:08:49',5.00,'2017-12-02 09:08:49','2017-12-02 09:08:49'),(46,'2017-12-02 13:09:31',0.50,'2017-12-02 09:09:31','2017-12-02 09:09:31'),(47,'2017-12-05 19:09:13',1.50,'2017-12-05 15:09:13','2017-12-05 15:09:13');
 /*!40000 ALTER TABLE `prices` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,4 +352,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-20  4:16:25
+-- Dump completed on 2017-12-05 19:52:50
