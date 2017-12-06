@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    //protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -36,13 +36,13 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -57,15 +57,22 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create()
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+        User::create([
+            'name' => $_POST['name'],
+            'surname' => $_POST['surname'],
+            'midname' => $_POST['midname'],
+            'datebirth' => $_POST['datebirth'],
+            'role_id' => $_POST['role_id'],
+            'email' => $_POST['email'],
+            'password' => bcrypt($_POST['password']),
         ]);
+        \Session::flash('message', 'This is a message!');
+        \Session::flash('alert-class', 'alert-danger');
+        return view('adminViews\home');
     }
 }
