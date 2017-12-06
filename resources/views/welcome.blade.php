@@ -12,47 +12,57 @@
           integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <!-- Styles -->
-    {{--<style>--}}
-        {{--html, body {--}}
-            {{--background-color: #fff;--}}
-            {{--color: #636b6f;--}}
-            {{--font-family: 'Raleway', sans-serif;--}}
-            {{--font-weight: 100;--}}
-            {{--/*height: 100vh;*/--}}
-            {{--margin: 0;--}}
-        {{--}--}}
+    <style>
+        /*html, body {*/
+            /*background-color: #fff;*/
+            /*color: #636b6f;*/
+            /*font-family: 'Raleway', sans-serif;*/
+            /*font-weight: 100;*/
+            /*!*height: 100vh;*!*/
+            /*margin: 0;*/
+        /*}*/
 
-        {{--.flex-center {--}}
-            {{--align-items: center;--}}
-            {{--display: flex;--}}
-            {{--justify-content: center;--}}
-        {{--}--}}
+        /*.flex-center {*/
+            /*align-items: center;*/
+            /*display: flex;*/
+            /*justify-content: center;*/
+        /*}*/
 
-        {{--.position-ref {--}}
-            {{--position: relative;--}}
-        {{--}--}}
+        /*.position-ref {*/
+            /*position: relative;*/
+        /*}*/
 
-        {{--.top-right {--}}
-            {{--position: absolute;--}}
-            {{--right: 10px;--}}
-            {{--top: 18px;--}}
-        {{--}--}}
+        /*.top-right {*/
+            /*position: absolute;*/
+            /*right: 10px;*/
+            /*top: 18px;*/
+        /*}*/
 
-        {{--.content {--}}
-            {{--text-align: center;--}}
-        {{--}--}}
+        /*.content {*/
+            /*text-align: center;*/
+        /*}*/
 
-        {{--.links > a {--}}
-            {{--color: #636b6f;--}}
-            {{--padding: 0 25px;--}}
-            {{--font-size: 12px;--}}
-            {{--font-weight: 600;--}}
-            {{--letter-spacing: .1rem;--}}
-            {{--text-decoration: none;--}}
-            {{--text-transform: uppercase;--}}
-        {{--}--}}
+        /*.links > a {*/
+            /*color: #636b6f;*/
+            /*padding: 0 25px;*/
+            /*font-size: 12px;*/
+            /*font-weight: 600;*/
+            /*letter-spacing: .1rem;*/
+            /*text-decoration: none;*/
+            /*text-transform: uppercase;*/
+        /*}*/
 
-    {{--</style>--}}
+        .links > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -63,6 +73,8 @@
     <a href="/category" class="btn btn-outline-dark">Категории</a>
 </div>
 
+
+
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
         <div class="top-right links">
@@ -70,7 +82,7 @@
             <a href="{{ url('/home') }}">Home</a>
             @else
                 <a href="{{ route('login') }}">Login</a>
-                <a href="{{ route('register') }}">Register</a>
+                {{--<a href="{{ route('register') }}">Register</a>--}}
                 @endauth
         </div>
     @endif

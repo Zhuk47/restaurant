@@ -15,6 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+    Route::get('/home', 'HomeController@index')->name('adminHome');
+    Route::get('/register-new-employee', function () {
+        return view('adminViews\register');
+    });
+    Route::get('/base-employee', function () {
+        return view('adminViews\employeebase');
+    });
+    Route::post('/home', 'Auth\RegisterController@create');
+
+    Route::get('/info/{id}', 'AdminController@show');
+    Route::get('/delete/{id}', 'AdminController@deleteEmployee')->name('deleteEmployee');
+
 Route::get('/ingredient', 'IngredientController@index');
 Route::post('/ingredient', 'IngredientController@create');
 Route::get('/ingredientupd/{ingredient}', 'IngredientController@edit');
