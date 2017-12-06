@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class FoodController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $foods = Food::orderBy('id', 'asc')->get();
         $categories = Category::orderBy('id', 'asc')->get();
