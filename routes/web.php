@@ -15,8 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::resource('ingredient', 'IngredientController');
-
 Route::get('/ingredient', 'IngredientController@index');
 Route::post('/ingredient', 'IngredientController@create');
 Route::get('/ingredientupd/{ingredient}', 'IngredientController@edit');

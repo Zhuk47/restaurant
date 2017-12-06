@@ -42,6 +42,7 @@
 
                     <!-- Заголовок таблицы -->
                     <thead>
+                    <th>ID</th>
                     <th>Ингредиент</th>
                     <th>Стоимость за 100г</th>
                     </thead>
@@ -51,6 +52,9 @@
                     @foreach ($ingredients as $ingredient)
                         <tr>
                             <!-- Имя ингредиента -->
+                            <td class="table-text">
+                                <div>{{ $ingredient->id }}</div>
+                            </td>
                             <td class="table-text">
                                 <div>{{ $ingredient->name }}</div>
                             </td>

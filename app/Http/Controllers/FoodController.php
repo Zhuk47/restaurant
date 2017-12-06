@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Validator;
 
 class FoodController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $foods = Food::orderBy('id', 'asc')->get();
         $categories = Category::orderBy('id', 'asc')->get();
-        
+
         return view('food', [
             'foods' => $foods,
             'categories' => $categories
@@ -23,7 +23,6 @@ class FoodController extends Controller
 
     public function create(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:100',
             'category_id' => '',
