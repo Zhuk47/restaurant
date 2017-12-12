@@ -37,6 +37,7 @@ Route::delete('/ingredient/{ingredient}', 'IngredientController@delete');
 Route::get('/ingredient/{ingredient}/price', 'IngredientController@editPrice');
 Route::post('/ingredient/{ingredient}/price', 'IngredientController@setPrice');
 
+
 Route::get('/food', 'FoodController@index');
 Route::post('/food', 'FoodController@create');
 Route::delete('/food/{food}', 'FoodController@delete');
@@ -51,3 +52,5 @@ Route::post('/category', 'CategoryController@create');
 Route::get('/categoryupd/{category}', 'CategoryController@edit');
 Route::patch('/categoryupd/{category}', 'CategoryController@update');
 Route::delete('/category/{category}', 'CategoryController@delete');
+
+Route::get('hall', 'HallController@index');
