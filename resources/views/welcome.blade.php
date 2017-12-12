@@ -14,42 +14,42 @@
     <!-- Styles -->
     <style>
         /*html, body {*/
-            /*background-color: #fff;*/
-            /*color: #636b6f;*/
-            /*font-family: 'Raleway', sans-serif;*/
-            /*font-weight: 100;*/
-            /*!*height: 100vh;*!*/
-            /*margin: 0;*/
+        /*background-color: #fff;*/
+        /*color: #636b6f;*/
+        /*font-family: 'Raleway', sans-serif;*/
+        /*font-weight: 100;*/
+        /*!*height: 100vh;*!*/
+        /*margin: 0;*/
         /*}*/
 
         /*.flex-center {*/
-            /*align-items: center;*/
-            /*display: flex;*/
-            /*justify-content: center;*/
+        /*align-items: center;*/
+        /*display: flex;*/
+        /*justify-content: center;*/
         /*}*/
 
         /*.position-ref {*/
-            /*position: relative;*/
+        /*position: relative;*/
         /*}*/
 
         /*.top-right {*/
-            /*position: absolute;*/
-            /*right: 10px;*/
-            /*top: 18px;*/
+        /*position: absolute;*/
+        /*right: 10px;*/
+        /*top: 18px;*/
         /*}*/
 
         /*.content {*/
-            /*text-align: center;*/
+        /*text-align: center;*/
         /*}*/
 
         /*.links > a {*/
-            /*color: #636b6f;*/
-            /*padding: 0 25px;*/
-            /*font-size: 12px;*/
-            /*font-weight: 600;*/
-            /*letter-spacing: .1rem;*/
-            /*text-decoration: none;*/
-            /*text-transform: uppercase;*/
+        /*color: #636b6f;*/
+        /*padding: 0 25px;*/
+        /*font-size: 12px;*/
+        /*font-weight: 600;*/
+        /*letter-spacing: .1rem;*/
+        /*text-decoration: none;*/
+        /*text-transform: uppercase;*/
         /*}*/
 
         .links > a {
@@ -71,19 +71,20 @@
     <a href="/ingredient" class="btn btn-outline-warning">Ингредиенты</a>
     <a href="/food" class="btn btn-outline-success">Блюда</a>
     <a href="/category" class="btn btn-outline-dark">Категории</a>
-</div>
+    <a href="/hall" class="btn btn-outline-dark">Зал</a>
 
+</div>
 
 
 <div class="flex-center position-ref full-height">
     @if (Route::has('login'))
         <div class="top-right links">
             @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-                {{--<a href="{{ route('register') }}">Register</a>--}}
-                @endauth
+                <a href="{{ url('/home') }}">Home</a>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
+                    {{--<a href="{{ route('register') }}">Register</a>--}}
+                    @endauth
         </div>
     @endif
 
