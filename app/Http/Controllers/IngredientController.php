@@ -24,7 +24,7 @@ class IngredientController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
+            'name' => 'required|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -38,7 +38,7 @@ class IngredientController extends Controller
 
         $ingredient->save();
 
-        return redirect('/ingredient/'.$ingredient->id.'/price');
+        return redirect('/ingredient/' . $ingredient->id . '/price');
     }
 
     public function edit(Ingredient $ingredient)
@@ -49,11 +49,12 @@ class IngredientController extends Controller
     public function update(Request $request, Ingredient $ingredient)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
+            'name' => 'required|max:50',
+            'price' => 'required|numeric'
         ]);
 
         if ($validator->fails()) {
-            return redirect('/ingredient')
+            return redirect('/ingredientupd/' . $ingredient->id)
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -83,6 +84,16 @@ class IngredientController extends Controller
 
     public function setPrice(Request $request, Ingredient $ingredient)
     {
+        $validator = Validator::make($request->all(), [
+            'price' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/ingredient/' . $ingredient->id . '/price')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
         $price = new Price;
         $price->ingredient_id = $ingredient->id;
         $price->price = $request->price;

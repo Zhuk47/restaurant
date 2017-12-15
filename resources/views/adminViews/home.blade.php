@@ -5,15 +5,16 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
 
@@ -35,13 +36,30 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="/">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
-                    <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
+                    @if (Auth::user()->role_id==1)
+                        <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
+                        <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                Управление меню
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/ingredient">Ингредиенты</a></li>
+                                <li><a href="/food">Блюда</a></li>
+                                <li><a href="/category">Категории</a></li>
+                            </ul>
+                        </li>
+                    @elseif(Auth::user()->role_id==2)
+                        <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
+                    @elseif(Auth::user()->role_id==3)
+                        <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
+                    @else
+                        <li><a></a></li>
+                    @endif
 
                 </ul>
 
@@ -57,31 +75,30 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @guest
-                        <li><a href="{{ route('login') }}">Login</a></li>
-                        <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false" aria-haspopup="true">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                              style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                            @endguest
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        @endguest
                 </ul>
             </div>
         </div>
@@ -96,9 +113,10 @@
 
             Новый сотрудник успешно зарегистрирован!
         </div>
-</div>
-@endif
-@yield('content')
+    @endif
+
+    @yield('content')
+
 </div>
 
 <!-- Scripts -->

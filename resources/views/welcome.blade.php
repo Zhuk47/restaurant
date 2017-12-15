@@ -1,97 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Restaurant</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <style>
-        /*html, body {*/
-            /*background-color: #fff;*/
-            /*color: #636b6f;*/
-            /*font-family: 'Raleway', sans-serif;*/
-            /*font-weight: 100;*/
-            /*!*height: 100vh;*!*/
-            /*margin: 0;*/
-        /*}*/
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-        /*.flex-center {*/
-            /*align-items: center;*/
-            /*display: flex;*/
-            /*justify-content: center;*/
-        /*}*/
-
-        /*.position-ref {*/
-            /*position: relative;*/
-        /*}*/
-
-        /*.top-right {*/
-            /*position: absolute;*/
-            /*right: 10px;*/
-            /*top: 18px;*/
-        /*}*/
-
-        /*.content {*/
-            /*text-align: center;*/
-        /*}*/
-
-        /*.links > a {*/
-            /*color: #636b6f;*/
-            /*padding: 0 25px;*/
-            /*font-size: 12px;*/
-            /*font-weight: 600;*/
-            /*letter-spacing: .1rem;*/
-            /*text-decoration: none;*/
-            /*text-transform: uppercase;*/
-        /*}*/
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-    </style>
 </head>
 <body>
 
-<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-    <a href="/" class="btn btn-outline-primary">Главная</a>
-    <a href="/ingredient" class="btn btn-outline-warning">Ингредиенты</a>
-    <a href="/food" class="btn btn-outline-success">Блюда</a>
-    <a href="/category" class="btn btn-outline-dark">Категории</a>
-</div>
+<div id="app">
 
+    <nav class="navbar navbar-default navbar-static-top">
 
+        <div class="container">
 
-<div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-                <a href="{{ route('login') }}">Login</a>
-                {{--<a href="{{ route('register') }}">Register</a>--}}
-                @endauth
+            <div class="navbar-header">
+
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="/">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <ul class="nav navbar-nav">
+                    @if (Auth::user()->role_id==1)
+                        <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
+                        <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                Управление меню
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/ingredient">Ингредиенты</a></li>
+                                <li><a href="/food">Блюда</a></li>
+                                <li><a href="/category">Категории</a></li>
+                            </ul>
+                        </li>
+                    @elseif(Auth::user()->role_id==2)
+                        <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
+                    @elseif(Auth::user()->role_id==3)
+                        <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
+                    @else
+                        <li><a>Login</a></li>
+                    @endif
+
+                </ul>
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    &nbsp;
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @guest
+                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ route('register') }}">Register</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false" aria-haspopup="true">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        @endguest
+                </ul>
+            </div>
         </div>
-    @endif
-
-    <div class="content">
-
-        @yield('content')
-
-    </div>
+    </nav>
 </div>
+
+@yield('content')
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 </body>
 </html>

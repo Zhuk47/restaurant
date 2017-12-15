@@ -1,8 +1,8 @@
-@extends('welcome')
+@extends('adminViews/home')
 
 @section('content')
 
-    <div class="panel-body">
+    <div class="container">
         <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
 
@@ -13,7 +13,6 @@
             <h5>Добавление блюда</h5>
             <!-- Данные блюда -->
             <div class="form-group">
-                <label for="role" class="col-sm-3 control-label"></label>
                 <div class="col-sm-6">
                     <input type="text" name="name" id="food-name" class="form-control" placeholder="Название блюда">
                     <select name="category_id" id="category-id" class="form-control">
@@ -21,7 +20,7 @@
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда">
+                    {{--<input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда">--}}
                 </div>
             </div>
             <!-- Кнопка добавления блюда -->
@@ -37,7 +36,7 @@
 
     <!-- Текущие блюда -->
     @if (count($foods) > 0)
-        <div class="panel panel-default">
+        <div class="container">
             <div class="panel-body">
                 <table class="table table-striped task-table">
 
@@ -45,6 +44,8 @@
                     <thead>
                     <th>Блюдо</th>
                     <th>Категория</th>
+                    {{--<th>Выход, г.</th>--}}
+                    <th>Себестоимость</th>
                     <th>Стоимость</th>
                     </thead>
 
@@ -60,9 +61,13 @@
                             <td class="table-text">
                                 <div>{{ $food->category->name }}</div>
                             </td>
+                            <!-- Себестоимость блюда -->
+                            <td class="table-text">
+                                <div>{{ $food->foodPrice->netCost }}</div>
+                            </td>
                             <!-- Стоимость блюда -->
                             <td class="table-text">
-                                <div>{{ $food->price }}</div>
+                                <div>{{ $food->foodPrice->price }}</div>
                             </td>
                             <!-- Кнопка Удалить -->
                             <td>
@@ -83,6 +88,11 @@
                             <td>
                                 <form action="{{ url('food/'.$food->id.'/content') }}">
                                     <button type="submit" class="btn btn-default">Состав</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ url('food/'.$food->id.'/history') }}">
+                                    <button type="submit" class="btn btn-default">История</button>
                                 </form>
                             </td>
                         </tr>

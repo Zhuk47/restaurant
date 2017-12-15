@@ -1,8 +1,8 @@
-@extends('welcome')
+@extends('adminViews/home')
 
 @section('content')
 
-    <div class="panel-body">
+    <div class="container">
         <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
 
@@ -22,14 +22,9 @@
                     <input type="text" name="price" id="ingredient-price" class="form-control"
                            placeholder="Стоимость за 100 г.">
                 </div>
-            </div>
-            <!-- Кнопка добавления задачи -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Добавить
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Добавить
+                </button>
             </div>
         </form>
     </div>

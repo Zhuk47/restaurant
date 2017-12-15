@@ -1,38 +1,29 @@
-@extends('welcome')
+@extends('adminViews/home')
 
 @section('content')
 
-    <div class="panel-body">
+    <div class="container">
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
     </div>
     <!-- Форма нового ингредиента -->
-        <form action="{{ url('ingredient') }}" method="POST" class="form-horizontal">
+    <form action="{{ url('ingredient') }}" method="POST" class="container">
         {{ csrf_field() }}
-            <h5>Добавление ингредиента</h5>
+        <h5>Добавление ингредиента</h5>
         <!-- Имя ингредиента -->
-            <div class="form-group">
-                {{--<label for="role" class="col-sm-3 control-label"></label>--}}
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
-                </div>
-                {{--<div class="col-sm-6">--}}
-                    {{--<input type="text" name="price" id="ingredient-price" class="form-control" placeholder="Стоимость">--}}
-                {{--</div>--}}
+        <div class="form-group">
+            <div class="col-sm-6">
+                <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
             </div>
-            <!-- Кнопка добавления ингредиента -->
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Добавить
-                    </button>
-                </div>
-            </div>
-        </form>
+            <button type="submit" class="btn btn-default">
+                <i class="fa fa-plus"></i> Добавить
+            </button>
+        </div>
+    </form>
 
     <!-- Текущие ингредиенты -->
     @if (count($ingredients) > 0)
-        <div class="panel panel-default">
+        <div class="container">
             <div class="panel-heading">
                 <br>
             </div>

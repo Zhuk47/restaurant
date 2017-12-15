@@ -1,119 +1,38 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('adminViews/home')
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+@section('content')
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <div class="container">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Making order</title>
-
-    <!-- Fonts -->
-
-    <!-- Styles -->
-    <style>
-        html, body {
-            background-color: #fff;
-            color: #636b6f;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 100;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .full-height {
-            height: 100vh;
-        }
-
-        .flex-center {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        .position-ref {
-            position: relative;
-        }
-
-        .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
-        }
-
-        .links > a {
-            color: #636b6f;
-            padding: 0 25px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: .1rem;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-
-        .btn-block {
-            width: 200px;
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-
-    <form class="form-order" method="get" action="{{url('/base-employee')}}">
-        <h2 class="form-order-heading">Управление базой сотрудников</h2>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ФИО</th>
-                <th>Должность</th>
-                <th>Дата рождения</th>
-                <th>Адресс электронной почты</th>
-            </tr>
-            </thead>
-            <tbody>
+        <form class="form-order" method="get" action="{{url('/base-employee')}}">
+            <h2 class="form-order-heading">Управление базой сотрудников</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Дата рождения</th>
+                    <th>Адресс электронной почты</th>
+                </tr>
+                </thead>
+                <tbody>
                 <tr>
                     <td>{{ \App\User::find($id)->surname }} {{\App\User::find($id)->name}} {{\App\User::find($id)->midname}}</td>
                     @if(\App\User::find($id)->role_id == 1)
-                    <td>Администратор</td>
+                        <td>Администратор</td>
                     @elseif(\App\User::find($id)->role_id == 2)
-                    <td>Оффициант</td>
+                        <td>Оффициант</td>
                     @elseif(\App\User::find($id)->role_id == 3)
-                    <td>Повар</td>
+                        <td>Повар</td>
                     @endif
-                    <td>{{\App\User::find($id)->datebirth}}</td>
+                    <td>{{\App\User::find($id)->dateBirth}}</td>
                     <td>{{\App\User::find($id)->email}}</td>
                 </tr>
                 <br><br>
-            </tbody>
-        </table>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Назад</button>
-    </form>
+                </tbody>
+            </table>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Назад</button>
+        </form>
 
-</div> <!-- /container -->
-</body>
-</html>
+    </div>
+@endsection

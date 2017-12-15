@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
+            'name' => 'required|max:30',
         ]);
 
         if ($validator->fails()) {
@@ -44,11 +44,11 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:100',
+            'name' => 'required|max:30',
         ]);
 
         if ($validator->fails()) {
-            return redirect('/category')
+            return redirect('/categoryupd/' . $category->id)
                 ->withInput()
                 ->withErrors($validator);
         }

@@ -22,4 +22,9 @@ class Food extends Model
     {
         return $this->belongsToMany('App\Ingredient')->withPivot('mass');
     }
+
+    public function foodPrice()
+    {
+        return $this->hasOne('App\FoodPrice');
+    }
 }
