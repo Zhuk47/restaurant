@@ -17,7 +17,7 @@
 
 Auth::routes();
 
-Route::get('/', 'StartPageController@index')->name('adminHome');
+Route::get('/', 'StartPageController@index');
 Route::get('/register-new-employee', function () {
     return view('adminViews\register');
 });
@@ -59,5 +59,4 @@ Route::delete('/category/{category}', 'CategoryController@delete');
 Route::get('/user/{user}/hall', 'HallController@index');
 Route::get('/user/{user}/table/{table}', 'OrderController@create');
 
-Route::get('/startpage', 'StartPageController@index');
 Route::resource('articles','ArticleController');
