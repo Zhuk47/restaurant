@@ -44,7 +44,7 @@
                     <thead>
                     <th>Блюдо</th>
                     <th>Категория</th>
-                    {{--<th>Выход, г.</th>--}}
+                    <th>Выход, г.</th>
                     <th>Себестоимость</th>
                     <th>Стоимость</th>
                     </thead>
@@ -60,6 +60,10 @@
                             <!-- Категория блюда -->
                             <td class="table-text">
                                 <div>{{ $food->category->name }}</div>
+                            </td>
+                            <!-- Выход блюда в г. -->
+                            <td class="table-text">
+                                <div>{{ $food->mass }}</div>
                             </td>
                             <!-- Себестоимость блюда -->
                             <td class="table-text">

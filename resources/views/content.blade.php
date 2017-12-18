@@ -8,7 +8,7 @@
 
     <!-- Состав -->
         <div>
-            <h5>{{ $food->name }}</h5>
+            <h5>{{ $food->name }} id:{{$food->id}}</h5>
         </div>
         <table class="table table-striped task-table">
             <thead>

@@ -4,22 +4,23 @@
 
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
-        @include('common.errors')
-    </div>
+    @include('common.errors')
+
     <!-- Форма нового ингредиента -->
-    <form action="{{ url('ingredient') }}" method="POST" class="container">
-        {{ csrf_field() }}
-        <h5>Добавление ингредиента</h5>
-        <!-- Имя ингредиента -->
-        <div class="form-group">
-            <div class="col-sm-6">
-                <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
+        <form action="{{ url('ingredient') }}" method="POST" class="form-horizontal">
+            {{ csrf_field() }}
+            <h5>Добавление ингредиента</h5>
+            <!-- Имя ингредиента -->
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
+                </div>
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Добавить
+                </button>
             </div>
-            <button type="submit" class="btn btn-default">
-                <i class="fa fa-plus"></i> Добавить
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 
     <!-- Текущие ингредиенты -->
     @if (count($ingredients) > 0)
@@ -67,6 +68,11 @@
                             <td>
                                 <form action="{{ url('ingredientupd/'.$ingredient->id) }}">
                                     <button type="submit" class="btn btn-default">Изменить</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ url('ingredient/'.$ingredient->id.'/history') }}">
+                                    <button type="submit" class="btn btn-default">История</button>
                                 </form>
                             </td>
                         </tr>

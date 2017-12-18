@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
-    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Restaurant') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,10 +37,10 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Restaurant') }}
                 </a>
                 <ul class="nav navbar-nav">
-                    @if (Auth::user()->role_id==1)
+                    @if (Auth::user()->role->name == 'admin')
                         <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
                         <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
                         <li class="dropdown">
@@ -53,14 +53,13 @@
                                 <li><a href="/category">Категории</a></li>
                             </ul>
                         </li>
-                    @elseif(Auth::user()->role_id==2)
+                    @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
-                    @elseif(Auth::user()->role_id==3)
+                    @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
                     @else
-                        <li><a></a></li>
+                        <li><a>Login</a></li>
                     @endif
-
                 </ul>
 
             </div>
@@ -114,10 +113,9 @@
             Новый сотрудник успешно зарегистрирован!
         </div>
     @endif
+</div>
 
     @yield('content')
-
-</div>
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

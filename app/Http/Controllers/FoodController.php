@@ -149,9 +149,9 @@ class FoodController extends Controller
     public function history(Food $food)
     {
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
-//        dd($prices);
-        foreach($prices as $price) {
-            echo 'C ' . $price->created_at . ' по ' . $price->deleted_at . ' стоимость: ' . $price->price . ' , себестоимость ингредиентов: ' . $price->netCost . "<br>";
-        }
+
+        return view('history', [
+            'prices' => $prices
+        ]);
     }
 }

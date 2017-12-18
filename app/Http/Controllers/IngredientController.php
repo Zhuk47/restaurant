@@ -61,6 +61,7 @@ class IngredientController extends Controller
 
         $ingredient->name = $request->name;
         $ingredient->save();
+        Price::where('ingredient_id', $ingredient->id)->delete();
         $price = new Price;
         $price->ingredient_id = $ingredient->id;
         $price->price = $request->price;
@@ -100,5 +101,14 @@ class IngredientController extends Controller
         $price->save();
 
         return redirect('/ingredient');
+    }
+
+    public function history(Ingredient $ingredient)
+    {
+        $prices = Price::withTrashed()->where('ingredient_id', $ingredient->id)->get();
+
+        return view('ingredienthistory', [
+            'prices' => $prices
+        ]);
     }
 }

@@ -31,15 +31,13 @@ class LoginController extends Controller
 
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
         return redirect('/login');

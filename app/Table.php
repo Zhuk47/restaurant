@@ -22,6 +22,6 @@ class Table extends Model
 
     public function getIsFreeAttribute()
     {
-        return $this->orders->where('dateTimeOut', null)->count();
+        return $this->orders->where('deleted_at', null)->count();
     }
 }

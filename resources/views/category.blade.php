@@ -4,7 +4,7 @@
 
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
-    @include('common.errors')
+        @include('common.errors')
 
     <!-- Форма новой категории -->
         <form action="{{ url('category') }}" method="POST" class="form-horizontal">
