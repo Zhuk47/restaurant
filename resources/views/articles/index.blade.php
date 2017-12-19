@@ -1,7 +1,7 @@
-@extends('article')
+@extends('adminViews.home')
 
 @section('content')
-    <div class="row">
+    <div class="container">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Статьи</h2>
@@ -18,6 +18,7 @@
         </div>
     @endif
 
+    <div class="container">
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -39,6 +40,7 @@
             </tr>
         @endforeach
     </table>
+    </div>
 
     {!! $articles->links() !!}
 @endsection

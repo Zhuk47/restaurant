@@ -36,7 +36,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="/home">
                     {{ config('app.name', 'Restaurant') }}
                 </a>
                 <ul class="nav navbar-nav">

@@ -36,7 +36,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="/">
+                <a class="navbar-brand" href="/home">
                     {{ config('app.name', 'Restaurant') }}
                 </a>
                 <ul class="nav navbar-nav">
@@ -116,7 +116,7 @@
     @endif
 </div>
 
-    @yield('content')
+@yield('content')
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

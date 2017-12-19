@@ -17,13 +17,13 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('adminHome');
+Route::get('/home', 'HomeController@index')->name('adminHome');
 
 Route::post('/', 'Auth\RegisterController@create');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('/start', 'StartPageController@index');
+Route::get('/', 'StartPageController@index');
 
 Route::group(['middleware' => ['guest']], function () {
     //only guests can access these routes
@@ -78,9 +78,9 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/base-employee', function () {
         return view('adminViews\employeebase');
     });
-    
+
     //articles routes
-    Route::resource('articles','ArticleController');
+    Route::resource('articles', 'ArticleController');
 });
 
 Route::group(['middleware' => ['waiter']], function () {

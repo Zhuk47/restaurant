@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-9">
 
-        <input class="login" type="button" value="Вход" onclick="javascript:window.location='{{ route('login') }}'">
+        <input class="login" type="button" value="Вход" onclick="javascript:window.location='{{ route('adminHome') }}'">
 
     </div>
 

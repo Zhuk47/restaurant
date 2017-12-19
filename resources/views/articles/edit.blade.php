@@ -1,4 +1,4 @@
-@extends('article')
+@extends('adminViews.home')
 
 @section('content')
     <div class="row">

@@ -48,7 +48,14 @@
                 <br><br>
                 </tbody>
             </table>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Назад</button>
+            <button onclick="goBack()" class="btn btn-lg btn-primary btn-block">
+                Назад
+            </button>
+            <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
         </form>
 
     </div>
