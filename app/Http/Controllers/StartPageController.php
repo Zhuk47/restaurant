@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Article;
+
+class StartPageController extends Controller
+{
+    public function index()
+    {
+        $articles = Article::select(['title', 'text', 'updated_at'])->get();
+
+        return view('startpage')->with([
+            'articles' => $articles
+        ]);
+    }
+}

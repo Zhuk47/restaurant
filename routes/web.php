@@ -23,6 +23,8 @@ Route::post('/', 'Auth\RegisterController@create');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
+//Route::get('/start', 'StartPageController@index');
+
 Route::group(['middleware' => ['guest']], function () {
     //only guests can access these routes
 
@@ -91,3 +93,5 @@ Route::group(['middleware' => ['cook']], function () {
 
 
 });
+
+//Route::resource('articles','ArticleController');
