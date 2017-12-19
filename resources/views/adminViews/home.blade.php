@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('namenameRestaurant') }}</title>
+    <title>{{ config('app.name', 'Restaurant') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,10 +37,10 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/">
-                    {{ config('name', 'nameaurant') }}
+                    {{ config('app.name', 'Restaurant') }}
                 </a>
                 <ul class="nav navbar-nav">
-                    @if (Auth::user()->role->name == namein')
+                    @if (Auth::user()->role->name == 'admin')
                         <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
                         <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
                         <li class="dropdown">
@@ -53,9 +53,10 @@
                                 <li><a href="/category">Категории</a></li>
                             </ul>
                         </li>
-                    @elseif(Auth::user()->role->name == nameter')
+                        <li><a href="{{ url('/articles') }}">Новости</a></li>
+                    @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
-                    @elseif(Auth::user()->role->name == namek')
+                    @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
                     @else
                         <li><a>Login</a></li>
@@ -80,7 +81,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-expanded="false" aria-haspopup="true">
-                                {{ Auth::user()->name }} namen class="caret"></span>
+                                {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu">

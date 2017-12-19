@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('name', 'Restaurant') }}</title>
+    <title>{{ config('app.name', 'Restaurant') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/">
-                    {{ config('name', 'Restaurant') }}
+                    {{ config('app.name', 'Restaurant') }}
                 </a>
                 <ul class="nav navbar-nav">
                     @if (Auth::user()->role->name == 'admin')
@@ -53,6 +53,7 @@
                                 <li><a href="/category">Категории</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ url('/articles') }}">Новости</a></li>
                     @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
                     @elseif(Auth::user()->role->name == 'cook')
