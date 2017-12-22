@@ -35,7 +35,7 @@
         .col-md-3 {
             border: 2px solid;
             overflow: scroll;
-            word-break:break-all;
+            word-break: break-all;
         }
 
         .login {
@@ -51,9 +51,10 @@
 
 <div class="row">
     <div class="col-md-9">
-
-        <input class="login" type="button" value="Вход" onclick="javascript:window.location='{{ route('adminHome') }}'">
-
+            <input class="login" type="button" value="Вход"
+                   onclick="javascript:window.location='{{ route('adminHome') }}'">
+            <input class="login" type="button" value="Регистрация"
+                   onclick="javascript:window.location='{{ route('clientreg') }}'">
     </div>
 
     <div class="col-md-3">
