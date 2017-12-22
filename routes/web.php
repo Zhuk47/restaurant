@@ -96,3 +96,9 @@ Route::group(['middleware' => ['cook']], function () {
 
 
 });
+
+Route::get('/guest-registration', function(){
+    return view('clientViews/regform');
+})->name('clientreg');
+
+Route::post('/addclient', 'ClientController@add');
