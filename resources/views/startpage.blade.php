@@ -45,7 +45,11 @@
 
 
     </style>
-
+    @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+    @endif
 </head>
 <body>
 
@@ -53,7 +57,7 @@
     <div class="col-md-9">
             <input class="login" type="button" value="Вход"
                    onclick="javascript:window.location='{{ route('adminHome') }}'">
-            <input class="login" type="button" value="Регистрация"
+            <input class="login" type="button" value="Подписка"
                    onclick="javascript:window.location='{{ route('clientreg') }}'">
     </div>
 
