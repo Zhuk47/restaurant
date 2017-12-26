@@ -23,7 +23,7 @@ Route::post('/', 'Auth\RegisterController@create');
 
 Route::get('logout', 'Auth\LoginController@logout');
 
-Route::get('/', 'StartPageController@index');
+Route::get('/', 'StartPageController@index')->name('start');
 
 Route::group(['middleware' => ['guest']], function () {
     //only guests can access these routes
@@ -101,4 +101,4 @@ Route::get('/guest-registration', function(){
     return view('clientViews/regform');
 })->name('clientreg');
 
-Route::post('/addclient', 'ClientController@add');
+Route::post('/addclient', 'GuestController@add');
