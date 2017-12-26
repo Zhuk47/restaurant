@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use App\Client;
+use App\Guest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpKernel\Client;
 
-class ClientController extends Controller
+
+class GuestController extends Controller
 {
     public function add(Request $request)
     {
-        $articles = Article::select(['title', 'text', 'updated_at'])->get();
+        //$articles = Article::select(['title', 'text', 'updated_at'])->get();
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:30',
@@ -23,16 +25,13 @@ class ClientController extends Controller
                 ->withErrors($validator);
         }
 
-        $client = new Client();
+        $client = new Guest();
         $client->name = $request->name;
         $client->surname = $request->surname;
         $client->email = $request->email;
         $client->save();
 
-        return view('startpage')->with([
-            'articles' => $articles
-        ]);
+        return redirect()->route('start')
+            ->with('message', 'Article created successfully');
     }
-
-
 }
