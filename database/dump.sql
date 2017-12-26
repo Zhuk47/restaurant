@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: restaurant
 -- ------------------------------------------------------
--- Server version	5.7.16
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,7 +29,7 @@ CREATE TABLE `articles` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `articles` (
 
 LOCK TABLES `articles` WRITE;
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
-INSERT INTO `articles` VALUES (1,'Акция!!!','Приведи друга и уведи его обратно.','2017-12-19 11:11:26','2017-12-19 11:01:44'),(2,'Акция №2','Уведи своего друга!','2017-12-19 11:09:18','2017-12-19 11:09:18'),(4,'Акация','Забери его!!!',NULL,NULL);
+INSERT INTO `articles` VALUES (1,'Акция!!!','Приведи друга и уведи его обратно.','2017-12-19 11:11:26','2017-12-19 11:01:44'),(2,'Акция №2','Уведи своего друга!','2017-12-19 11:09:18','2017-12-19 11:09:18'),(4,'Акация','Забери его!!!',NULL,NULL),(6,'колян тащит','ты лох антон','2017-12-25 21:35:54','2017-12-25 21:35:54');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,30 +66,6 @@ LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
 INSERT INTO `categories` VALUES (1,'Салаты','2017-12-13 12:42:29',NULL),(2,'Десерты','2017-11-22 12:07:15',NULL),(3,'Первые блюда','2017-11-22 12:06:20','2017-11-22 12:06:20'),(9,'Гарниры','2017-11-30 11:35:40','2017-11-24 13:15:21'),(10,'Гриль','2017-12-02 07:07:19','2017-12-02 07:07:19');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `clients`
---
-
-DROP TABLE IF EXISTS `clients`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clients` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `clients`
---
-
-LOCK TABLES `clients` WRITE;
-/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -212,6 +188,34 @@ INSERT INTO `foods` VALUES (5,'Греческий',1,'2017-12-15 17:22:46',NULL,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `guests`
+--
+
+DROP TABLE IF EXISTS `guests`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `guests` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `surname` varchar(100) NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `guests`
+--
+
+LOCK TABLES `guests` WRITE;
+/*!40000 ALTER TABLE `guests` DISABLE KEYS */;
+INSERT INTO `guests` VALUES (31,'asd@gmail.com','Антон','Антонов','2017-12-25 21:47:20','2017-12-25 21:47:20');
+/*!40000 ALTER TABLE `guests` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ingredients`
 --
 
@@ -261,7 +265,7 @@ CREATE TABLE `orders` (
   KEY `FK_orders_tables` (`table_id`),
   CONSTRAINT `FK_orders_personals` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_orders_tables` FOREIGN KEY (`table_id`) REFERENCES `tables` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,7 +274,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (18,NULL,1,NULL,3,0.00,'2017-12-15 18:04:43','2017-12-15 18:04:43',NULL),(21,NULL,2,NULL,6,0.00,'2017-12-18 21:16:59','2017-12-18 21:16:59',NULL);
+INSERT INTO `orders` VALUES (18,NULL,1,NULL,3,0.00,'2017-12-15 18:04:43','2017-12-15 18:04:43',NULL),(21,NULL,2,NULL,6,0.00,'2017-12-18 21:16:59','2017-12-18 21:16:59',NULL),(22,NULL,3,NULL,3,0.00,'2017-12-19 17:57:07','2017-12-19 17:57:07',NULL),(23,NULL,2,NULL,3,0.00,'2017-12-19 17:57:10','2017-12-19 17:57:10',NULL),(24,NULL,2,NULL,3,0.00,'2017-12-19 17:57:16','2017-12-19 17:57:16',NULL),(25,NULL,3,NULL,3,0.00,'2017-12-19 17:57:17','2017-12-19 17:57:17',NULL);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,7 +386,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'Должанский','Колян','Рэпер','1987-07-15',1,NULL,NULL,'F9fooxA7boX1zlKH37bzEl5upSr7a14is649O1k0qgzfYfOnUJw498uv4zTl','admin@gmail.com','$2b$10$u5Ji8hkOzj5WWd8Q1B5LUuQEL3Vk9znG0TGxPo7nCnA5Xnz5TbxO2',NULL),(3,'Пупкин','Вася','Гришевич','1990-12-12',2,'2017-12-12 09:28:52','2017-12-12 09:28:52','82IrMYASRtZ46KFClg88lH04jKKP3Yei3RB4BML67Yq5zM8s1TsB3YIGEUN6','off1@gmail.com','$2y$10$agLvcVbYf7kT7lj.vRjNc.NIVtIzHWH8Zw9/Qk2R8cAa.43fMafHK',NULL),(5,'Шеф','Повар','Бондович','1975-10-23',3,'2017-12-12 10:02:02','2017-12-12 10:02:02','wV0MOTbBBan9hj7WfN506wOfUqczcOgU4uCyJpz0dwssMHsqKZrJ5LZ3LPVP','povar@gmail.com','$2y$10$KKFKd29Vd35dWdZ674BZ9uqXbWNlzugvd0midE/PQL5.9wfUcezpa',NULL),(6,'Попкин','Иджворг','Ольгович','1990-06-21',2,'2017-12-18 21:16:09','2017-12-18 21:16:09','Zw1FzWFg7nFjQ3Av8QhoQIyEc6OROBVzCvzyxrbnr2xUrPILT904RgaAo8Id','off2@gmail.com','$2y$10$HVtzpuKb9pyAiSEcVSUCYOxKsEMjUQ2vwQkiAF87pFKO5bXEPXRCa',NULL);
+INSERT INTO `users` VALUES (2,'Должанский','Колян','Рэпер','1987-07-15',1,NULL,NULL,'gmTKZ53hyVBVGIGMqkvbZrlKWF0p1th1it94jhg1mNnb7LczrDzHLTSucx8Z','admin@gmail.com','$2b$10$u5Ji8hkOzj5WWd8Q1B5LUuQEL3Vk9znG0TGxPo7nCnA5Xnz5TbxO2',NULL),(3,'Пупкин','Вася','Гришевич','1990-12-12',2,'2017-12-12 09:28:52','2017-12-12 09:28:52','MVHQj1AdECLggyoUwDVi08iynpFw1tAatVZBiubORCXAaTsIpKTrqR1vrxCW','off1@gmail.com','$2y$10$agLvcVbYf7kT7lj.vRjNc.NIVtIzHWH8Zw9/Qk2R8cAa.43fMafHK',NULL),(5,'Шеф','Повар','Бондович','1975-10-23',3,'2017-12-12 10:02:02','2017-12-12 10:02:02','wV0MOTbBBan9hj7WfN506wOfUqczcOgU4uCyJpz0dwssMHsqKZrJ5LZ3LPVP','povar@gmail.com','$2y$10$KKFKd29Vd35dWdZ674BZ9uqXbWNlzugvd0midE/PQL5.9wfUcezpa',NULL),(6,'Попкин','Иджворг','Ольгович','1990-06-21',2,'2017-12-18 21:16:09','2017-12-18 21:16:09','Zw1FzWFg7nFjQ3Av8QhoQIyEc6OROBVzCvzyxrbnr2xUrPILT904RgaAo8Id','off2@gmail.com','$2y$10$HVtzpuKb9pyAiSEcVSUCYOxKsEMjUQ2vwQkiAF87pFKO5bXEPXRCa',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -395,4 +399,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-19 18:51:41
+-- Dump completed on 2017-12-26 19:13:42
