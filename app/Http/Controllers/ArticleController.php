@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Guest;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Client;
+use Illuminate\Support\Facades\Validator;
+
 
 class ArticleController extends Controller
 {
@@ -41,7 +45,19 @@ class ArticleController extends Controller
             'title' => 'required',
             'text' => 'required',
         ]);
-        Article::create($request->all());
+        $article = Article::create($request->all());
+        foreach (Guest::all() as $guest) {
+            $message = "
+            Доброго времени суток, $guest->name!\r\n
+            Рады сообщить Вам о новых событиях в нашем ресторане! А именно:\r\n" .
+            $article->text;
+            $to = $guest->email;
+            $from = "restaurant@rest.ua";
+            //$subject = "=?utf-8?B?" . base64_encode($subject) . "?=";
+            $subject = $article->title;
+            $headers = "From: $from\r\nReply-to: $from\r\nContent-type: text/plain; charset=utf-8\r\n";
+            mail($to, $subject, $message, $headers);
+        }
         return redirect()->route('articles.index')
             ->with('success', 'Article created successfully');
     }
@@ -100,4 +116,5 @@ class ArticleController extends Controller
         return redirect()->route('articles.index')
             ->with('success', 'Article deleted successfully');
     }
+
 }
