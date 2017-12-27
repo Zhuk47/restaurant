@@ -73,10 +73,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/info/{id}', 'AdminController@show');
     Route::get('/delete/{id}', 'AdminController@deleteEmployee')->name('deleteEmployee');
     Route::get('/register-new-employee', function () {
-        return view('adminViews\register');
+        return view('adminViews/register');
     });
     Route::get('/base-employee', function () {
-        return view('adminViews\employeebase');
+        return view('adminViews/employeebase');
     });
 
     //articles routes
