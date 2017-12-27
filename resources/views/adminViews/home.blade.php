@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Restaurant') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -37,7 +37,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="/home">
-                    {{ config('app.name', 'Restaurant') }}
+                    {{ config('app.name') }}
                 </a>
                 <ul class="nav navbar-nav">
                     @if (Auth::user()->role->name == 'admin')

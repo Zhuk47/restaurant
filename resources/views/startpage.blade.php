@@ -55,10 +55,10 @@
 
 <div class="row">
     <div class="col-md-9">
-            <input class="login" type="button" value="Вход"
-                   onclick="javascript:window.location='{{ route('adminHome') }}'">
-            <input class="login" type="button" value="Подписка"
-                   onclick="javascript:window.location='{{ route('clientreg') }}'">
+        <input class="login" type="button" value="Вход"
+               onclick="javascript:window.location='{{ route('adminHome') }}'">
+        <input class="login" type="button" value="Подписка"
+               onclick="javascript:window.location='{{ route('clientreg') }}'">
     </div>
 
     <div class="col-md-3">
