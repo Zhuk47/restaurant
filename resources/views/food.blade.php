@@ -70,14 +70,16 @@
                             <td class="table-text">
                                 <div>{{ $food->mass }}</div>
                             </td>
+                            @foreach($food->foodPrice as $price)
                             <!-- Себестоимость блюда -->
                             <td class="table-text">
-                                <div>{{ $food->foodPrice->netCost }}</div>
+                                <div>{{ $price->netCost }}</div>
                             </td>
                             <!-- Стоимость блюда -->
                             <td class="table-text">
-                                <div>{{ $food->foodPrice->price }}</div>
+                                <div>{{ $price->price }}</div>
                             </td>
+                            @endforeach
                             <td>
                                 <form action="{{ url('food/'.$food->id.'/content') }}">
                                     <button type="submit" class="btn btn-default">Состав</button>

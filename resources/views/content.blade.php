@@ -47,7 +47,9 @@
         </table>
         <div>Выход: <b>{{ $total_weight }} г.</b></div>
         <div>Себестоимость ингредиентов в блюде составляет <b>{{ $cost_price }} грн.</b></div>
-        <div>Стоимость блюда составляет <b>{{ $food->foodPrice->price }} грн.</b></div>
+        @foreach($food->foodPrice as $price)
+        <div>Стоимость блюда составляет <b>{{ $price->price }} грн.</b></div>
+        @endforeach
 
         <form action="{{ url('food/'.$food->id.'/content/') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
@@ -56,7 +58,9 @@
             <!-- Данные блюда -->
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда" value="{{ $food->foodPrice->price }}">
+                    @foreach($food->foodPrice as $price)
+                    <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда" value="{{ $price->price }}">
+                    @endforeach
                 </div>
             </div>
             <!-- Кнопка добавления стоимости -->

@@ -28,7 +28,7 @@ class Food extends Model
 
     public function foodPrice()
     {
-        return $this->hasOne('App\FoodPrice');
+        return $this->hasMany('App\FoodPrice');
     }
 
     public function currentNetCost(Food $food)
