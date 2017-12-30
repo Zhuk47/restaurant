@@ -49,7 +49,6 @@ class IngredientController extends Controller
     public function update(Request $request, Ingredient $ingredient)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
             'price' => 'required|numeric'
         ]);
 
@@ -59,8 +58,8 @@ class IngredientController extends Controller
                 ->withErrors($validator);
         }
 
-        $ingredient->name = $request->name;
-        $ingredient->save();
+//        $ingredient->name = $request->name;
+//        $ingredient->save();
         Price::where('ingredient_id', $ingredient->id)->delete();
         $price = new Price;
         $price->ingredient_id = $ingredient->id;

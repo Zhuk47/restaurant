@@ -79,6 +79,11 @@ Route::group(['middleware' => ['admin']], function () {
         return view('adminViews\employeebase');
     });
 
+    //tables routes
+    Route::get('/tables', 'TablesController@index');
+    Route::post('/tables', 'TablesController@create');
+    Route::delete('/table/{table}', 'TablesController@delete');
+
     //articles routes
     Route::resource('articles', 'ArticleController');
 });

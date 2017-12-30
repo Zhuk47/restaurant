@@ -78,6 +78,7 @@ class FoodController extends Controller
     public function delete(Food $food)
     {
         $food->ingredients()->detach();
+        $food->foodPrice()->delete();
         $food->delete();
 
         return redirect('/food');
@@ -87,14 +88,9 @@ class FoodController extends Controller
     {
 
         $ingredients = $food->ingredients;
-        $cost_price = 0;
-        $total_weight = 0;
-        foreach ($ingredients as $ingredient) {
-            $mass = $ingredient->pivot->mass;
-            $price = $ingredient->prices->sortByDesc('dateTime')->first()->price;
-            $cost_price += $mass * $price / 100;
-            $total_weight += $mass;
-        }
+
+        $cost_price = $food->currentNetCost($food);
+        $total_weight = $food->currentTotalWeight($food);
 
         $food->mass = $total_weight;
         $food->save();
@@ -127,13 +123,7 @@ class FoodController extends Controller
     public function setPrice(Food $food, Request $request)
     {
 
-        $ingredients = $food->ingredients;
-        $cost_price = 0;
-        foreach ($ingredients as $ingredient) {
-            $mass = $ingredient->pivot->mass;
-            $price = $ingredient->prices->sortByDesc('dateTime')->first()->price;
-            $cost_price += $mass * $price / 100;
-        }
+        $cost_price = $food->currentNetCost($food);
 
         FoodPrice::where('food_id', $food->id)->delete();
         $food_price = new FoodPrice;

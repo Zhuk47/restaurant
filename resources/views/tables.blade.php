@@ -6,16 +6,16 @@
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
 
-    <!-- Форма новой категории -->
-        <form action="{{ url('category') }}" method="POST" class="form-horizontal">
+    <!-- Форма нового стола -->
+        <form action="{{ url('tables') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
-            <h5>Добавление категории</h5>
-            <!-- Имя категории -->
+            <h5>Добавление стола</h5>
+            <!-- Серийный номер -->
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="category-name" class="form-control"
-                           placeholder="категория">
+                    <input type="text" name="serial" id="table-serial" class="form-control"
+                           placeholder="Серийный номер">
                 </div>
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-plus"></i>Добавить
@@ -25,34 +25,34 @@
     </div>
 
     <!-- Текущие категории -->
-    @if (count($categories) > 0)
+    @if (count($tables) > 0)
         <div class="container">
             <div class="panel-body">
                 <table class="table table-striped task-table">
                     <!-- Заголовок таблицы -->
                     <thead>
                     <th>ID</th>
-                    <th>Категория</th>
+                    <th>Серийный номер</th>
                     </thead>
                     <!-- Тело таблицы -->
-                    @foreach ($categories as $category)
+                    @foreach ($tables as $table)
                         <tr>
-                            <!-- ID категории -->
+                            <!-- ID -->
                             <td class="table-text">
-                                {{ $category->id }}
+                                {{ $table->id }}
                             </td>
-                            <!-- Имя категории -->
+                            <!-- Серийник -->
                             <td class="table-text">
-                                {{ $category->name }}
+                                {{ $table->serial }}
                             </td>
-                            <td>
-                                <form action="{{ url('categoryupd/'.$category->id) }}">
-                                    <button type="submit" class="btn btn-default">Изменить</button>
-                                </form>
-                            </td>
+                            {{--<td>--}}
+                                {{--<form action="{{ url('categoryupd/'.$category->id) }}">--}}
+                                    {{--<button type="submit" class="btn btn-default">Изменить</button>--}}
+                                {{--</form>--}}
+                            {{--</td>--}}
                             <!-- Кнопка Удалить -->
                             <td>
-                                <form action="{{ url('category/'.$category->id) }}" method="POST">
+                                <form action="{{ url('table/'.$table->id) }}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
 

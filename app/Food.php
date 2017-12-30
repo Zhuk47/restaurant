@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Food extends Model
 {
     protected $table = 'foods';
+
+    use SoftDeletes;
 
     public function category()
     {
@@ -26,5 +29,28 @@ class Food extends Model
     public function foodPrice()
     {
         return $this->hasOne('App\FoodPrice');
+    }
+
+    public function currentNetCost(Food $food)
+    {
+        $ingredients = $food->ingredients;
+        $net_cost = 0;
+        foreach ($ingredients as $ingredient) {
+            $mass = $ingredient->pivot->mass;
+            $price = $ingredient->prices->sortByDesc('dateTime')->first()->price;
+            $net_cost += $mass * $price / 100;
+        }
+        return $net_cost;
+    }
+
+    public function currentTotalWeight(Food $food)
+    {
+        $ingredients = $food->ingredients;
+        $total_weight = 0;
+        foreach ($ingredients as $ingredient) {
+            $mass = $ingredient->pivot->mass;
+            $total_weight += $mass;
+        }
+        return $total_weight;
     }
 }

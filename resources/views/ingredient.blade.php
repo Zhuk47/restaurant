@@ -13,7 +13,7 @@
             <!-- Имя ингредиента -->
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="ингредиент">
+                    <input type="text" name="name" id="ingredient-name" class="form-control" placeholder="Ингредиент">
                 </div>
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-plus"></i> Добавить
@@ -54,6 +54,16 @@
                             <td class="table-text">
                                 <div>{{ $ingredient->prices->sortByDesc('dateTime')->first()->price }}</div>
                             </td>
+                            <td>
+                                <form action="{{ url('ingredientupd/'.$ingredient->id) }}">
+                                    <button type="submit" class="btn btn-default">Изменить стоимость</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ url('ingredient/'.$ingredient->id.'/history') }}">
+                                    <button type="submit" class="btn btn-default">История</button>
+                                </form>
+                            </td>
                             <!-- Кнопка Удалить -->
                             <td>
                                 <form action="{{ url('ingredient/'.$ingredient->id) }}" method="POST">
@@ -63,16 +73,6 @@
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash"></i> Удалить
                                     </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ url('ingredientupd/'.$ingredient->id) }}">
-                                    <button type="submit" class="btn btn-default">Изменить</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ url('ingredient/'.$ingredient->id.'/history') }}">
-                                    <button type="submit" class="btn btn-default">История</button>
                                 </form>
                             </td>
                         </tr>

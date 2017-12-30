@@ -53,6 +53,7 @@
                                 <li><a href="/category">Категории</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ url('/tables') }}">Столы</a></li>
                         <li><a href="{{ url('/articles') }}">Новости</a></li>
                     @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>

@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\User;
+use App\Table;
 
 class OrderController extends Controller
 {
-    public function create($user_id, $table_id)
+    public function create(User $user, Table $table)
     {
         $order = new Order;
-        $order->table_id = $table_id;
-        $order->user_id = $user_id;
+        $order->table_id = $table->id;
+        $order->user_id = $user->id;
         $order->save();
-        echo 'Added!';
+
+        foreach ($table->orders as $order) {
+            echo 'Added!' . " " . $order->id . " " . $table->id . " " . $user->id;
+        }
     }
 }

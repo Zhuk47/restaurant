@@ -42,6 +42,7 @@
 
                     <!-- Заголовок таблицы -->
                     <thead>
+                    <th>ID</th>
                     <th>Блюдо</th>
                     <th>Категория</th>
                     <th>Выход, г.</th>
@@ -53,6 +54,10 @@
                     <tbody>
                     @foreach ($foods as $food)
                         <tr>
+                            <!-- ID блюда -->
+                            <td class="table-text">
+                                <div>{{ $food->id }}</div>
+                            </td>
                             <!-- Имя блюда -->
                             <td class="table-text">
                                 <div>{{ $food->name }}</div>
@@ -73,6 +78,21 @@
                             <td class="table-text">
                                 <div>{{ $food->foodPrice->price }}</div>
                             </td>
+                            <td>
+                                <form action="{{ url('food/'.$food->id.'/content') }}">
+                                    <button type="submit" class="btn btn-default">Состав</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ url('foodupd/'.$food->id) }}">
+                                    <button type="submit" class="btn btn-default">Изменить</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="{{ url('food/'.$food->id.'/history') }}">
+                                    <button type="submit" class="btn btn-default">История</button>
+                                </form>
+                            </td>
                             <!-- Кнопка Удалить -->
                             <td>
                                 <form action="{{ url('food/'.$food->id) }}" method="POST">
@@ -82,21 +102,6 @@
                                     <button type="submit" class="btn btn-danger">
                                         <i class="fa fa-trash"></i> Удалить
                                     </button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ url('foodupd/'.$food->id) }}">
-                                    <button type="submit" class="btn btn-default">Изменить</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ url('food/'.$food->id.'/content') }}">
-                                    <button type="submit" class="btn btn-default">Состав</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ url('food/'.$food->id.'/history') }}">
-                                    <button type="submit" class="btn btn-default">История</button>
                                 </form>
                             </td>
                         </tr>

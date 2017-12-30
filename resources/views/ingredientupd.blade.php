@@ -10,13 +10,13 @@
         <form action="{{ url('ingredientupd/'.$ingredient->id) }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
             {{ method_field('PATCH') }}
-            <h5>Изменить ингредиент</h5>
+            <h5>Изменить стоимость ингредиента {{$ingredient->name}}</h5>
             <!-- Имя ингредиента -->
             <div class="form-group">
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="ingredient-name" class="form-control"
-                           placeholder="{{$ingredient->name}}">
-                </div>
+                {{--<div class="col-sm-6">--}}
+                    {{--<input type="text" name="name" id="ingredient-name" class="form-control"--}}
+                           {{--placeholder="{{$ingredient->name}}">--}}
+                {{--</div>--}}
                 <div class="col-sm-6">
                     <input type="text" name="price" id="ingredient-price" class="form-control"
                            placeholder="{{$ingredient->prices->sortByDesc('dateTime')->first()->price}}">

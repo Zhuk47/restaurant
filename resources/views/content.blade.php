@@ -47,18 +47,19 @@
         </table>
         <div>Выход: <b>{{ $total_weight }} г.</b></div>
         <div>Себестоимость ингредиентов в блюде составляет <b>{{ $cost_price }} грн.</b></div>
+        <div>Стоимость блюда составляет <b>{{ $food->foodPrice->price }} грн.</b></div>
 
         <form action="{{ url('food/'.$food->id.'/content/') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
 
-            <h5>Стоимость блюда</h5>
+            <h5><b>Стоимость блюда</b></h5>
             <!-- Данные блюда -->
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда">
+                    <input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда" value="{{ $food->foodPrice->price }}">
                 </div>
             </div>
-            <!-- Кнопка добавления блюда -->
+            <!-- Кнопка добавления стоимости -->
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit" class="btn btn-default">
