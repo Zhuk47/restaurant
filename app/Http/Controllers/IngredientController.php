@@ -58,8 +58,6 @@ class IngredientController extends Controller
                 ->withErrors($validator);
         }
 
-//        $ingredient->name = $request->name;
-//        $ingredient->save();
         Price::where('ingredient_id', $ingredient->id)->delete();
         $price = new Price;
         $price->ingredient_id = $ingredient->id;
@@ -107,7 +105,20 @@ class IngredientController extends Controller
         $prices = Price::withTrashed()->where('ingredient_id', $ingredient->id)->get();
 
         return view('ingredienthistory', [
-            'prices' => $prices
+            'prices' => $prices,
+            'ingredient' => $ingredient
         ]);
+    }
+
+    public function searchPrice(Request $request, Ingredient $ingredient)
+    {
+        $prices = Price::withTrashed()->where('ingredient_id', $ingredient->id)->get();
+        foreach ($prices as $price){
+            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at){
+                echo $price->price;
+            } elseif ($price->created_at <= $request->date && $price->deleted_at === null){
+                echo $price->price;
+            } else null;
+        }
     }
 }

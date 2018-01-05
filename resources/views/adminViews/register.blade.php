@@ -90,7 +90,7 @@
                                         $("#datebirth").datepicker({
                                             changeMonth: true,
                                             changeYear: true,
-                                            dateFormat: 'yy-mm-dd',
+                                            dateFormat: 'dd-mm-yy',
                                             monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
                                                 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
                                             dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
@@ -98,7 +98,7 @@
                                             prevText: '&#x3c;Пред',
                                             nextText: 'След&#x3e;',
                                             currentText: 'Сегодня',
-                                            yearRange: '1945:2000'
+                                            yearRange: '2017:2018'
                                         });
                                         $("#format").change(function () {
                                             $("#datebirth").datepicker("option", "dateFormat", $(this).val());

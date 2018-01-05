@@ -144,4 +144,13 @@ class FoodController extends Controller
             'prices' => $prices
         ]);
     }
+
+    public function menu()
+    {
+        $categories = Category::orderBy('id', 'asc')->get();
+
+        return view('menu', [
+            'categories' => $categories
+        ]);
+    }
 }

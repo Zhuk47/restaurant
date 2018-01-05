@@ -59,7 +59,7 @@
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
                     @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
-                    @else
+                    @elseif(!Auth::user())
                         <li><a>Login</a></li>
                     @endif
                 </ul>

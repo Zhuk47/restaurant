@@ -21,4 +21,5 @@ class Ingredient extends Model
     {
         return $this->hasMany('App\Price');
     }
+
 }

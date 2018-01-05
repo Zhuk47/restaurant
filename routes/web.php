@@ -68,15 +68,16 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/ingredient/{ingredient}/price', 'IngredientController@editPrice');
     Route::post('/ingredient/{ingredient}/price', 'IngredientController@setPrice');
     Route::get('/ingredient/{ingredient}/history', 'IngredientController@history');
+    Route::post('/ingredient/{ingredient}/history', 'IngredientController@searchPrice');
 
     //employee manage routes
     Route::get('/info/{id}', 'AdminController@show');
     Route::get('/delete/{id}', 'AdminController@deleteEmployee')->name('deleteEmployee');
     Route::get('/register-new-employee', function () {
-        return view('adminViews\register');
+        return view('adminViews/register');
     });
     Route::get('/base-employee', function () {
-        return view('adminViews\employeebase');
+        return view('adminViews/employeebase');
     });
 
     //tables routes
@@ -107,3 +108,5 @@ Route::get('/guest-registration', function(){
 })->name('clientreg');
 
 Route::post('/addclient', 'GuestController@add');
+
+Route::get('/menu', 'FoodController@menu')->name('menu');

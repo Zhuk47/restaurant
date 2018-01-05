@@ -18,29 +18,30 @@
             color: #636b6f;
             font-family: 'Raleway', sans-serif;
             font-weight: 100;
-            height: 100vh;
-            margin: 0;
+            height: 100%;
+            width: auto;
+            margin: 0 auto;
         }
 
         .row {
             height: 100%;
-
+            margin: 0 auto;
         }
 
         .col-md-9 {
-            border: 2px solid;
+            border: 1px solid;
             background-image: url('http://st.depositphotos.com/1798837/3766/v/950/depositphotos_37663153-Retro-vintage-restaurant-menu.-Set-of-Calligraphic-titles-and-symbols-for-restaurant..jpg');
         }
 
         .col-md-3 {
-            border: 2px solid;
+            border: 1px solid;
             overflow: scroll;
             word-break: break-all;
         }
 
         .login {
-            margin-top: 3%;
-            margin-left: 90%;
+            margin-top: 5%;
+            margin-left: 85%;
         }
 
 
@@ -55,10 +56,12 @@
 
 <div class="row">
     <div class="col-md-9">
-        <input class="login" type="button" value="Вход"
+        <input class="btn btn-light login" type="button" value="Вход"
                onclick="javascript:window.location='{{ route('adminHome') }}'">
-        <input class="login" type="button" value="Подписка"
+        <input class="btn btn-light login" type="button" value="Подписка"
                onclick="javascript:window.location='{{ route('clientreg') }}'">
+        <input class="btn btn-light login" type="button" value="Меню"
+               onclick="javascript:window.location='{{ route('menu') }}'">
     </div>
 
     <div class="col-md-3">

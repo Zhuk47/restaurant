@@ -16,4 +16,8 @@ class Price extends Model
         return $this->belongsTo('App\Ingredient');
     }
 
+//    public function scopeByDate($query, $date)
+//    {
+//        return $query->whereBetween($date, ['2017-12-27 20:46:25', '2017-12-27 20:48:50']);
+//    }
 }
