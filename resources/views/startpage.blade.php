@@ -64,7 +64,7 @@
                onclick="javascript:window.location='{{ route('menu') }}'">
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 bordered">
 
         @foreach($articles as $article)
             <h4>{{$article->title}}</h4>

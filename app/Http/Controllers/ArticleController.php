@@ -18,7 +18,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest()->paginate(5);
+        $articles = Article::orderBy('created_at', 'desc')->latest()->paginate(5);
         return view('articles.index', compact('articles'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }

@@ -9,7 +9,7 @@ class StartPageController extends Controller
 {
     public function index()
     {
-        $articles = Article::select(['title', 'text', 'updated_at'])->get();
+        $articles = Article::orderBy('created_at', 'desc')->select(['title', 'text', 'updated_at'])->get();
 
         return view('startpage')->with([
             'articles' => $articles

@@ -24,7 +24,8 @@
             <th>No</th>
             <th>Название</th>
             <th>Текст</th>
-            <th width="280px"></th>
+            <th width="80px"></th>
+            <th width="80px"></th>
         </tr>
         @foreach ($articles as $article)
             <tr>
@@ -33,6 +34,8 @@
                 <td style="word-break:break-all">{{ $article->text}}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ route('articles.edit',$article->id) }}">Изменить</a>
+                </td>
+                <td>
                     {!! Form::open(['method' => 'DELETE','route' => ['articles.destroy', $article->id],'style'=>'display:inline']) !!}
                     {!! Form::submit('Удалить', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
@@ -40,7 +43,7 @@
             </tr>
         @endforeach
     </table>
+        {!! $articles->links() !!}
     </div>
 
-    {!! $articles->links() !!}
 @endsection
