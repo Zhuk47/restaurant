@@ -17,7 +17,7 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('adminHome');
+Route::get('/home', 'HomeController@index');
 
 Route::post('/', 'Auth\RegisterController@create');
 

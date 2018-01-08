@@ -57,7 +57,7 @@
 <div class="row">
     <div class="col-md-9">
         <input class="btn btn-light login" type="button" value="Вход"
-               onclick="javascript:window.location='{{ route('adminHome') }}'">
+               onclick="javascript:window.location='{{ url('/home') }}'">
         <input class="btn btn-light login" type="button" value="Подписка"
                onclick="javascript:window.location='{{ route('clientreg') }}'">
         <input class="btn btn-light login" type="button" value="Меню"

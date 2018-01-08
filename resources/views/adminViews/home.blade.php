@@ -36,11 +36,13 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="/home">
+                <a class="navbar-brand" href="/">
                     {{ config('app.name') }}
                 </a>
                 <ul class="nav navbar-nav">
-                    @if (Auth::user()->role->name == 'admin')
+                    @if(!Auth::user())
+                        <li><a>Login</a></li>
+                    @elseif (Auth::user()->role->name == 'admin')
                         <li class="dropdown">
                             <a class="btn dropdown-toggle" data-toggle="dropdown">
                                 Сотрудники
@@ -55,9 +57,9 @@
                                 Управление меню
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/ingredient">Ингредиенты</a></li>
-                                <li><a href="/food">Блюда</a></li>
-                                <li><a href="/category">Категории</a></li>
+                                <li><a href="{{ url('/ingredient') }}">Ингредиенты</a></li>
+                                <li><a href="{{ url('/food') }}">Блюда</a></li>
+                                <li><a href="{{ url('/category') }}">Категории</a></li>
                             </ul>
                         </li>
                         <li><a href="{{ url('/tables') }}">Столы</a></li>
@@ -67,8 +69,6 @@
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
                     @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
-                    @elseif(!Auth::user())
-                        <li><a>Login</a></li>
                     @endif
                 </ul>
 
