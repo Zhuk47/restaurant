@@ -141,8 +141,22 @@ class FoodController extends Controller
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
 
         return view('history', [
-            'prices' => $prices
+            'prices' => $prices,
+            'food' => $food
         ]);
+    }
+
+    public function searchPrice(Request $request, Food $food)
+    {
+        $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
+        foreach ($prices as $price) {
+            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at) {
+                echo "Стоимость блюда - " . $price->price . " грн. </br>";
+                echo "Себестоимость ингредиентов - " . $price->netCost . " грн. </br>";
+            } elseif ($price->created_at <= $request->date && $price->deleted_at === null) {
+                echo $price->price;
+            } else null;
+        }
     }
 
     public function menu()

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\User;
 use App\Table;
+use App\User;
 
 class OrderController extends Controller
 {
@@ -16,7 +16,22 @@ class OrderController extends Controller
         $order->save();
 
         foreach ($table->orders as $order) {
-            echo 'Added!' . " " . $order->id . " " . $table->id . " " . $user->id;
+            echo 'Added!' . " Номер заказа - " . $order->id . " Номер стола - " . $table->id . " ID официанта - " . $user->id;
+        }
+    }
+
+    public function info(Table $table)
+    {
+        echo "Стол №" . $table->id . "</br>";
+        foreach ($table->orders as $order) {
+            echo "Заказ №" . $order->id . "</br>";
+            echo "Официант: " . $order->user->name . " " . $order->user->surname . "</br>";
+            echo "Блюда в заказе: </br>";
+            foreach ($order->foods as $food) {
+                foreach ($food->foodPrice as $price) {
+                    print_r($food->name . " - " . $price->price . " грн. </br>");
+                }
+            }
         }
     }
 }

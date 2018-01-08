@@ -113,10 +113,10 @@ class IngredientController extends Controller
     public function searchPrice(Request $request, Ingredient $ingredient)
     {
         $prices = Price::withTrashed()->where('ingredient_id', $ingredient->id)->get();
-        foreach ($prices as $price){
-            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at){
+        foreach ($prices as $price) {
+            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at) {
                 echo $price->price;
-            } elseif ($price->created_at <= $request->date && $price->deleted_at === null){
+            } elseif ($price->created_at <= $request->date && $price->deleted_at === null) {
                 echo $price->price;
             } else null;
         }

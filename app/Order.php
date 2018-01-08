@@ -3,8 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Table;
-
 
 class Order extends Model
 {
@@ -17,5 +15,10 @@ class Order extends Model
     public function table()
     {
         return $this->belongsTo('App\Table');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

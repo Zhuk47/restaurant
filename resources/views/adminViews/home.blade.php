@@ -41,8 +41,15 @@
                 </a>
                 <ul class="nav navbar-nav">
                     @if (Auth::user()->role->name == 'admin')
-                        <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
-                        <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                Сотрудники
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('/register-new-employee') }}">Регистрация</a></li>
+                                <li><a href="{{ url('/base-employee') }}">Обзор</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a class="btn dropdown-toggle" data-toggle="dropdown">
                                 Управление меню
@@ -54,6 +61,7 @@
                             </ul>
                         </li>
                         <li><a href="{{ url('/tables') }}">Столы</a></li>
+                        <li><a href="{{ url('/hall') }}">Зал</a></li>
                         <li><a href="{{ url('/articles') }}">Новости</a></li>
                     @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
@@ -111,7 +119,6 @@
             }, 2000); // <-- time in milliseconds
         </script>
         <div style="text-align: center" id="successMessage" class="alert alert-success">
-
             Новый сотрудник успешно зарегистрирован!
         </div>
     @endif

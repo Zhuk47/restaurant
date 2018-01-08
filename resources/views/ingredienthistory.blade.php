@@ -37,6 +37,7 @@
             </div>
         </div>
     @endif
+
     <div class="container">
         <form action="{{ url('/ingredient/'.$ingredient->id.'/history') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
@@ -51,7 +52,6 @@
             </div>
         </form>
     </div>
-
 
     <script type="text/javascript">
         $(function () {

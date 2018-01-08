@@ -47,6 +47,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/foodupd/{food}', 'FoodController@edit');
     Route::patch('/foodupd/{food}', 'FoodController@update');
     Route::get('/food/{food}/history', 'FoodController@history');
+    Route::post('/food/{food}/history', 'FoodController@searchPrice');
     Route::get('/food/{food}/content', 'FoodController@content');
     Route::post('/food/{food}/content', 'FoodController@setPrice');
     Route::post('/food/{food}/content/{oneIngredient}', 'FoodController@addIngredient');
@@ -84,6 +85,10 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/tables', 'TablesController@index');
     Route::post('/tables', 'TablesController@create');
     Route::delete('/table/{table}', 'TablesController@delete');
+
+    //order routes
+    Route::get('/hall', 'HallController@index');
+    Route::get('/hall/table/{table}', 'OrderController@info');
 
     //articles routes
     Route::resource('articles', 'ArticleController');
