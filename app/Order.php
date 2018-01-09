@@ -3,15 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
     protected $table = 'orders';
 
+    use SoftDeletes;
+
     public function foods()
     {
         return $this->belongsToMany('App\Food');
     }
+
     public function table()
     {
         return $this->belongsTo('App\Table');

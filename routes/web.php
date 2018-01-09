@@ -98,8 +98,10 @@ Route::group(['middleware' => ['waiter']], function () {
     //only waiters can access these routes
 
     //table and orders routes
-    Route::get('/user/{user}/hall', 'HallController@index');
-    Route::get('/user/{user}/table/{table}', 'OrderController@create');
+    Route::get('/waiter/hall', 'HallController@index');
+    Route::get('/waiter/table/{table}/new_order', 'OrderController@create')->name('new_order');
+    Route::get('/waiter/table/{table}/order/{order}', 'OrderController@update')->name('order');
+
 });
 
 Route::group(['middleware' => ['cook']], function () {

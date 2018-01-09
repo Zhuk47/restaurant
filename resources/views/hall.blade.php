@@ -32,22 +32,24 @@
                     </div>
                     @foreach($tables as $table)
                         @if($table->isFree == 0 )
-                            <a href='table/{{$table->id}}'>
+                            <a href='table/{{$table->id}}/new_order'>
                                 <div class="col-md-2 btn-success "
                                      style="height: 150px; margin: 10px; text-align: center;">
                                     Номер стола: {{$table->id}}
                                 </div>
                             </a>
                         @else
-                            <a href='table/{{$table->id}}'>
-                                <div class="col-md-2 btn-danger"
-                                     style="height: 150px; margin: 10px; text-align: center;">
-                                    Номер стола: {{$table->id}}
-                                </div>
-                            </a>
+                            @foreach($table->orders as $order)
+                                <a href='table/{{$table->id}}/order/{{$order->id}}'>
+                                    @endforeach
+                                    <div class="col-md-2 btn-danger"
+                                         style="height: 150px; margin: 10px; text-align: center;">
+                                        Номер стола: {{$table->id}}
+                                    </div>
+                                </a>
+                                @endif
+                            @endforeach
                         @endif
-                    @endforeach
-                    @endif
                 </div>
 
 @endsection

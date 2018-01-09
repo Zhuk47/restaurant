@@ -2,22 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Order;
 use App\Table;
-use App\User;
 
 class OrderController extends Controller
 {
-    public function create(User $user, Table $table)
+    public function create(Table $table)
     {
-        $order = new Order;
-        $order->table_id = $table->id;
-        $order->user_id = $user->id;
-        $order->save();
+        if ($table->isFree == 0) {
+            $order = new Order;
+            $order->table_id = $table->id;
+            $order->user_id = \Auth::user()->id;
+            $order->save();
 
-        foreach ($table->orders as $order) {
-            echo 'Added!' . " Номер заказа - " . $order->id . " Номер стола - " . $table->id . " ID официанта - " . $user->id;
+            $categories = Category::orderBy('id', 'asc')->get();
+
+            return view('order', [
+                'table' => $table,
+                'categories' => $categories,
+                'order' => $order
+            ]);
         }
+        else{
+            echo "Не может быть больше оного заказа!!!";
+        }
+    }
+
+    public function update(Table $table, Order $order)
+    {
+
+        $categories = Category::orderBy('id', 'asc')->get();
+
+        return view('order_upd', [
+            'categories' => $categories,
+            'table' => $table,
+            'order' => $order
+        ]);
     }
 
     public function info(Table $table)

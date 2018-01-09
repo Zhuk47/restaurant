@@ -9,7 +9,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Order;
 
 class Table extends Model
 {
@@ -24,4 +23,5 @@ class Table extends Model
     {
         return $this->orders->where('deleted_at', null)->count();
     }
+
 }

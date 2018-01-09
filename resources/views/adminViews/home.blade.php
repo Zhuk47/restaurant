@@ -66,7 +66,7 @@
                         <li><a href="{{ url('/hall') }}">Зал</a></li>
                         <li><a href="{{ url('/articles') }}">Новости</a></li>
                     @elseif(Auth::user()->role->name == 'waiter')
-                        <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
+                        <li><a href="/waiter/hall" class="btn btn-outline-dark">Зал</a></li>
                     @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
                     @endif
