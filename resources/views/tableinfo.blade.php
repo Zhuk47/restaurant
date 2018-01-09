@@ -23,7 +23,7 @@
             @endforeach
             @endforeach
             @endforeach
-            <div id="total">Общая стоимость заказа {{ $order->price }} грн.</div>
+            <div id="total">Общая стоимость заказа: {{ $order->price }} грн.</div>
         </div>
     </div>
 @endsection

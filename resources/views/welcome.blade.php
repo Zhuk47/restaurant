@@ -10,7 +10,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Restaurant') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -36,32 +36,40 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="/home">
-                    {{ config('app.name', 'Restaurant') }}
+                <a class="navbar-brand" href="/">
+                    {{ config('app.name') }}
                 </a>
                 <ul class="nav navbar-nav">
-                    @if (Auth::user()->role->name == 'admin')
-                        <li><a href="{{ url('/register-new-employee') }}">Зарегистрировать сотрудника</a></li>
-                        <li><a href="{{ url('/base-employee') }}">Управление базой сотрудников</a></li>
+                    @if(!Auth::user())
+                        <li><a>Login</a></li>
+                    @elseif (Auth::user()->role->name == 'admin')
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                Сотрудники
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('/register-new-employee') }}">Регистрация</a></li>
+                                <li><a href="{{ url('/base-employee') }}">Обзор</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a class="btn dropdown-toggle" data-toggle="dropdown">
                                 Управление меню
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="/ingredient">Ингредиенты</a></li>
-                                <li><a href="/food">Блюда</a></li>
-                                <li><a href="/category">Категории</a></li>
+                                <li><a href="{{ url('/ingredient') }}">Ингредиенты</a></li>
+                                <li><a href="{{ url('/food') }}">Блюда</a></li>
+                                <li><a href="{{ url('/category') }}">Категории</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ url('/tables') }}">Столы</a></li>
+                        <li><a href="{{ url('/hall') }}">Зал</a></li>
                         <li><a href="{{ url('/articles') }}">Новости</a></li>
                     @elseif(Auth::user()->role->name == 'waiter')
                         <li><a href="/user/{{Auth::id()}}/hall" class="btn btn-outline-dark">Зал</a></li>
                     @elseif(Auth::user()->role->name == 'cook')
                         <li><a href="#" class="btn btn-outline-dark">ПоварZONE</a></li>
-                    @else
-                        <li><a>Login</a></li>
                     @endif
-
                 </ul>
 
             </div>

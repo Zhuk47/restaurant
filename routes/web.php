@@ -49,7 +49,7 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/food/{food}/history', 'FoodController@history');
     Route::post('/food/{food}/history', 'FoodController@searchPrice');
     Route::get('/food/{food}/content', 'FoodController@content');
-    Route::post('/food/{food}/content', 'FoodController@setPrice');
+    Route::post('/food/{food}/content', 'FoodController@savePrice');
     Route::post('/food/{food}/content/{oneIngredient}', 'FoodController@addIngredient');
     Route::delete('/food/{food}/content/{ingredient}', 'FoodController@delIngredient');
 

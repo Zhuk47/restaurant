@@ -120,7 +120,7 @@ class FoodController extends Controller
         return redirect('/food/' . $food->id . '/content');
     }
 
-    public function setPrice(Food $food, Request $request)
+    public function savePrice(Food $food, Request $request)
     {
 
         $cost_price = $food->currentNetCost($food);
