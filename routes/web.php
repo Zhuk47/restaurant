@@ -101,6 +101,9 @@ Route::group(['middleware' => ['waiter']], function () {
     Route::get('/waiter/hall', 'HallController@index');
     Route::get('/waiter/table/{table}/new_order', 'OrderController@create')->name('new_order');
     Route::get('/waiter/table/{table}/order/{order}', 'OrderController@update')->name('order');
+    Route::delete('/waiter/table/{table}/order/{order}/food/{food}', 'OrderController@deleteFood');
+    Route::post('/waiter/table/{table}/order/{order}/food/{food}', 'OrderController@addFood');
+    Route::post('/waiter/table/{table}/order/{order}', 'OrderController@confirm');
 
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Food;
 use App\Order;
 use App\Table;
 
@@ -23,15 +24,13 @@ class OrderController extends Controller
                 'categories' => $categories,
                 'order' => $order
             ]);
-        }
-        else{
+        } else {
             echo "Не может быть больше оного заказа!!!";
         }
     }
 
     public function update(Table $table, Order $order)
     {
-
         $categories = Category::orderBy('id', 'asc')->get();
 
         return view('order_upd', [
@@ -46,5 +45,28 @@ class OrderController extends Controller
         return view('/tableinfo', [
             'table' => $table
         ]);
+    }
+
+    public function addFood(Table $table, Order $order, Food $food)
+    {
+        $order->foods()->attach($food->id);
+
+        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
+    }
+
+    public function confirm(Table $table, Order $order)
+    {
+        foreach ($order->foods as $food) {
+            $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1]);
+        }
+
+        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
+    }
+
+    public function deleteFood(Table $table, Order $order, Food $food)
+    {
+        $food->orders()->detach($order->id);
+
+        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
     }
 }

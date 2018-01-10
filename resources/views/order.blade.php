@@ -10,10 +10,12 @@
 
     <div class="container">
         <div class="row">
+
+            <h4>Заказ создан!</h4>
             <b>Стол № {{ $table->id }}</b>
             <b>Заказ № {{ $order->id }}</b>
             <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}">
-                <button type="submit" class="btn btn-default">Изменить стоимость</button>
+                <button type="submit" class="btn btn-success">Далее</button>
             </form>
         </div>
         {{--<div class="col-md-6">--}}
