@@ -51,22 +51,25 @@ class OrderController extends Controller
     {
         $order->foods()->attach($food->id);
 
-        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
+        return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
     public function confirm(Table $table, Order $order)
     {
         foreach ($order->foods as $food) {
-            $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1]);
+            if ($food->pivot->confirmed == 0){
+                $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
+            }
         }
 
-        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
+        return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
     public function deleteFood(Table $table, Order $order, Food $food)
     {
-        $food->orders()->detach($order->id);
+        $food->orders()->newPivotStatementForId($order->id)->where('confirmed','=', 0)->delete();
+//        $food->orders()->detach($order->id);
 
-        return redirect('/waiter/table/'.$table->id.'/order/'.$order->id);
+        return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 }

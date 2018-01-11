@@ -1,5 +1,7 @@
 @extends('adminViews/home')
 
+{{--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>--}}
+
 @section('content')
 
     <head>
@@ -30,22 +32,28 @@
             </div>
             <div class="col-md-6">
                 <center><h3>Заказ</h3></center>
-                <table class="table">
+                <table class="table" id="ordertbl">
                     <thead>
                     <tr>
                         <th>Блюдо</th>
                         <th>Цена</th>
-                        <th>Удалить</th>
+                        <th>Состояние</th>
                     </tr>
                     </thead>
                     @foreach($order->foods as $food)
                         @foreach($food->foodPrice as $price)
                             <tr>
                                 <td>{{ $food->name }}</td>
-                                <td>{{ $price->price }}</td>
+                                <td id="price">{{ $price->price }}</td>
                                 <td>
-                                    @if($food->pivot->confirmed === 1)
-                                        <div><b>Confirmed!</b></div>
+                                    @if($food->pivot->deleted_at)
+                                        <button class="btn btn-success">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                    @elseif($food->pivot->confirmed === 1)
+                                        <button class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-hourglass"></span>
+                                        </button>
                                     @elseif($food->pivot->confirmed === 0)
                                         <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id.'/food/'.$food->id) }}"
                                               method="POST">
@@ -61,11 +69,21 @@
                         @endforeach
                     @endforeach
                 </table>
+                {{--<div id="res" style="font-weight:bold">1</div>--}}
                 <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                     {{ csrf_field() }}
                     <button class="btn btn-success">Confirm</button>
                 </form>
             </div>
         </div>
+    </div>
+
+    {{--<script>--}}
+    {{--var sum = 0;--}}
+    {{--$('#ordertbl tr').each(function(){--}}
+    {{--sum+=parseInt($('#price', this).text());--}}
+    {{--});--}}
+    {{--$('#res').html(sum);--}}
+    {{--</script>--}}
 
 @endsection
