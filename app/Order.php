@@ -14,7 +14,6 @@ class Order extends Model
     public function foods()
     {
         return $this->belongsToMany('App\Food')->withPivot('confirmed', 'dateTimeInCook', 'deleted_at')->withTimestamps();
-
     }
 
     public function table()

@@ -57,19 +57,34 @@ class OrderController extends Controller
     public function confirm(Table $table, Order $order)
     {
         foreach ($order->foods as $food) {
-            if ($food->pivot->confirmed == 0){
+            if ($food->pivot->confirmed == 0) {
                 $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
             }
         }
+
+        $sum = 0;
+        foreach ($order->foods as $food) {
+            foreach ($food->foodPrice as $price) {
+                $sum += $price->price;
+            }
+        }
+        $order->price = $sum;
+        $order->save();
 
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
     public function deleteFood(Table $table, Order $order, Food $food)
     {
-        $food->orders()->newPivotStatementForId($order->id)->where('confirmed','=', 0)->delete();
+        $food->orders()->newPivotStatementForId($order->id)->where('confirmed', '=', 0)->delete();
 //        $food->orders()->detach($order->id);
 
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
+    }
+
+    public function closeOrder(Order $order)
+    {
+        $order->delete();
+        echo "Заказ закрыт!";
     }
 }
