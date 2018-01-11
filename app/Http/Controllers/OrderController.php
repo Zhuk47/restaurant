@@ -82,9 +82,10 @@ class OrderController extends Controller
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
-    public function closeOrder(Order $order)
+    public function closeOrder(Table $table, Order $order, Food $food)
     {
         $order->delete();
-        echo "Заказ закрыт!";
+
+        return redirect('/waiter/hall');
     }
 }
