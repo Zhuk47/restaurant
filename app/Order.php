@@ -13,7 +13,7 @@ class Order extends Model
 
     public function foods()
     {
-        return $this->belongsToMany('App\Food')->withPivot('confirmed', 'dateTimeInCook');
+        return $this->belongsToMany('App\Food')->withPivot('dateTimeInCook', 'deleted_at', 'confirmed');
     }
 
     public function table()
