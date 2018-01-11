@@ -94,7 +94,8 @@ Route::group(['middleware' => ['waiter']], function () {
 Route::group(['middleware' => ['cook']], function () {
     //only cooks can access these routes
 
-
+    Route::get('/home', 'CookBoardController@index');
+    Route::post('/home', 'CookBoardController@ajaxRequest');
 });
 
 Route::get('/guest-registration', function(){
