@@ -10,15 +10,38 @@ class CookBoardController extends Controller
 {
     public function index()
     {
-        //$foods = Food::orderBy('id', 'asc')->get();
-        //$categories = Category::orderBy('id', 'asc')->get();
-
+        $orders = Order::where('deleted_at', '=', NULL)->get();
+        foreach ($orders as $order)
+        {
+            foreach ($order->foods as $food)
+            {
+                $food->name;
+            }
+        }
+       //$foods = Food::orderBy('id', 'asc')->get();
         return view('cookBoard', [
-            //'foods' => $foods,
-            //'categories' => $categories,
-            'csrf_token' => csrf_token()
+            'orders' => $orders
         ]);
     }
+
+
+    public function readyFoodInOrder()
+    {
+        $orders = Order::where('deleted_at', '=', NULL)->get();
+        foreach ($orders as $order)
+        {
+            foreach ($order->foods as $food)
+            {
+                $food->name;
+            }
+        }
+        //$foods = Food::orderBy('id', 'asc')->get();
+        return view('cookBoard', [
+            'orders' => $orders
+        ]);
+    }
+
+
 
     public function ajaxRequest()
     {
