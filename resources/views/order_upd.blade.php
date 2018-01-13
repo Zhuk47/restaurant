@@ -2,6 +2,7 @@
 
 {{--<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>--}}
 
+
 @section('content')
 
     <head>
@@ -97,6 +98,7 @@
                         setTimeout(function () {
                             $('.alert').fadeOut('slow');
                         }, 3000);
+
                     </script>
                     <div class="alert alert-danger">
                         {{ session()->get('alert') }}

@@ -27,6 +27,10 @@ class Order extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function getIsFreeAttribute()
+    {
+        return $this->foods()->wherePivot('deleted_at', null)->count();
+    }
 
     public function totalPrice()
     {
@@ -37,11 +41,5 @@ class Order extends Model
             }
         }
         return $sum;
-    }
-
-    public function getIsFreeAttribute()
-    {
-        return $this->foods()->wherePivot('deleted_at', null)->count();
-
     }
 }
