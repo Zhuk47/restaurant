@@ -70,6 +70,7 @@
                         @endforeach
                     @endforeach
                 </table>
+                <div>Общая стоимость заказа: {{ $order->totalPrice() }}</div>
                 {{--<div id="res" style="font-weight:bold">1</div>--}}
                 <center>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">

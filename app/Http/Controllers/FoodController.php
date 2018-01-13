@@ -89,10 +89,7 @@ class FoodController extends Controller
 
         $ingredients = $food->ingredients;
 
-        $cost_price = $food->currentNetCost($food);
-        $total_weight = $food->currentTotalWeight($food);
-
-        $food->mass = $total_weight;
+        $food->mass = $food->currentTotalWeight();
         $food->save();
 
         $allIngredients = Ingredient::get();
@@ -100,9 +97,7 @@ class FoodController extends Controller
         return view('/content', [
             'food' => $food,
             'ingredients' => $ingredients,
-            'allIngredients' => $allIngredients,
-            'cost_price' => $cost_price,
-            'total_weight' => $total_weight
+            'allIngredients' => $allIngredients
         ]);
     }
 
@@ -123,7 +118,7 @@ class FoodController extends Controller
     public function savePrice(Food $food, Request $request)
     {
 
-        $cost_price = $food->currentNetCost($food);
+        $cost_price = $food->currentNetCost();
 
         FoodPrice::where('food_id', $food->id)->delete();
         $food_price = new FoodPrice;

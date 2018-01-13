@@ -25,4 +25,15 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function totalPrice()
+    {
+        $sum = 0;
+        foreach ($this->foods as $food) {
+            foreach ($food->foodPrice as $price) {
+                $sum += $price->price;
+            }
+        }
+        return $sum;
+    }
 }
