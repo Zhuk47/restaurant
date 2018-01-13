@@ -1,6 +1,6 @@
 @extends('adminViews/home')
 
-{{--<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>--}}
+<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 @section('content')
 
@@ -74,24 +74,25 @@
                 <center>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
-                        <button class="btn btn-success">Confirm</button>
+                        <button class="btn btn-success col-md-8" style="margin: 10px;">Confirm</button>
+                    </form>
+                    <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <button class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
                     </form>
                 </center>
-                <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button class="btn btn-warning">Закрыть заказ</button>
-                </form>
+                @if(Session::has('alert'))
+                    <script type="text/javascript">
+                        setTimeout(function () {
+                            $('.alert').fadeOut('slow');
+                        }, 2000);
+                    </script>
+                    <div class="alert alert-danger">
+                        {{ session()->get('alert') }}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
-
-    {{--<script>--}}
-    {{--var sum = 0;--}}
-    {{--$('#ordertbl tr').each(function(){--}}
-    {{--sum+=parseInt($('#price', this).text());--}}
-    {{--});--}}
-    {{--$('#res').html(sum);--}}
-    {{--</script>--}}
-
 @endsection

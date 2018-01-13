@@ -85,8 +85,11 @@ class OrderController extends Controller
 
     public function closeOrder(Table $table, Order $order, Food $food)
     {
-        $order->delete();
-
-        return redirect('/waiter/hall');
+        if ($order->isFree == 0) {
+            $order->delete();
+            return redirect('/waiter/hall');
+        } else {
+            return redirect()->back()->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
+        }
     }
 }
