@@ -111,7 +111,7 @@ Route::group(['middleware' => ['waiter']], function () {
 Route::group(['middleware' => ['cook']], function () {
     //only cooks can access these routes
     Route::get('/cookboard', 'CookBoardController@index');
-    Route::delete('/cookboard/order/{order}/food/{food}', 'CookBoardController@readyFoodInOrder');
+    Route::delete('/cookboard/order/{order}/food/{food}/{created_at}', 'CookBoardController@readyFoodInOrder');
 });
 
 Route::get('/guest-registration', function () {

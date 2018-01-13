@@ -31,7 +31,7 @@
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $food->name }}</td>
                                     <td>
-                                        <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id) }}"
+                                        <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'.$food->pivot->created_at) }}"
                                               method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
