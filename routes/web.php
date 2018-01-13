@@ -104,6 +104,7 @@ Route::group(['middleware' => ['waiter']], function () {
     Route::delete('/waiter/table/{table}/order/{order}/food/{food}', 'OrderController@deleteFood');
     Route::post('/waiter/table/{table}/order/{order}/food/{food}', 'OrderController@addFood');
     Route::post('/waiter/table/{table}/order/{order}', 'OrderController@confirm');
+    Route::delete('/waiter/table/{table}/order/{order}', 'OrderController@closeOrder');
 
 });
 
@@ -113,7 +114,7 @@ Route::group(['middleware' => ['cook']], function () {
     Route::delete('/cookboard/order/{order}/food/{food}', 'CookBoardController@readyFoodInOrder');
 });
 
-Route::get('/guest-registration', function(){
+Route::get('/guest-registration', function () {
     return view('clientViews/regform');
 })->name('clientreg');
 

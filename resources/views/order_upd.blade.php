@@ -8,6 +8,7 @@
         <link href={{ asset('../../public/css/stylesHall.css') }} rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        {{--<meta http-equiv="refresh" content="5">--}}
     </head>
 
     <div class="container">
@@ -70,9 +71,16 @@
                     @endforeach
                 </table>
                 {{--<div id="res" style="font-weight:bold">1</div>--}}
+                <center>
+                    <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <button class="btn btn-success">Confirm</button>
+                    </form>
+                </center>
                 <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                     {{ csrf_field() }}
-                    <button class="btn btn-success">Confirm</button>
+                    {{ method_field('DELETE') }}
+                    <button class="btn btn-warning">Закрыть заказ</button>
                 </form>
             </div>
         </div>
