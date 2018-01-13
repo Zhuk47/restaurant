@@ -71,7 +71,6 @@
                     @endforeach
                 </table>
                 <div>Общая стоимость заказа: {{ $order->totalPrice() }}</div>
-                {{--<div id="res" style="font-weight:bold">1</div>--}}
                 <center>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
@@ -86,13 +85,5 @@
             </div>
         </div>
     </div>
-
-    {{--<script>--}}
-    {{--var sum = 0;--}}
-    {{--$('#ordertbl tr').each(function(){--}}
-    {{--sum+=parseInt($('#price', this).text());--}}
-    {{--});--}}
-    {{--$('#res').html(sum);--}}
-    {{--</script>--}}
 
 @endsection
