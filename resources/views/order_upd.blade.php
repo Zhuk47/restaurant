@@ -56,7 +56,7 @@
                                             <span class="glyphicon glyphicon-hourglass"></span>
                                         </button>
                                     @elseif($food->pivot->confirmed === 0)
-                                        <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id.'/food/'.$food->id) }}"
+                                        <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id.'/food/'.$food->id. '/' . $food->pivot->created_at) }}"
                                               method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
