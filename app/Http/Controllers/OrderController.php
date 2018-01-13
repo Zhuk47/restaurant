@@ -70,7 +70,6 @@ class OrderController extends Controller
 
     public function deleteFood(Table $table, Order $order, Food $food, $created_at)
     {
-
         $food->orders()->wherePivot('created_at', '=', $created_at)->newPivotStatementForId($order->id)->where('confirmed', '=', 0)->delete();
 //        $food->orders()->detach($order->id);
 
