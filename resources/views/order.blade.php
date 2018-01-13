@@ -17,21 +17,10 @@
             <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}">
                 <button type="submit" class="btn btn-success">Далее</button>
             </form>
+            <form action="{{ url('/waiter/table/'.$table->id.'/delete_order/'.$order->id) }}">
+                <button type="submit" class="btn btn-warning">Отменить заказ</button>
+            </form>
         </div>
-        {{--<div class="col-md-6">--}}
-            {{--<center><h3>Меню</h3></center>--}}
-            {{--@foreach($categories as $category)--}}
-                {{--<div><h2>{{ $category->name }}</h2></div>--}}
-                {{--@foreach($category->foods as $food)--}}
-                    {{--@foreach($food->foodPrice as $price)--}}
-                        {{--<button>{{ $food->name }} - {{ $food->mass }} г. - {{ $price->price }}</button>--}}
-                    {{--@endforeach--}}
-                {{--@endforeach--}}
-            {{--@endforeach--}}
-        {{--</div>--}}
-        {{--<div class="col-md-6">--}}
-            {{--<center><h3>Заказ</h3></center>--}}
-        {{--</div>--}}
     </div>
 
 @endsection

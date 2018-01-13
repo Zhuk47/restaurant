@@ -25,8 +25,19 @@ class OrderController extends Controller
                 'order' => $order
             ]);
         } else {
-            echo "Не может быть больше оного заказа!!!";
+            return redirect('waiter/hall');
         }
+    }
+
+    /*
+    При создании заказа, после нажатия кнопки "Отмена" удаляет заказ полностью
+    без softDelete.Например, случайно кликнули на стол.
+    Возвращает вид зала
+     */
+    public function delete(Table $table, Order $order)
+    {
+        $order->forceDelete();
+        return redirect('waiter/hall');
     }
 
     public function update(Table $table, Order $order)
@@ -78,8 +89,11 @@ class OrderController extends Controller
 
     public function closeOrder(Table $table, Order $order, Food $food)
     {
-        $order->delete();
-
-        return redirect('/waiter/hall');
+        if ($order->isFree == 0) {
+            $order->delete();
+            return redirect('/waiter/hall');
+        } else {
+            return redirect()->back()->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
+        }
     }
 }
