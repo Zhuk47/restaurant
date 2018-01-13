@@ -70,7 +70,7 @@
                         @endforeach
                     @endforeach
                 </table>
-                {{--<div id="res" style="font-weight:bold">1</div>--}}
+                <div>Общая стоимость заказа: {{ $order->totalPrice() }}</div>
                 <center>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}

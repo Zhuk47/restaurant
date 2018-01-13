@@ -45,8 +45,8 @@
                 </tr>
             @endforeach
         </table>
-        <div>Выход: <b>{{ $total_weight }} г.</b></div>
-        <div>Себестоимость ингредиентов в блюде составляет <b>{{ $cost_price }} грн.</b></div>
+        <div>Выход: <b>{{ $food->currentTotalWeight() }} г.</b></div>
+        <div>Себестоимость ингредиентов в блюде составляет <b>{{ $food->currentNetCost() }} грн.</b></div>
         @foreach($food->foodPrice as $price)
         <div>Стоимость блюда составляет <b>{{ $price->price }} грн.</b></div>
         @endforeach

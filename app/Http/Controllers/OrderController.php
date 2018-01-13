@@ -62,13 +62,7 @@ class OrderController extends Controller
             }
         }
 
-        $sum = 0;
-        foreach ($order->foods as $food) {
-            foreach ($food->foodPrice as $price) {
-                $sum += $price->price;
-            }
-        }
-        $order->price = $sum;
+        $order->price = $order->totalPrice();
         $order->save();
 
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);

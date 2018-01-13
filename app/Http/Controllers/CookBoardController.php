@@ -30,8 +30,6 @@ class CookBoardController extends Controller
         return redirect('/cookboard');
     }
 
-
-
     public function ajaxRequest()
     {
         return response()->json(['response' => 'This is POST method']);

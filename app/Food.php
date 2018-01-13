@@ -31,9 +31,9 @@ class Food extends Model
         return $this->hasMany('App\FoodPrice');
     }
 
-    public function currentNetCost(Food $food)
+    public function currentNetCost()
     {
-        $ingredients = $food->ingredients;
+        $ingredients = $this->ingredients;
         $net_cost = 0;
         foreach ($ingredients as $ingredient) {
             $mass = $ingredient->pivot->mass;
@@ -43,9 +43,9 @@ class Food extends Model
         return $net_cost;
     }
 
-    public function currentTotalWeight(Food $food)
+    public function currentTotalWeight()
     {
-        $ingredients = $food->ingredients;
+        $ingredients = $this->ingredients;
         $total_weight = 0;
         foreach ($ingredients as $ingredient) {
             $mass = $ingredient->pivot->mass;
