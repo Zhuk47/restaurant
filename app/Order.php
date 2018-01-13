@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Order extends Model
 {
     protected $table = 'orders';
+    protected $isFree = ['attribute'];
 
     use SoftDeletes;
 
@@ -26,6 +27,10 @@ class Order extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function getIsFreeAttribute()
+    {
+        return $this->foods()->wherePivot('deleted_at', null)->count();
+    }
     public function totalPrice()
     {
         $sum = 0;
