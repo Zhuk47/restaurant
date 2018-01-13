@@ -17,7 +17,8 @@
                 <table class="table" id="ordertbl">
                     <thead>
                     <tr>
-                        <th>Поступление</th>
+                        <th>Добавлено</th>
+                        <th>Подтверждено</th>
                         <th>Заказ</th>
                         <th>Блюдо</th>
                         <th>Состояние</th>
@@ -27,11 +28,16 @@
                         @foreach($order->foods as $food)
                             @if(!$food->pivot->deleted_at && $food->pivot->dateTimeInCook )
                                 <tr>
+                                    <td>{{ $food->pivot->created_at }}</td>
                                     <td>{{ $food->pivot->dateTimeInCook }}</td>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $food->name }}</td>
                                     <td>
+<<<<<<< HEAD
                                         <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'.$food->pivot->created_at) }}"
+=======
+                                        <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
+>>>>>>> bd0768f67f7f702aa67bb8c4be5076dde65d507f
                                               method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}

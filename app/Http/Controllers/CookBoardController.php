@@ -26,7 +26,7 @@ class CookBoardController extends Controller
 
     public function readyFoodInOrder(Order $order, Food $food, $created_at)
     {
-        $order->foods()->wherePivot('created_at', '=', $created_at)->updateExistingPivot($food->id, [ 'deleted_at' => date('Y-m-d H:i:s')]);
+        $order->foods()->wherePivot('created_at', $created_at)->updateExistingPivot($food->id, [ 'deleted_at' => date('Y-m-d H:i:s')]);
         return redirect('/cookboard');
     }
 
