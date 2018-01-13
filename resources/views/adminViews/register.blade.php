@@ -98,7 +98,7 @@
                                             prevText: '&#x3c;Пред',
                                             nextText: 'След&#x3e;',
                                             currentText: 'Сегодня',
-                                            yearRange: '2017:2018'
+                                            yearRange: '1940:2000'
                                         });
                                         $("#format").change(function () {
                                             $("#datebirth").datepicker("option", "dateFormat", $(this).val());
