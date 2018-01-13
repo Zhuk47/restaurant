@@ -24,21 +24,10 @@ class CookBoardController extends Controller
         ]);
     }
 
-
-    public function readyFoodInOrder()
+    public function readyFoodInOrder(Order $order, Food $food)
     {
-        $orders = Order::where('deleted_at', '=', NULL)->get();
-        foreach ($orders as $order)
-        {
-            foreach ($order->foods as $food)
-            {
-                $food->name;
-            }
-        }
-        //$foods = Food::orderBy('id', 'asc')->get();
-        return view('cookBoard', [
-            'orders' => $orders
-        ]);
+        $order->foods()->updateExistingPivot($food->id, [ 'deleted_at' => date('Y-m-d H:i:s')]);
+        return redirect('/cookboard');
     }
 
 
