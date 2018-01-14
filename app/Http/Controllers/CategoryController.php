@@ -33,7 +33,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        return redirect('/category');
+        return redirect('/category')->with('alert', "Категория ".$category->name." добавлена.");
     }
 
     public function edit(Category $category)
@@ -63,6 +63,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect('/category');
+        return redirect('/category')->with('delAlert', "Категория ".$category->name." удалена.");
     }
 }

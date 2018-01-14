@@ -2,34 +2,35 @@
 
 @section('content')
 
+    <style>
+        .layer {
+            overflow: auto; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 530px; /* Высота блока */
+        }
+    </style>
+
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
     @include('common.errors')
-
-        <!-- Форма нового ингредиента -->
-            <form action="{{ url('ingredient') }}" method="POST" class="form-horizontal">
-                {{ csrf_field() }}
-                <h5>Добавление ингредиента</h5>
-                <!-- Имя ингредиента -->
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <input type="text" name="name" id="ingredient-name" class="form-control"
-                               placeholder="Ингредиент">
-                    </div>
-                    <button type="submit" class="btn btn-default">
-                        <i class="fa fa-plus"></i> Добавить
-                    </button>
+    <!-- Форма нового ингредиента -->
+        <form action="{{ url('ingredient') }}" method="POST" class="form-horizontal">
+        {{ csrf_field() }}
+        <!-- Имя ингредиента -->
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="text" name="name" id="ingredient-name" class="form-control"
+                           placeholder="Добавьте ингредиент">
                 </div>
-            </form>
-    </div>
-
-    <!-- Текущие ингредиенты -->
-    @if (count($ingredients) > 0)
-        <div class="container">
-            <div class="panel-heading">
-                <br>
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Добавить
+                </button>
             </div>
-
+        </form>
+    </div>
+    <!-- Текущие ингредиенты -->
+    @if(count($ingredients) > 0)
+        <div class="container layer">
             <div class="panel-body">
                 <table class="table table-striped task-table">
 

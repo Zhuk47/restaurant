@@ -4,6 +4,14 @@
 
 @section('content')
 
+    <style>
+        .layer {
+            overflow: auto; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 550px; /* Высота блока */
+        }
+    </style>
+
     <head>
         <link href={{ asset('../../public/css/stylesHall.css') }} rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -14,7 +22,7 @@
     <div class="container">
         <div class="row">
             <center><b><h4>Стол № {{ $table->id }} Заказ № {{ $order->id }}</h4></b></center>
-            <div class="col-md-6">
+            <div class="col-md-6 layer">
                 <center><h3>Меню</h3></center>
                 @foreach($categories as $category)
                     <div><h4>{{ $category->name }}</h4></div>
@@ -31,7 +39,7 @@
                     @endforeach
                 @endforeach
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 layer">
                 <center><h3>Заказ</h3></center>
                 <table class="table" id="ordertbl">
                     <thead>

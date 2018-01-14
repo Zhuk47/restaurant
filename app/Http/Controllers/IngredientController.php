@@ -12,13 +12,17 @@ class IngredientController extends Controller
     public function index()
     {
         $ingredients = Ingredient::get();
-        foreach ($ingredients as $ingredient) {
-            $prices = $ingredient->prices->sortByDesc('dateTime')->first();
-            return view('ingredient', [
-                'ingredients' => $ingredients,
-                'prices' => $prices
-            ]);
-        }
+        if (!isset($ingredients)) {
+            foreach ($ingredients as $ingredient) {
+                $prices = $ingredient->prices->sortByDesc('dateTime')->first();
+                return view('ingredient', [
+                    'ingredients' => $ingredients,
+                    'prices' => $prices
+                ]);
+            }
+        } else return view('ingredient', [
+            'ingredients' => $ingredients
+        ]);
     }
 
     public function create(Request $request)

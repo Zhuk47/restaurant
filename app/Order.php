@@ -12,11 +12,6 @@ class Order extends Model
 
     use SoftDeletes;
 
-    public function foods()
-    {
-        return $this->belongsToMany('App\Food')->withPivot('confirmed', 'dateTimeInCook', 'created_at', 'deleted_at')->withTimestamps();
-    }
-
     public function table()
     {
         return $this->belongsTo('App\Table');
@@ -31,6 +26,12 @@ class Order extends Model
     {
         return $this->foods()->wherePivot('deleted_at', null)->count();
     }
+
+    public function foods()
+    {
+        return $this->belongsToMany('App\Food')->withPivot('confirmed', 'dateTimeInCook', 'created_at', 'deleted_at')->withTimestamps();
+    }
+
     public function totalPrice()
     {
         $sum = 0;

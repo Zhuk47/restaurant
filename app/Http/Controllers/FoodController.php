@@ -43,7 +43,7 @@ class FoodController extends Controller
         $food_price->food_id = $food->id;
         $food_price->save();
 
-        return redirect('/food');
+        return redirect('/food')->with('alert', "Блюдо ".$food->name." категории ".$food->category->name." добавлено.");
     }
 
     public function edit(Food $food)
@@ -81,7 +81,7 @@ class FoodController extends Controller
         $food->foodPrice()->delete();
         $food->delete();
 
-        return redirect('/food');
+        return redirect('/food')->with('delAlert', "Блюдо ".$food->name." категории ".$food->category->name." удалено.");
     }
 
     public function content(Food $food)
@@ -105,14 +105,14 @@ class FoodController extends Controller
     {
         $food->ingredients()->attach($oneIngredient->id, ["mass" => $request->mass]);
 
-        return redirect('/food/' . $food->id . '/content');
+        return redirect('/food/' . $food->id . '/content')->with('alert', "Ингредиент ".$oneIngredient->name." в количестве ".$request->mass." г. добавлен.");
     }
 
     public function delIngredient(Food $food, Ingredient $ingredient)
     {
         $ingredient->foods()->detach($food->id);
 
-        return redirect('/food/' . $food->id . '/content');
+        return redirect('/food/' . $food->id . '/content')->with('delAlert', "Ингредиент ".$ingredient->name." удален.");
     }
 
     public function savePrice(Food $food, Request $request)

@@ -2,9 +2,17 @@
 
 @section('content')
 
+    <style>
+        .layer {
+            overflow: auto; /* Добавляем полосы прокрутки */
+            width: 90%; /* Ширина блока */
+            height: 500px; /* Высота блока */
+        }
+    </style>
+
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
-        @include('common.errors')
+    @include('common.errors')
 
     <!-- Форма новой категории -->
         <form action="{{ url('category') }}" method="POST" class="form-horizontal">
@@ -15,18 +23,36 @@
             <div class="form-group">
                 <div class="col-sm-6">
                     <input type="text" name="name" id="category-name" class="form-control"
-                           placeholder="категория">
+                           placeholder="Категория">
                 </div>
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-plus"></i>Добавить
                 </button>
             </div>
         </form>
+        @if(Session::has('alert'))
+            <script type="text/javascript">
+                setTimeout(function () {
+                    $('.alert').fadeOut('slow');
+                }, 2000);
+            </script>
+            <div class="alert alert-success">
+                {{ session()->get('alert') }}
+            </div>
+        @elseif(Session::has('delAlert'))
+            <script type="text/javascript">
+                setTimeout(function () {
+                    $('.alert').fadeOut('slow');
+                }, 2000);
+            </script>
+            <div class="alert alert-danger">
+                {{ session()->get('delAlert') }}
+            </div>
+        @endif
     </div>
-
     <!-- Текущие категории -->
     @if (count($categories) > 0)
-        <div class="container">
+        <div class="container layer">
             <div class="panel-body">
                 <table class="table table-striped task-table">
                     <!-- Заголовок таблицы -->

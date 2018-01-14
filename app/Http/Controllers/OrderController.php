@@ -85,5 +85,5 @@ class OrderController extends Controller
             return redirect()->back()->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
         }
     }
-    // suka
+
 }

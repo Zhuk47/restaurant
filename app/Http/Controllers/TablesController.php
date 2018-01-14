@@ -33,13 +33,13 @@ class TablesController extends Controller
         $table->serial = $request->serial;
         $table->save();
 
-        return redirect('/tables');
+        return redirect('/tables')->with('alert', "Стол №".$table->id." успешно добавлен.");
     }
 
     public function delete(Table $table)
     {
         $table->delete();
 
-        return redirect('/tables');
+        return redirect('/tables')->with('delAlert', "Стол №".$table->id." успешно удален.");
     }
 }

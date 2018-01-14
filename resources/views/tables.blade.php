@@ -22,6 +22,25 @@
                 </button>
             </div>
         </form>
+        @if(Session::has('alert'))
+            <script type="text/javascript">
+                setTimeout(function () {
+                    $('.alert').fadeOut('slow');
+                }, 2000);
+            </script>
+            <div class="alert alert-success">
+                {{ session()->get('alert') }}
+            </div>
+        @elseif(Session::has('delAlert'))
+            <script type="text/javascript">
+                setTimeout(function () {
+                    $('.alert').fadeOut('slow');
+                }, 2000);
+            </script>
+            <div class="alert alert-danger">
+                {{ session()->get('delAlert') }}
+            </div>
+        @endif
     </div>
 
     <!-- Текущие категории -->
@@ -45,11 +64,6 @@
                             <td class="table-text">
                                 {{ $table->serial }}
                             </td>
-                            {{--<td>--}}
-                                {{--<form action="{{ url('categoryupd/'.$category->id) }}">--}}
-                                    {{--<button type="submit" class="btn btn-default">Изменить</button>--}}
-                                {{--</form>--}}
-                            {{--</td>--}}
                             <!-- Кнопка Удалить -->
                             <td>
                                 <form action="{{ url('table/'.$table->id) }}" method="POST">

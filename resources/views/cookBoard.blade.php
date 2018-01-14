@@ -4,6 +4,14 @@
 
 @section('content')
 
+    <style>
+        .layer {
+            overflow: auto; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 520px; /* Высота блока */
+        }
+    </style>
+
     <head>
         <link href={{ asset('../../public/css/stylesHall.css') }} rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -14,39 +22,41 @@
 
         <div class="col-md-12">
             <center><h3>Доска Повара</h3></center>
-            <table class="table" id="ordertbl">
-                <thead>
-                <tr>
-                    <th>Добавлено</th>
-                    <th>Подтверждено</th>
-                    <th>Заказ</th>
-                    <th>Блюдо</th>
-                    <th>Состояние</th>
-                </tr>
-                </thead>
-                @foreach($orders as $order)
-                    @foreach($order->foods as $food)
-                        @if(!$food->pivot->deleted_at && $food->pivot->dateTimeInCook )
-                            <tr>
-                                <td>{{ $food->pivot->created_at }}</td>
-                                <td>{{ $food->pivot->dateTimeInCook }}</td>
-                                <td>{{ $order->id }}</td>
-                                <td>{{ $food->name }}</td>
-                                <td>
-                                    <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
-                                          method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button type="submit" class="btn btn-success">
-                                            Готово
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endif
+            <div class="layer">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Добавлено</th>
+                        <th>Подтверждено</th>
+                        <th>Заказ</th>
+                        <th>Блюдо</th>
+                        <th>Состояние</th>
+                    </tr>
+                    </thead>
+                    @foreach($orders as $order)
+                        @foreach($order->foods as $food)
+                            @if(!$food->pivot->deleted_at && $food->pivot->dateTimeInCook )
+                                <tr>
+                                    <td>{{ $food->pivot->created_at }}</td>
+                                    <td>{{ $food->pivot->dateTimeInCook }}</td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $food->name }}</td>
+                                    <td>
+                                        <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
+                                              method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit" class="btn btn-success">
+                                                Готово
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 
