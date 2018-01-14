@@ -35,7 +35,7 @@
 
         .col-md-3 {
             border: 1px solid;
-            overflow: scroll;
+            overflow: auto;
             word-break: break-all;
         }
 
@@ -43,7 +43,6 @@
             margin-top: 5%;
             margin-left: 85%;
         }
-
 
     </style>
     @if(session()->has('message'))
@@ -65,13 +64,11 @@
     </div>
 
     <div class="col-md-3 bordered">
-
         @foreach($articles as $article)
             <h4>{{$article->title}}</h4>
             <p>{{$article->text}}</p>
             <p>{{$article->updated_at}}</p>
         @endforeach
-
     </div>
 
 </div>

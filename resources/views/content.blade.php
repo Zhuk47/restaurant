@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends('adminViews.home')
 
 @section('content')
 

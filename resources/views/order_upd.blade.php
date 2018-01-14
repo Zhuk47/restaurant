@@ -106,7 +106,6 @@
                         setTimeout(function () {
                             $('.alert').fadeOut('slow');
                         }, 3000);
-
                     </script>
                     <div class="alert alert-danger">
                         {{ session()->get('alert') }}

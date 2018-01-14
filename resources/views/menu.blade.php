@@ -1,19 +1,23 @@
-@extends('home')
-
+@extends('adminViews.home')
 
 
 @section('content')
 
+    <style>
+        .layer {
+            overflow: auto; /* Добавляем полосы прокрутки */
+            width: 100%; /* Ширина блока */
+            height: 500px; /* Высота блока */
+        }
+    </style>
+
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
         @include('common.errors')
-    </div>
-
-    <div class="container">
         <center><h1>Меню</h1></center>
         @foreach($categories as $category)
             <center>
-                <table border="0">
+                <table>
                     <tr id="category">
                         <td colspan="3">
                             <center><h4>{{ $category->name }}</h4></center>
@@ -29,7 +33,7 @@
                             <tr id="ingredients">
                                 <td colspan="3">(
                                     @foreach($food->ingredients as $ingredient)
-                                        {{$ingredient->name}} /
+                                        | {{$ingredient->name}} |
                                     @endforeach
                                 )</td>
                             </tr>
