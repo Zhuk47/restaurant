@@ -25,8 +25,19 @@ class OrderController extends Controller
                 'order' => $order
             ]);
         } else {
-            echo "Не может быть больше оного заказа!!!";
+            return redirect('waiter/hall');
         }
+    }
+
+    /*
+    При создании заказа, после нажатия кнопки "Отмена" удаляет заказ полностью
+    без softDelete.Например, случайно кликнули на стол.
+    Возвращает вид зала
+     */
+    public function delete(Table $table, Order $order)
+    {
+        $order->forceDelete();
+        return redirect('waiter/hall');
     }
 
     public function update(Table $table, Order $order)

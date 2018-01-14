@@ -1,6 +1,7 @@
 @extends('adminViews/home')
 
-<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+{{--<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>--}}
+
 
 @section('content')
 
@@ -20,6 +21,16 @@
     </head>
 
     <div class="container">
+        @if(Session::has('order_error'))
+            <script type="text/javascript">
+                setTimeout(function () {
+                    $('.alert').fadeOut('slow');
+                }, 3000);
+            </script>
+            <div class="alert alert-danger">
+                {{ session()->get('order_error') }}
+            </div>
+        @endif
         <div class="row">
             <center><b><h4>Стол № {{ $table->id }} Заказ № {{ $order->id }}</h4></b></center>
             <div class="col-md-6 layer">
@@ -79,7 +90,7 @@
                     @endforeach
                 </table>
                 <div>Общая стоимость заказа: {{ $order->totalPrice() }}</div>
-                <center>
+                <div>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
                         <button class="btn btn-success col-md-8" style="margin: 10px;">Confirm</button>
@@ -89,12 +100,13 @@
                         {{ method_field('DELETE') }}
                         <button class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
                     </form>
-                </center>
+                </div>
                 @if(Session::has('alert'))
                     <script type="text/javascript">
                         setTimeout(function () {
                             $('.alert').fadeOut('slow');
-                        }, 2000);
+                        }, 3000);
+
                     </script>
                     <div class="alert alert-danger">
                         {{ session()->get('alert') }}
