@@ -50,6 +50,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ url('/register-new-employee') }}">Регистрация</a></li>
                                 <li><a href="{{ url('/base-employee') }}">Обзор</a></li>
+                                <li><a href="{{ url('/work-time') }}">Учет работы</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -95,10 +96,21 @@
 
                             <ul class="dropdown-menu">
                                 <li>
+                                    <a href="{{ route('work-time') }}">
+                                       {{--onclick="event.preventDefault();--}}
+                                                     {{--document.getElementById('logout-form').submit();">--}}
+                                        Время работы
+                                    </a>
+                                    {{--<form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
+                                          {{--style="display: none;">--}}
+                                        {{--{{ csrf_field() }}--}}
+                                    {{--</form>--}}
+                                </li>
+                                <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        Logout
+                                        Выйти из системы
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                           style="display: none;">
