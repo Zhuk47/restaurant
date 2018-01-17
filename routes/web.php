@@ -122,3 +122,10 @@ Route::get('/guest-registration', function () {
 Route::post('/addclient', 'GuestController@add');
 
 Route::get('/menu', 'FoodController@menu')->name('menu');
+
+//Route::get('/work-time', function(){
+//    return view('work-time');
+//})->name('work-time');
+
+Route::get('/work-time', 'WorkTimeController@index')->name('work-time');
+// Route::post('/work-time', 'TimeController@ajaxRequest')->name('work-time');
