@@ -97,4 +97,12 @@ class OrderController extends Controller
         }
     }
 
+    public function history()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->get();
+
+        return view('orders_history', [
+            'orders' => $orders
+        ]);
+    }
 }
