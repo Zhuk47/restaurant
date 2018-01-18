@@ -49,22 +49,22 @@
                                     Заказ в работе
                                 </td>
                             @elseif($order->deleted_at)
-                            <td class="table-text">
-                                {{ $order->deleted_at }}
-                            </td>
+                                <td class="table-text">
+                                    {{ $order->deleted_at }}
+                                </td>
                             @endif
                             <td class="table-text">
                                 {{ $order->price }}
                             </td>
                             <td class="dropdown">
-                                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                                        <span class="glyphicon glyphicon-list"></span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-left">
-                                        @foreach($order->foods as $food)
-                                            <div>{{ $food->name }}</div>
-                                        @endforeach
-                                    </ul>
+                                <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-list"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-left">
+                                    @foreach($order->foods as $food)
+                                        <div>{{ $food->name }}</div>
+                                    @endforeach
+                                </ul>
                             </td>
                         </tr>
                     @endforeach
