@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class WorkTimeController extends Controller
 {
     public function index()
     {
-        echo \Auth::user()->name . PHP_EOL;
+        $users = User::all();
+        return view('work-time', compact('users'));
     }
 }

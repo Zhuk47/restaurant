@@ -36,4 +36,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Order');
     }
+
+    public function isOnline()
+    {
+        return \Cache::has('user-online-', $this->id);
+    }
 }
