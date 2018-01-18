@@ -19,6 +19,8 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\LogUserActivity::class,
+
     ];
 
     /**
@@ -61,5 +63,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'waiter' => \App\Http\Middleware\Waiter::class,
         'cook' => \App\Http\Middleware\Cook::class,
+        'LogUserActivity' => \App\Http\Middleware\LogUserActivity::class,
     ];
 }
