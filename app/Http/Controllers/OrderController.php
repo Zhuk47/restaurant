@@ -6,6 +6,7 @@ use App\Category;
 use App\Food;
 use App\Order;
 use App\Table;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -65,7 +66,7 @@ class OrderController extends Controller
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
-    public function confirm(Table $table, Order $order)
+    public function confirm(Table $table, Order $order, Request $request)
     {
         foreach ($order->foods as $food) {
             if ($food->pivot->confirmed == 0) {
@@ -74,6 +75,7 @@ class OrderController extends Controller
         }
 
         $order->price = $order->totalPrice();
+        $order->comment = $request->comment;
         $order->save();
 
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
