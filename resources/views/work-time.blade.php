@@ -18,16 +18,41 @@
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
 @section('content')
-<div class="row">
-    <h1>Online Users</h1>
-@if($users)
-    @foreach($users as $user)
-        @if($user->isOnline())
-            <li>{{$user->name}}</li>
-            @endif
-        @endforeach
-    @endif
-</div>
+    <div class="container">
+        <h1>Сотрудники на работе</h1>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Должность</th>
+                <th>Дата рождения</th>
+                <th>Адрес электронной почты</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if($users)
+                @foreach($users as $user)
+                    <tr>
+                        @if($user->isOnline())
+                            <td>{{ $user->surname }} {{$user->name}} {{$user->midname}}</td>
+                            @if($user->role_id == 1)
+                                <td>Администратор</td>
+                            @elseif($user->role_id == 2)
+                                <td>Оффициант</td>
+                            @elseif($user->role_id == 3)
+                                <td>Повар</td>
+                            @endif
+                            <td>{{$user->dateBirth}}</td>
+                            <td>{{$user->email}}</td>
+                        @endif
+                        @endforeach
+                    </tr>
+            </tbody>
+        </table>
+        @endif
+
+    </div>
 
 
 @endsection
