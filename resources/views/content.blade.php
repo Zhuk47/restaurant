@@ -90,14 +90,9 @@
                                    placeholder="Стоимость блюда" value="{{ $price->price }}">
                         @endforeach
                     </div>
-                </div>
-                <!-- Кнопка добавления стоимости -->
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-6">
-                        <button type="submit" class="btn btn-default">
-                            <i class="fa fa-plus"></i> Добавить
-                        </button>
-                    </div>
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Добавить
+                    </button>
                 </div>
             </form>
         </div>
