@@ -74,8 +74,10 @@ class OrderController extends Controller
             }
         }
 
+        if ($request->comment) {
+            $order->comment = $request->comment;
+        }
         $order->price = $order->totalPrice();
-        $order->comment = $request->comment;
         $order->save();
 
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);

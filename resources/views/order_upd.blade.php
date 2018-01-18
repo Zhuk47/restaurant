@@ -94,7 +94,10 @@
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
                         <input type="text" name="comment" id="order-comment" class="form-control"
+                               @if($order->comment == null)
                                placeholder="Комментарии к заказу">
+                        @else placeholder="{{$order->comment}}">
+                        @endif
                         <button class="btn btn-success col-md-8" style="margin: 10px;">Confirm</button>
                     </form>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
