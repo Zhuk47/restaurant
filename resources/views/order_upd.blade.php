@@ -1,19 +1,23 @@
 @extends('adminViews/home')
-
 {{--<script src="http://code.jquery.com/ui/1.11.2/jquery-ui.js"></script>--}}
-
-
 @section('content')
-
     <style>
         .layer {
             overflow: auto; /* Добавляем полосы прокрутки */
             width: 100%; /* Ширина блока */
             height: 550px; /* Высота блока */
         }
-    </style>
 
+        #print_frame {
+            display: none;
+        }
+
+        .alert {
+            margin-top: 100px;
+        }
+    </style>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link href={{ asset('../../public/css/stylesHall.css') }} rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -50,7 +54,7 @@
                     @endforeach
                 @endforeach
             </div>
-            <div class="col-md-6 layer">
+            <div id="to_print" class="col-md-6 layer">
                 <center><h3>Заказ</h3></center>
                 <table class="table" id="ordertbl">
                     <thead>
@@ -103,7 +107,7 @@
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
+                        <button id="print" class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
                     </form>
                 </div>
                 @if(Session::has('alert'))
@@ -119,4 +123,19 @@
             </div>
         </div>
     </div>
+    <script>
+                $(function () {
+                    $('#print').click(function () {
+                        var printing_css = '<style media=print>tr:nth-child(even) td{background: #f0f0f0;}</style>';
+                        var html_to_print = printing_css + $('#to_print').html();
+                        var iframe = $('<iframe id="print_frame">');
+                        $('body').append(iframe);
+                        var doc = $('#print_frame')[0].contentDocument || $('#print_frame')[0].contentWindow.document;
+                        var win = $('#print_frame')[0].contentWindow || $('#print_frame')[0];
+                        doc.getElementsByTagName('body')[0].innerHTML = html_to_print;
+                        win.print();
+                        $('iframe').remove();
+                    });
+                });
+    </script>
 @endsection
