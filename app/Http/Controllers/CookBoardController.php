@@ -11,14 +11,12 @@ class CookBoardController extends Controller
     public function index()
     {
         $orders = Order::where('deleted_at', '=', NULL)->get();
-        foreach ($orders as $order)
-        {
-            foreach ($order->foods as $food)
-            {
+        foreach ($orders as $order) {
+            foreach ($order->foods as $food) {
                 $food->name;
             }
         }
-       //$foods = Food::orderBy('id', 'asc')->get();
+//       $foods = Food::orderBy('id', 'asc')->get();
         return view('cookBoard', [
             'orders' => $orders
         ]);
@@ -26,7 +24,7 @@ class CookBoardController extends Controller
 
     public function readyFoodInOrder(Order $order, Food $food, $created_at)
     {
-        $order->foods()->wherePivot('created_at', $created_at)->updateExistingPivot($food->id, [ 'deleted_at' => date('Y-m-d H:i:s')]);
+        $order->foods()->wherePivot('created_at', $created_at)->updateExistingPivot($food->id, ['deleted_at' => date('Y-m-d H:i:s')]);
         return redirect('/cookboard');
     }
 
