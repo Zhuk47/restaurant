@@ -89,6 +89,7 @@ Route::group(['middleware' => ['admin']], function () {
     //order routes
     Route::get('/hall', 'HallController@index');
     Route::get('/hall/table/{table}', 'OrderController@info');
+    Route::get('/orders', 'OrderController@history');
 
     //articles routes
     Route::resource('articles', 'ArticleController');
@@ -122,3 +123,11 @@ Route::get('/guest-registration', function () {
 Route::post('/addclient', 'GuestController@add');
 
 Route::get('/menu', 'FoodController@menu')->name('menu');
+
+//Route::get('/work-time', function(){
+//    return view('work-time');
+//})->name('work-time');
+
+Route::group(['middleware' => ['LogUserActivity']], function(){
+    Route::get('/work-time', 'WorkTimeController@index')->name('work-time');
+});
