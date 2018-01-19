@@ -135,9 +135,13 @@ class FoodController extends Controller
     {
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
 
+        $minPrice = FoodPrice::withTrashed()->where('food_id', $food->id)->orderBy('created_at', 'asc')->first();
+        $min = substr(str_replace(" ", "T", $minPrice->created_at), 0, 16);
+
         return view('history', [
             'prices' => $prices,
-            'food' => $food
+            'food' => $food,
+            'min' => $min
         ]);
     }
 
@@ -145,11 +149,14 @@ class FoodController extends Controller
     {
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
         foreach ($prices as $price) {
-            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at) {
-                echo "Стоимость блюда - " . $price->price . " грн. </br>";
-                echo "Себестоимость ингредиентов - " . $price->netCost . " грн. </br>";
-            } elseif ($price->created_at <= $request->date && $price->deleted_at === null) {
-                echo $price->price;
+            $date = str_replace("T"," ",$request->date);
+            $created = substr($price->created_at, 0, 19);
+            $deleted = substr($price->deleted_at, 0, 19);
+
+            if ($created <= $date && $date <= $deleted) {
+                return redirect()->back()->with('history_message', "Стоимость ".$food->name." на ".$date." составляла ".$price->price." грн. Себестоимость ингредиентов - ".$price->netCost."грн.");
+            } elseif ($created <= $date && $deleted == null) {
+                return redirect()->back()->with('history_message', "Стоимость ".$food->name." на ".$date." составляет ".$price->price." грн. Себестоимость ингредиентов - ".$price->netCost."грн.");
             } else null;
         }
     }
