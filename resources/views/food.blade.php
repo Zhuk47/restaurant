@@ -29,25 +29,25 @@
                     {{--<input type="text" name="price" id="food-price" class="form-control" placeholder="Стоимость блюда">--}}
                 </div>
                 <div class="col-md-5 pull-right">
-                    @if(Session::has('alert'))
-                        <script type="text/javascript">
-                            setTimeout(function () {
-                                $('.alert').fadeOut('slow');
-                            }, 2000);
-                        </script>
-                        <div class="alert alert-success">
-                            {{ session()->get('alert') }}
-                        </div>
-                    @elseif(Session::has('delAlert'))
-                        <script type="text/javascript">
-                            setTimeout(function () {
-                                $('.alert').fadeOut('slow');
-                            }, 2000);
-                        </script>
-                        <div class="alert alert-danger">
-                            {{ session()->get('delAlert') }}
-                        </div>
-                    @endif
+                    {{--@if(Session::has('alert'))--}}
+                        {{--<script type="text/javascript">--}}
+                            {{--setTimeout(function () {--}}
+                                {{--$('.alert').fadeOut('slow');--}}
+                            {{--}, 2000);--}}
+                        {{--</script>--}}
+                        {{--<div class="alert alert-success">--}}
+                            {{--{{ session()->get('alert') }}--}}
+                        {{--</div>--}}
+                    {{--@elseif(Session::has('delAlert'))--}}
+                        {{--<script type="text/javascript">--}}
+                            {{--setTimeout(function () {--}}
+                                {{--$('.alert').fadeOut('slow');--}}
+                            {{--}, 2000);--}}
+                        {{--</script>--}}
+                        {{--<div class="alert alert-danger">--}}
+                            {{--{{ session()->get('delAlert') }}--}}
+                        {{--</div>--}}
+                    {{--@endif--}}
                 </div>
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-plus"></i> Добавить

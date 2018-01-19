@@ -53,4 +53,12 @@ class Food extends Model
         }
         return $total_weight;
     }
+
+    public function getMinDate()
+    {
+        $minPrice = FoodPrice::withTrashed()->where('food_id', $this->id)->orderBy('created_at', 'asc')->first();
+        $min = substr(str_replace(" ", "T", $minPrice->created_at), 0, 16);
+
+        return $min;
+    }
 }

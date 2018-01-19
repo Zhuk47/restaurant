@@ -22,4 +22,11 @@ class Ingredient extends Model
         return $this->hasMany('App\Price');
     }
 
+    public function getMinDate()
+    {
+        $minPrice = Price::withTrashed()->where('ingredient_id', $this->id)->orderBy('created_at', 'asc')->first();
+        $min = substr(str_replace(" ", "T", $minPrice->created_at), 0, 16);
+
+        return $min;
+    }
 }
