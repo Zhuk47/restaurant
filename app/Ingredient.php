@@ -24,9 +24,11 @@ class Ingredient extends Model
 
     public function getMinDate()
     {
-        $minPrice = Price::withTrashed()->where('ingredient_id', $this->id)->orderBy('created_at', 'asc')->first();
-        $min = substr(str_replace(" ", "T", $minPrice->created_at), 0, 16);
+        $firstMinPrice = Price::withTrashed()->where('ingredient_id', $this->id)->orderBy('created_at', 'asc')->first();
+        $formedTime = substr($firstMinPrice->created_at, 0, 16);
+        $startTime = date('Y-m-d H:i',strtotime($formedTime.' + 1 min'));
+        $result = str_replace(" ", "T", $startTime);
 
-        return $min;
+        return $result;
     }
 }

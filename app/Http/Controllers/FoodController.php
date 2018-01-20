@@ -142,7 +142,6 @@ class FoodController extends Controller
     public function searchPrice(Request $request, Food $food)
     {
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
-
         foreach ($prices as $price) {
             $date = str_replace("T", " ", $request->date);
             $created = substr($price->created_at, 0, 19);
