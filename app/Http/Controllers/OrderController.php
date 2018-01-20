@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function create(Table $table)
+    public function create(Table $table, Order $order)
     {
         if ($table->isFree == 0) {
             $order = new Order;
@@ -26,7 +26,8 @@ class OrderController extends Controller
                 'order' => $order
             ]);
         } else {
-            return redirect('waiter/hall');
+            return redirect('/waiter/table/' . $table->id . '/order/' . $table->orders()->
+                where('table_id', '=', $table->id)->value('id'));
         }
     }
 
@@ -109,4 +110,5 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
+
 }

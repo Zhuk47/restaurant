@@ -29,25 +29,39 @@
                     <div class="row">
                     </div>
                     @foreach($tables as $table)
-                        @if($table->isFree == 0 )
+                        {{--@if($table->isFree == 0 )--}}
+
+                        <div id="tbl{{$table->id}}" class="col-md-2"
+                             style="height: 150px; margin: 10px; text-align: center;">
                             <a href='table/{{$table->id}}/new_order'>
-                                <div class="col-md-2 btn-success "
-                                     style="height: 150px; margin: 10px; text-align: center;">
-                                    Номер стола: {{$table->id}}
-                                </div>
+                                Номер стола: {{$table->id}}
                             </a>
-                        @else
-                            @foreach($table->orders as $order)
-                                <a href='table/{{$table->id}}/order/{{$order->id}}'>
-                                    @endforeach
-                                    <div class="col-md-2 btn-danger"
-                                         style="height: 150px; margin: 10px; text-align: center;">
-                                        Номер стола: {{$table->id}}
-                                    </div>
-                                </a>
-                                @endif
-                            @endforeach
-                        @endif
+                        </div>
+
+                        {{--@else--}}
+                        {{--@foreach($table->orders as $order)--}}
+                        {{--<a href=>--}}
+                        {{--@endforeach--}}
+                        {{--<div class="col-md-2 btn-danger"--}}
+                        {{--style="height: 150px; margin: 10px; text-align: center;">--}}
+                        {{--Номер стола: {{$table->id}}--}}
+                        {{--</div>--}}
+                        {{--</a>--}}
+                        {{--@endif--}}
+                    @endforeach
+                    @endif
                 </div>
         </div>
+        <script>
+            function getIsFree() {
+                $.getJSON('http://restaurant/waiter/hall/ajax/', {}, function (data) {
+                    console.log(data);
+                    for (let key in data) {
+                        $('#tbl' + key).addClass(!data[key] ? 'col-md-2 btn-success' : 'col-md-2 btn-danger')
+                    }
+                });
+                setTimeout(getIsFree, 5000)
+            }
+            getIsFree();
+        </script>
 @endsection

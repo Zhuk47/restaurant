@@ -132,11 +132,10 @@
                 @if( $order->isFree == 0 )
                     <script>
                         $(function () {
-                            $('#close').css('disabled')
                             $('#print').click(function () {
                                 $('#close').css('display', 'block')
                                 var printing_css = '' +
-                                    '<style media=print>button, .status, .statusTh {display: none}' +
+                                    '<style media=print>button, .status, .statusTh, #order-comment, #close, #print {display: none}' +
                                     '#off{display: block;}' +
                                     '</style>';
                                 var wishes = '<div>Приходите еще!</div>'
@@ -181,4 +180,5 @@
             });
         });
     </script>
+
 @endsection
