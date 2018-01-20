@@ -29,25 +29,12 @@
                     <div class="row">
                     </div>
                     @foreach($tables as $table)
-                        {{--@if($table->isFree == 0 )--}}
-
                         <div id="tbl{{$table->id}}" class="col-md-2"
                              style="height: 150px; margin: 10px; text-align: center;">
                             <a href='table/{{$table->id}}/new_order'>
                                 Номер стола: {{$table->id}}
                             </a>
                         </div>
-
-                        {{--@else--}}
-                        {{--@foreach($table->orders as $order)--}}
-                        {{--<a href=>--}}
-                        {{--@endforeach--}}
-                        {{--<div class="col-md-2 btn-danger"--}}
-                        {{--style="height: 150px; margin: 10px; text-align: center;">--}}
-                        {{--Номер стола: {{$table->id}}--}}
-                        {{--</div>--}}
-                        {{--</a>--}}
-                        {{--@endif--}}
                     @endforeach
                     @endif
                 </div>
