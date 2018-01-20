@@ -73,13 +73,10 @@ class OrderController extends Controller
                 $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
             }
         }
-<<<<<<< HEAD
-=======
 
         if ($request->comment) {
             $order->comment = $request->comment;
         }
->>>>>>> cd1b43edb76ce021a8732bd5eec440827dec5302
         $order->price = $order->totalPrice();
         $order->save();
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);

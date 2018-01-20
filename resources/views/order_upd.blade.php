@@ -165,8 +165,7 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
+
     <script>
         $(function () {
             $('#print').click(function () {
@@ -182,5 +181,4 @@
             });
         });
     </script>
->>>>>>> cd1b43edb76ce021a8732bd5eec440827dec5302
 @endsection
