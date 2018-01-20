@@ -90,7 +90,7 @@
                                         $("#datebirth").datepicker({
                                             changeMonth: true,
                                             changeYear: true,
-                                            dateFormat: 'dd-mm-yy',
+                                            dateFormat: 'yy-mm-dd',
                                             monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
                                                 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
                                             dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],

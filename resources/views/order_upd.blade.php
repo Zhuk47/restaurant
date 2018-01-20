@@ -15,6 +15,22 @@
         .alert {
             margin-top: 100px;
         }
+
+        @media print {
+
+            #to_print button {
+                display: none;
+            }
+
+        }
+
+        #off {
+            display: none;
+        }
+
+        #close {
+            display: none;
+        }
     </style>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -55,13 +71,14 @@
                 @endforeach
             </div>
             <div id="to_print" class="col-md-6 layer">
-                <center><h3>Заказ</h3></center>
+                <p id="off">Вас обслуживал: {{$order->user->name}} {{$order->user->surname}} </p>
+                <h3>Заказ</h3>
                 <table class="table" id="ordertbl">
                     <thead>
                     <tr>
                         <th>Блюдо</th>
                         <th>Цена</th>
-                        <th>Состояние</th>
+                        <th class="statusTh">Состояние</th>
                     </tr>
                     </thead>
                     @foreach($order->foods as $food)
@@ -69,7 +86,7 @@
                             <tr>
                                 <td>{{ $food->name }}</td>
                                 <td id="price">{{ $price->price }}</td>
-                                <td>
+                                <td class="status">
                                     @if($food->pivot->deleted_at)
                                         <button class="btn btn-success">
                                             <span class="glyphicon glyphicon-ok"></span>
@@ -93,44 +110,53 @@
                         @endforeach
                     @endforeach
                 </table>
-                <div>Общая стоимость заказа: {{ $order->totalPrice() }}</div>
+                <div>К оплате: {{ $order->totalPrice() }}</div>
                 <div>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
                         <button class="btn btn-success col-md-8" style="margin: 10px;">Confirm</button>
                     </form>
+                    <div class="btn btn-primary col-md-8" style="margin: 10px;" id="print"> Печатать чек</div>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
-                        <button id="print" class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
+                        <button id="close" class="btn btn-warning col-md-8" style="margin: 10px;">Закрыть заказ</button>
                     </form>
                 </div>
-                @if(Session::has('alert'))
-                    <script type="text/javascript">
-                        setTimeout(function () {
-                            $('.alert').fadeOut('slow');
-                        }, 3000);
+                @if( $order->isFree == 0 )
+                    <script>
+                        $(function () {
+                            $('#close').css('disabled')
+                            $('#print').click(function () {
+                                $('#close').css('display', 'block')
+                                var printing_css = '' +
+                                    '<style media=print>button, .status, .statusTh {display: none}' +
+                                    '#off{display: block;}' +
+                                    '</style>';
+                                var wishes = '<div>Приходите еще!</div>'
+                                var html_to_print = printing_css + $('#to_print').html() + wishes;
+                                var iframe = $('<iframe id="print_frame"> ');
+                                $('body').append(iframe);
+                                var doc = $('#print_frame')[0].contentDocument || $('#print_frame')[0].contentWindow.document;
+                                var win = $('#print_frame')[0].contentWindow || $('#print_frame')[0];
+                                doc.getElementsByTagName('body')[0].innerHTML = html_to_print;
+                                win.print();
+                                $('iframe').remove();
+                            });
+                        });
                     </script>
-                    <div class="alert alert-danger">
-                        {{ session()->get('alert') }}
-                    </div>
+                    @if (session::has('alert'))
+                        <script type="text/javascript">
+                            setTimeout(function () {
+                                $('.alert').fadeOut('slow');
+                            }, 3000);
+                        </script>
+                        <div class="alert alert-danger">
+                            {{ session()->get('alert') }}
+                        </div>
+                    @endif
                 @endif
             </div>
         </div>
     </div>
-    <script>
-                $(function () {
-                    $('#print').click(function () {
-                        var printing_css = '<style media=print>tr:nth-child(even) td{background: #f0f0f0;}</style>';
-                        var html_to_print = printing_css + $('#to_print').html();
-                        var iframe = $('<iframe id="print_frame">');
-                        $('body').append(iframe);
-                        var doc = $('#print_frame')[0].contentDocument || $('#print_frame')[0].contentWindow.document;
-                        var win = $('#print_frame')[0].contentWindow || $('#print_frame')[0];
-                        doc.getElementsByTagName('body')[0].innerHTML = html_to_print;
-                        win.print();
-                        $('iframe').remove();
-                    });
-                });
-    </script>
 @endsection

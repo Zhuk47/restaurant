@@ -42,6 +42,7 @@ class OrderController extends Controller
 
     public function update(Table $table, Order $order)
     {
+
         $categories = Category::orderBy('id', 'asc')->get();
 
         return view('order_upd', [
@@ -61,7 +62,6 @@ class OrderController extends Controller
     public function addFood(Table $table, Order $order, Food $food)
     {
         $order->foods()->attach($food->id);
-
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
@@ -72,11 +72,10 @@ class OrderController extends Controller
                 $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
             }
         }
-
         $order->price = $order->totalPrice();
         $order->save();
-
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
+
     }
 
     public function deleteFood(Table $table, Order $order, Food $food, $created_at)
@@ -93,7 +92,7 @@ class OrderController extends Controller
             $order->delete();
             return redirect('/waiter/hall');
         } else {
-            return redirect()->back()->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
+            return redirect('/waiter/table/' . $table->id . '/order/' . $order->id)->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
         }
     }
 

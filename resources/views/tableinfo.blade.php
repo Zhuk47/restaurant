@@ -27,6 +27,7 @@
             <!-- Заголовок таблицы -->
             <div id="table">Стол № {{ $table->id }}</div>
             @foreach($table->orders as $order)
+
                 <div class="orderContainer">
                     <div id="order">Заказ № {{ $order->id }}</div>
                     <div id="waiter">Официант: {{ $order->user->name }} {{ $order->user->surname }}</div>
@@ -52,11 +53,9 @@
                                                 <span class="glyphicon glyphicon-ok"></span>
                                             </button>
                                         @elseif($food->pivot->confirmed === 1)
-                                            {{--<button class="btn btn-primary">--}}
-                                                <div>
-                                                    <img src="http://icons.iconarchive.com/icons/icons8/android/512/Household-Kitchen-icon.png">
-                                                </div>
-                                            {{--</button>--}}
+                                            <button type="submit" class="btn btn-primary">
+                                                <span class="glyphicon glyphicon-hourglass"></span>
+                                            </button>
                                         @elseif($food->pivot->confirmed === 0)
                                             <button type="submit" class="btn btn-danger">
                                                 <span class="glyphicon glyphicon-remove"></span>
