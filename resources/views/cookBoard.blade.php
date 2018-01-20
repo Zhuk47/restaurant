@@ -30,6 +30,7 @@
                         <th>Подтверждено</th>
                         <th>Заказ</th>
                         <th>Блюдо</th>
+                        <th>Комментарий к заказу</th>
                         <th>Состояние</th>
                     </tr>
                     </thead>
@@ -41,6 +42,7 @@
                                     <td>{{ $food->pivot->dateTimeInCook }}</td>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $food->name }}</td>
+                                    <td>{{ $order->comment }}</td>
                                     <td>
                                         <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
                                               method="POST">

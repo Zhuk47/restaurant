@@ -43,7 +43,7 @@ class FoodController extends Controller
         $food_price->food_id = $food->id;
         $food_price->save();
 
-        return redirect('/food')->with('alert', "Блюдо ".$food->name." категории ".$food->category->name." добавлено.");
+        return redirect('/food')->with('alert', "Блюдо " . $food->name . " категории " . $food->category->name . " добавлено.");
     }
 
     public function edit(Food $food)
@@ -81,12 +81,11 @@ class FoodController extends Controller
         $food->foodPrice()->delete();
         $food->delete();
 
-        return redirect('/food')->with('delAlert', "Блюдо ".$food->name." категории ".$food->category->name." удалено.");
+        return redirect('/food')->with('delAlert', "Блюдо " . $food->name . " категории " . $food->category->name . " удалено.");
     }
 
     public function content(Food $food)
     {
-
         $ingredients = $food->ingredients;
 
         $food->mass = $food->currentTotalWeight();
@@ -105,19 +104,18 @@ class FoodController extends Controller
     {
         $food->ingredients()->attach($oneIngredient->id, ["mass" => $request->mass]);
 
-        return redirect('/food/' . $food->id . '/content')->with('alert', "Ингредиент ".$oneIngredient->name." в количестве ".$request->mass." г. добавлен.");
+        return redirect('/food/' . $food->id . '/content')->with('alert', "Ингредиент " . $oneIngredient->name . " в количестве " . $request->mass . " г. добавлен.");
     }
 
     public function delIngredient(Food $food, Ingredient $ingredient)
     {
         $ingredient->foods()->detach($food->id);
 
-        return redirect('/food/' . $food->id . '/content')->with('delAlert', "Ингредиент ".$ingredient->name." удален.");
+        return redirect('/food/' . $food->id . '/content')->with('delAlert', "Ингредиент " . $ingredient->name . " удален.");
     }
 
     public function savePrice(Food $food, Request $request)
     {
-
         $cost_price = $food->currentNetCost();
 
         FoodPrice::where('food_id', $food->id)->delete();
@@ -128,7 +126,6 @@ class FoodController extends Controller
         $food_price->save();
 
         return redirect('/food/' . $food->id . '/content');
-
     }
 
     public function history(Food $food)
@@ -137,7 +134,8 @@ class FoodController extends Controller
 
         return view('history', [
             'prices' => $prices,
-            'food' => $food
+            'food' => $food,
+            'min' => $food->getMinDate()
         ]);
     }
 
@@ -145,11 +143,14 @@ class FoodController extends Controller
     {
         $prices = FoodPrice::withTrashed()->where('food_id', $food->id)->get();
         foreach ($prices as $price) {
-            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at) {
-                echo "Стоимость блюда - " . $price->price . " грн. </br>";
-                echo "Себестоимость ингредиентов - " . $price->netCost . " грн. </br>";
-            } elseif ($price->created_at <= $request->date && $price->deleted_at === null) {
-                echo $price->price;
+            $date = str_replace("T", " ", $request->date);
+            $created = substr($price->created_at, 0, 19);
+            $deleted = substr($price->deleted_at, 0, 19);
+
+            if ($created <= $date && $date <= $deleted) {
+                return redirect()->back()->with('history_message', "Стоимость " . $food->name . " на " . $date . " составляла " . $price->price . " грн. Себестоимость ингредиентов - " . $price->netCost . "грн.");
+            } elseif ($created <= $date && $deleted == null) {
+                return redirect()->back()->with('history_message', "Стоимость " . $food->name . " на " . $date . " составляет " . $price->price . " грн. Себестоимость ингредиентов - " . $price->netCost . "грн.");
             } else null;
         }
     }

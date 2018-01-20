@@ -9,8 +9,6 @@
     </head>
     @if (Auth::user()->role->name == 'admin')
         <div class="container">
-            <div class="row">
-            </div>
             @foreach($tables as $table)
                 @if($table->isFree == 0 )
                     <a>
@@ -51,5 +49,5 @@
                             @endforeach
                         @endif
                 </div>
-
+        </div>
 @endsection

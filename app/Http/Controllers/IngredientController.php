@@ -110,7 +110,8 @@ class IngredientController extends Controller
 
         return view('ingredienthistory', [
             'prices' => $prices,
-            'ingredient' => $ingredient
+            'ingredient' => $ingredient,
+            'min' => $ingredient->getMinDate()
         ]);
     }
 
@@ -118,10 +119,14 @@ class IngredientController extends Controller
     {
         $prices = Price::withTrashed()->where('ingredient_id', $ingredient->id)->get();
         foreach ($prices as $price) {
-            if ($price->created_at <= $request->date && $request->date <= $price->deleted_at) {
-                echo $price->price;
-            } elseif ($price->created_at <= $request->date && $price->deleted_at === null) {
-                echo $price->price;
+            $date = str_replace("T", " ", $request->date);
+            $created = substr($price->created_at, 0, 19);
+            $deleted = substr($price->deleted_at, 0, 19);
+
+            if ($created <= $date && $date <= $deleted) {
+                return redirect()->back()->with('history_message', "Стоимость " . $ingredient->name . " на " . $date . " составляла " . $price->price . " грн.");
+            } elseif ($created <= $date && $deleted == null) {
+                return redirect()->back()->with('history_message', "Стоимость " . $ingredient->name . " на " . $date . " составляет " . $price->price . " грн.");
             } else null;
         }
     }

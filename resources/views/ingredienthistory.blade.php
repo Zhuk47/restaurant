@@ -14,7 +14,7 @@
         <div class="container">
             <div class="panel-body">
                 <table class="table table-striped task-table">
-                    <!-- Заголовок таблицы -->
+                    <caption><h4><b>{{$ingredient->name}}</b></h4></caption>
                     <thead>
                     <th>Начало действия</th>
                     <th>Окончание действия</th>
@@ -42,58 +42,22 @@
     <div class="container">
         <form action="{{ url('/ingredient/'.$ingredient->id.'/history') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
-            <h5>Поиск цены по дате</h5>
+            <h5><b>Поиск цены по дате</b></h5>
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="date" id="date" class="form" placeholder="Дата">
-                    <input type="text" name="time" id="time" class="time" placeholder="Время">
+                    <input type="datetime-local" min="{{$min}}" name="date" id="date" class="form" placeholder="Дата и время">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Поиск
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Поиск
-                </button>
             </div>
         </form>
     </div>
 
-    <script type="text/javascript">
-        $(function () {
-            $("#date").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'yy-mm-dd',
-                monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
-                    'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                closeText: 'Закрыть',
-                prevText: '&#x3c;Пред',
-                nextText: 'След&#x3e;',
-                currentText: 'Сегодня',
-                yearRange: '2017:2018'
-            });
-            $("#format").change(function () {
-                $("#date").datepicker("option", "dateFormat", $(this).val());
-            });
-        });
-    </script>
-    {{--<script type="text/javascript">--}}
-        {{--$(function () {--}}
-            {{--$("#time").wickedpicker({--}}
-                {{--now: "12:35", //hh:mm 24 hour format only, defaults to current time--}}
-                {{--twentyFour: true,  //Display 24 hour format, defaults to false--}}
-                {{--upArrow: 'wickedpicker__controls__control-up',  //The up arrow class selector to use, for custom CSS--}}
-                {{--downArrow: 'wickedpicker__controls__control-down', //The down arrow class selector to use, for custom CSS--}}
-                {{--close: 'wickedpicker__close', //The close class selector to use, for custom CSS--}}
-                {{--hoverState: 'hover-state', //The hover state class to use, for custom CSS--}}
-                {{--title: 'Timepicker', //The Wickedpicker's title,--}}
-                {{--showSeconds: false, //Whether or not to show seconds,--}}
-                {{--timeSeparator: ' : ', // The string to put in between hours and minutes (and seconds)--}}
-                {{--secondsInterval: 1, //Change interval for seconds, defaults to 1,--}}
-                {{--minutesInterval: 1, //Change interval for minutes, defaults to 1--}}
-                {{--beforeShow: null, //A function to be called before the Wickedpicker is shown--}}
-                {{--afterShow: null, //A function to be called after the Wickedpicker is closed/hidden--}}
-                {{--show: null, //A function to be called when the Wickedpicker is shown--}}
-                {{--clearable: false //Make the picker's input clearable (has clickable "x")--}}
-            {{--});--}}
-        {{--});--}}
-    {{--</script>--}}
+    <div class="container">
+        @if(Session::has('history_message'))
+            <b>{{Session::get('history_message')}}</b>
+        @endif
+    </div>
+
 @endsection
