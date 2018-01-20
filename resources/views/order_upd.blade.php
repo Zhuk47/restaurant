@@ -132,11 +132,10 @@
                 @if( $order->isFree == 0 )
                     <script>
                         $(function () {
-                            $('#close').css('disabled')
                             $('#print').click(function () {
                                 $('#close').css('display', 'block')
                                 var printing_css = '' +
-                                    '<style media=print>button, .status, .statusTh {display: none}' +
+                                    '<style media=print>button, .status, .statusTh, #order-comment, #close, #print {display: none}' +
                                     '#off{display: block;}' +
                                     '</style>';
                                 var wishes = '<div>Приходите еще!</div>'
@@ -165,22 +164,4 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-=======
-    <script>
-        $(function () {
-            $('#print').click(function () {
-                var printing_css = '<style media=print>tr:nth-child(even) td{background: #f0f0f0;}</style>';
-                var html_to_print = printing_css + $('#to_print').html();
-                var iframe = $('<iframe id="print_frame">');
-                $('body').append(iframe);
-                var doc = $('#print_frame')[0].contentDocument || $('#print_frame')[0].contentWindow.document;
-                var win = $('#print_frame')[0].contentWindow || $('#print_frame')[0];
-                doc.getElementsByTagName('body')[0].innerHTML = html_to_print;
-                win.print();
-                $('iframe').remove();
-            });
-        });
-    </script>
->>>>>>> cd1b43edb76ce021a8732bd5eec440827dec5302
 @endsection

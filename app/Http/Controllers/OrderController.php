@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function create(Table $table)
+    public function create(Table $table, Order $order)
     {
         if ($table->isFree == 0) {
             $order = new Order;
@@ -26,7 +26,8 @@ class OrderController extends Controller
                 'order' => $order
             ]);
         } else {
-            return redirect('waiter/hall');
+            return redirect('/waiter/table/' . $table->id . '/order/' . $table->orders()->
+                where('table_id', '=', $table->id)->value('id'));
         }
     }
 
@@ -73,13 +74,11 @@ class OrderController extends Controller
                 $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
             }
         }
-<<<<<<< HEAD
-=======
 
         if ($request->comment) {
             $order->comment = $request->comment;
         }
->>>>>>> cd1b43edb76ce021a8732bd5eec440827dec5302
+
         $order->price = $order->totalPrice();
         $order->save();
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
@@ -112,4 +111,5 @@ class OrderController extends Controller
             'orders' => $orders
         ]);
     }
+
 }

@@ -19,4 +19,15 @@ class HallController extends Controller
         $tables = Table::all();
         return (view('hall', ['orders' => $orders], ['tables' => $tables]));
     }
+
+    public function ajax()
+    {
+        $tables = Table::all();
+        $arr = [];
+        foreach ($tables as $table) {
+
+            $arr[$table->id] = $table->isFree;
+        }
+        return $arr;
+    }
 }
