@@ -70,6 +70,6 @@ class RegisterController extends Controller
         ]);
         \Session::flash('message', 'This is a message!');
         \Session::flash('alert-class', 'alert-danger');
-        return view('adminViews\home');
+        return view('adminViews/home');
     }
 }
