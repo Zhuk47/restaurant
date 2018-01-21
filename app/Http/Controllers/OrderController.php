@@ -79,6 +79,7 @@ class OrderController extends Controller
             $order->comment = $request->comment;
         }
         $order->price = $order->totalPrice();
+        $order->netPrice = $order->netTotalPrice();
         $order->save();
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
 

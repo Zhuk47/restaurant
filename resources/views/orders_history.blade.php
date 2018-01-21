@@ -29,6 +29,7 @@
                     <th>Официант</th>
                     <th>Открытие</th>
                     <th>Закрытие</th>
+                    <th>Ингредиенты</th>
                     <th>Стоимость</th>
                     <th>Блюда</th>
                     </thead>
@@ -53,6 +54,9 @@
                                     {{ $order->deleted_at }}
                                 </td>
                             @endif
+                            <td class="table-text">
+                                {{ $order->netPrice }}
+                            </td>
                             <td class="table-text">
                                 {{ $order->price }}
                             </td>
