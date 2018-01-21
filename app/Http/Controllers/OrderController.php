@@ -7,6 +7,7 @@ use App\Food;
 use App\Order;
 use App\Table;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -105,10 +106,17 @@ class OrderController extends Controller
 
     public function history()
     {
-        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->get();
-
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfDay()->toDateTimeString())->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
         return view('orders_history', [
-            'orders' => $orders
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal
         ]);
     }
 

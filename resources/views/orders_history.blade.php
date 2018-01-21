@@ -9,7 +9,7 @@
         .layer {
             overflow: auto; /* Добавляем полосы прокрутки */
             width: 100%; /* Ширина блока */
-            height: 540px; /* Высота блока */
+            height: 500px; /* Высота блока */
         }
     </style>
 
@@ -20,6 +20,8 @@
 
     @if (count($orders) > 0)
         <center><h4><b>История заказов</b></h4></center>
+        <div class="container">Общая сумма: {{$total}} грн.</div>
+        <div class="container">Общая себестоимость: {{$netTotal}} грн.</div>
         <div class="container layer">
             <div class="panel-body">
                 <table class="table table-striped task-table">
