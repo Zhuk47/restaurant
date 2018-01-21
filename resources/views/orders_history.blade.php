@@ -18,10 +18,40 @@
         @include('common.errors')
     </div>
 
+    <div class="container col-md-11">
+        <div class="col-md-2">
+            <form action="{{ url('/orders/week') }}">
+                {{ csrf_field() }}
+                <button class="btn btn-default">
+                    История за неделю
+                </button>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <form action="{{ url('/orders/date') }}" method="POST">
+                {{ csrf_field() }}
+                <div class="col-md-3">
+                    <input type="date" name="date" class="form-control">
+                </div>
+                <button class="btn btn-default">
+                    Поиск по дате
+                </button>
+            </form>
+        </div>
+
+    </div>
+    
     @if (count($orders) > 0)
-        <center><h4><b>История заказов</b></h4></center>
-        <div class="container">Общая сумма: {{$total}} грн.</div>
-        <div class="container">Общая себестоимость: {{$netTotal}} грн.</div>
+        {{--<center><h4><b>История заказов</b></h4></center>--}}
+        <b>
+            <div class="prices">
+                <div class="col-md-1"></div>
+                <div class="container col-md-3">Общая сумма: {{$total}} грн.</div>
+                <div class="container col-md-3">Общая себестоимость: {{$netTotal}} грн.</div>
+                <div class="container col-md-3">Чистая прибыль: {{$clean}} грн.</div>
+                <div class="col-md-2"></div>
+            </div>
+        </b>
         <div class="container layer">
             <div class="panel-body">
                 <table class="table table-striped task-table">

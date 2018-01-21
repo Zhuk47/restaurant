@@ -90,6 +90,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/hall', 'HallController@index');
     Route::get('/hall/table/{table}', 'OrderController@info');
     Route::get('/orders', 'OrderController@history');
+    Route::post('/orders/date', 'OrderController@historyOnDate');
+    Route::get('/orders/week', 'OrderController@historyOnWeek');
 
     //articles routes
     Route::resource('articles', 'ArticleController');

@@ -113,10 +113,48 @@ class OrderController extends Controller
             $total += $order->price;
             $netTotal += $order->netPrice;
         }
+        $clean = $total - $netTotal;
         return view('orders_history', [
             'orders' => $orders,
             'total' => $total,
-            'netTotal' => $netTotal
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
+
+    public function historyOnDate(Request $request)
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', $request->date." 00:00:00")->where('created_at', '<=', $request->date." 23:59:59")->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
+
+    public function historyOnWeek()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfWeek()->toDateTimeString())->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
         ]);
     }
 
