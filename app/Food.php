@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Food extends Model
 {
@@ -61,6 +62,15 @@ class Food extends Model
         $startTime = date('Y-m-d H:i',strtotime($formedTime.' + 1 min'));
         $result = str_replace(" ", "T", $startTime);
 
+        return $result;
+    }
+
+    public function getAvgCookTime()
+    {
+        $time = DB::table('food_order')
+            ->where('food_id', '=', $this->id)
+            ->avg('timeInCook');
+        $result = date("H:i:s", mktime(0, 0, $time));
         return $result;
     }
 }

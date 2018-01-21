@@ -25,7 +25,7 @@ class CookBoardController extends Controller
     {
         $order->foods()->wherePivot('created_at', $created_at)->updateExistingPivot($food->id, ['deleted_at' => date('Y-m-d H:i:s')]);
         foreach ($order->foods as $oneFood) {
-            if ($food->id == $oneFood->id) {
+            if ($food->id == $oneFood->id && $created_at == $oneFood->pivot->created_at) {
                 $in = $oneFood->pivot->dateTimeInCook;
                 $out = $oneFood->pivot->deleted_at;
                 $res = strtotime($out) - strtotime($in);
@@ -33,7 +33,6 @@ class CookBoardController extends Controller
                 $order->foods()->wherePivot('created_at', $created_at)->updateExistingPivot($food->id, ['timeInCook' => $result]);
             }
         }
-
         return redirect('/cookboard');
     }
 

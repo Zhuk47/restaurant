@@ -67,6 +67,7 @@
                     <th>Блюдо</th>
                     <th>Категория</th>
                     <th>Выход, г.</th>
+                    <th>Среднее время приготовления</th>
                     <th>Себестоимость</th>
                     <th>Стоимость</th>
                     </thead>
@@ -89,6 +90,9 @@
                             <!-- Выход блюда в г. -->
                             <td class="table-text">
                                 <div>{{ $food->mass }}</div>
+                            </td>
+                            <td class="table-text">
+                                <div>{{ $food->getAvgCookTime() }}</div>
                             </td>
                         @foreach($food->foodPrice as $price)
                             <!-- Себестоимость блюда -->
