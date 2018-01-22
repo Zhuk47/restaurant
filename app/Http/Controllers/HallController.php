@@ -30,4 +30,15 @@ class HallController extends Controller
         }
         return $arr;
     }
+
+    public function adminAjax()
+    {
+        $tables = Table::all();
+        $arr = [];
+        foreach ($tables as $table) {
+
+            $arr[$table->id] = $table->isFree;
+        }
+        return $arr;
+    }
 }

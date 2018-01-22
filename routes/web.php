@@ -88,6 +88,7 @@ Route::group(['middleware' => ['admin']], function () {
 
     //order routes
     Route::get('/hall', 'HallController@index');
+    Route::get('/hall/ajax', 'HallController@adminAjax');
     Route::get('/hall/table/{table}', 'OrderController@info');
     Route::get('/orders', 'OrderController@history');
     Route::post('/orders/date', 'OrderController@historyOnDate');

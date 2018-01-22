@@ -46,11 +46,9 @@
                 </button>
             </form>
         </div>
-
     </div>
 
     @if (count($orders) > 0)
-        {{--<center><h4><b>История заказов</b></h4></center>--}}
         <b>
             <div class="prices">
                 <div class="col-md-1"></div>

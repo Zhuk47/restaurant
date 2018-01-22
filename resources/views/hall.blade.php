@@ -10,48 +10,58 @@
     </head>
     @if (Auth::user()->role->name == 'admin')
         <div class="container">
+            <div class="row">
+            </div>
             @foreach($tables as $table)
-                @if($table->isFree == 0 )
-                    <a>
-                        <div class="col-md-2 btn-success " style="height: 150px; margin: 10px; text-align: center;">
-                            Admin Номер стола: {{$table->id}}
-                        </div>
-                    </a>
-                @else
+                <div id="admintbl{{$table->id}}" class="col-md-2"
+                     style="height: 150px; margin: 10px; text-align: center;">
                     <a href='hall/table/{{$table->id}}'>
-                        <div class="col-md-2 btn-danger" style="height: 150px; margin: 10px; text-align: center;">
-                            Admin Номер стола: {{$table->id}}
-                        </div>
+                        Номер стола: {{$table->id}}
                     </a>
-                @endif
-            @endforeach
-            @elseif(Auth::user()->role->name == 'waiter')
-                <div class="container">
-                    <div class="row">
-                    </div>
-                    @foreach($tables as $table)
-                        <div id="tbl{{$table->id}}" class="col-md-2"
-                             style="height: 150px; margin: 10px; text-align: center;">
-                            <a href='table/{{$table->id}}/new_order'>
-                                Номер стола: {{$table->id}}
-                            </a>
-                        </div>
-                    @endforeach
-                    @endif
                 </div>
+            @endforeach
         </div>
         <script>
-            function getIsFree() {
-                var url = '{{url('/waiter/hall/ajax')}}'
+            function getIsFreeAdm() {
+                var url = '{{url('/hall/ajax')}}';
                 $.getJSON(url, {}, function (data) {
                     console.log(data);
                     for (let key in data) {
+                        $('#admintbl' + key).removeClass();
+                        $('#admintbl' + key).addClass(!data[key] ? 'col-md-2 btn-success' : 'col-md-2 btn-danger')
+                    }
+                });
+                setTimeout(getIsFreeAdm, 5000)
+            }
+            getIsFreeAdm();
+        </script>
+    @elseif(Auth::user()->role->name == 'waiter')
+        <div class="container">
+            <div class="row">
+            </div>
+            @foreach($tables as $table)
+                <div id="tbl{{$table->id}}" class="col-md-2"
+                     style="height: 150px; margin: 10px; text-align: center;">
+                    <a href='table/{{$table->id}}/new_order'>
+                        Номер стола: {{$table->id}}
+                    </a>
+                </div>
+            @endforeach
+        </div>
+        <script>
+            function getIsFree() {
+                var url = '{{url('/waiter/hall/ajax')}}';
+                $.getJSON(url, {}, function (data) {
+                    console.log(data);
+                    for (let key in data) {
+                        $('#tbl' + key).removeClass();
                         $('#tbl' + key).addClass(!data[key] ? 'col-md-2 btn-success' : 'col-md-2 btn-danger')
                     }
                 });
                 setTimeout(getIsFree, 5000)
             }
-
             getIsFree();
         </script>
+    @endif
+
 @endsection
