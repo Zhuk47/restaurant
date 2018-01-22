@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Win64 (x86_64)
 --
 -- Host: localhost    Database: restaurant
 -- ------------------------------------------------------
--- Server version	5.7.16
+-- Server version	5.7.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -391,8 +391,36 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (2,'Должанский','Колян','Рэпер','1987-07-15',1,NULL,NULL,'P10stPvrI6qJefv6fKgxwMstLp20ly1GjZh0yH1tX6JFgKKPM4cn3EiWrWzY','admin@gmail.com','$2b$10$u5Ji8hkOzj5WWd8Q1B5LUuQEL3Vk9znG0TGxPo7nCnA5Xnz5TbxO2',NULL),(3,'Пупкин','Вася','Гришевич','1990-12-12',2,'2017-12-12 09:28:52','2017-12-12 09:28:52','sN1ByotXmxBwXa3BeDgbE4GTRKsRwlbLNVzkeshmDGsKFWWmgzntlsIdiail','off1@gmail.com','$2y$10$agLvcVbYf7kT7lj.vRjNc.NIVtIzHWH8Zw9/Qk2R8cAa.43fMafHK',NULL),(5,'Шеф','Повар','Бондович','1975-10-23',3,'2017-12-12 10:02:02','2017-12-12 10:02:02','uHhtzYDHDsljP5uxRD20joooD7AR7KviE3UKf82AUeXZlFrrWjT8JGDn1rfj','povar@gmail.com','$2y$10$KKFKd29Vd35dWdZ674BZ9uqXbWNlzugvd0midE/PQL5.9wfUcezpa',NULL),(6,'Попкин','Иджворг','Ольгович','1990-06-21',2,'2017-12-18 21:16:09','2017-12-18 21:16:09','EjLfQ0zikpy3u7ds5CPW7P6Xun3DmpiysshV9RFDM1XGfsO9IYWQqyfjYkQG','off2@gmail.com','$2y$10$HVtzpuKb9pyAiSEcVSUCYOxKsEMjUQ2vwQkiAF87pFKO5bXEPXRCa',NULL);
+INSERT INTO `users` VALUES (2,'Должанский','Колян','Рэпер','1987-07-15',1,NULL,NULL,'ndcXuC74O1p47fEI8DUbQoYnaWlNyHEJ49EE8WtsMJq2hHw98VjYBpVYaRfI','admin@gmail.com','$2b$10$u5Ji8hkOzj5WWd8Q1B5LUuQEL3Vk9znG0TGxPo7nCnA5Xnz5TbxO2',NULL),(3,'Пупкин','Вася','Гришевич','1990-12-12',2,'2017-12-12 09:28:52','2017-12-12 09:28:52','Zee6HX1ytOigbGpQhESssax2GkF3ySQ5dwuSSYNx7bhoihGcrbyvyZgdqpX7','off1@gmail.com','$2y$10$agLvcVbYf7kT7lj.vRjNc.NIVtIzHWH8Zw9/Qk2R8cAa.43fMafHK',NULL),(5,'Шеф','Повар','Бондович','1975-10-23',3,'2017-12-12 10:02:02','2017-12-12 10:02:02','uHhtzYDHDsljP5uxRD20joooD7AR7KviE3UKf82AUeXZlFrrWjT8JGDn1rfj','povar@gmail.com','$2y$10$KKFKd29Vd35dWdZ674BZ9uqXbWNlzugvd0midE/PQL5.9wfUcezpa',NULL),(6,'Попкин','Иджворг','Ольгович','1990-06-21',2,'2017-12-18 21:16:09','2017-12-18 21:16:09','EjLfQ0zikpy3u7ds5CPW7P6Xun3DmpiysshV9RFDM1XGfsO9IYWQqyfjYkQG','off2@gmail.com','$2y$10$HVtzpuKb9pyAiSEcVSUCYOxKsEMjUQ2vwQkiAF87pFKO5bXEPXRCa',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `visits`
+--
+
+DROP TABLE IF EXISTS `visits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `visits` (
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `surname` varchar(100) DEFAULT NULL,
+  `midname` varchar(100) DEFAULT NULL,
+  `entered` timestamp NULL DEFAULT NULL,
+  `goneaway` timestamp NULL DEFAULT NULL,
+  `active` int(11) DEFAULT '0',
+  `role_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `visits`
+--
+
+LOCK TABLES `visits` WRITE;
+/*!40000 ALTER TABLE `visits` DISABLE KEYS */;
+/*!40000 ALTER TABLE `visits` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -404,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-21 14:55:49
+-- Dump completed on 2018-01-22 17:06:38

@@ -56,6 +56,7 @@
                                 <li><a href="{{ url('/register-new-employee') }}">Регистрация</a></li>
                                 <li><a href="{{ url('/base-employee') }}">Обзор</a></li>
                                 <li><a href="{{ url('/work-time') }}">На работе</a></li>
+                                <li><a href="{{ url('/work-history') }}">История прихода на работу</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
