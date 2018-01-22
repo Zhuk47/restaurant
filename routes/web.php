@@ -80,7 +80,15 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/base-employee', function () {
         return view('adminViews/employeebase');
     });
-
+    Route::get('/work-history', function () {
+        return view('work-time-history');
+    });
+//    Route::get('/work-time', function(){
+//        return view('work-time');
+//    });
+    Route::get('/work-time', function () {
+        return view('work-time');
+    });
     //tables routes
     Route::get('/tables', 'TablesController@index');
     Route::post('/tables', 'TablesController@create');
