@@ -89,6 +89,10 @@ Route::group(['middleware' => ['admin']], function () {
     //order routes
     Route::get('/hall', 'HallController@index');
     Route::get('/hall/table/{table}', 'OrderController@info');
+    Route::get('/orders', 'OrderController@history');
+    Route::post('/orders/date', 'OrderController@historyOnDate');
+    Route::get('/orders/week', 'OrderController@historyOnWeek');
+    Route::get('/orders/all', 'OrderController@historyAll');
 
     //articles routes
     Route::resource('articles', 'ArticleController');
@@ -99,6 +103,7 @@ Route::group(['middleware' => ['waiter']], function () {
 
     //table and orders routes
     Route::get('/waiter/hall', 'HallController@index');
+    Route::get('/waiter/hall/ajax', 'HallController@ajax');
     Route::get('/waiter/table/{table}/new_order', 'OrderController@create')->name('new_order');
     Route::get('/waiter/table/{table}/delete_order/{order}', 'OrderController@delete')->name('delete_order');
     Route::get('/waiter/table/{table}/order/{order}', 'OrderController@update')->name('order');
@@ -127,6 +132,6 @@ Route::get('/menu', 'FoodController@menu')->name('menu');
 //    return view('work-time');
 //})->name('work-time');
 
-Route::group(['middleware' => ['LogUserActivity']], function(){
+Route::group(['middleware' => ['LogUserActivity']], function () {
     Route::get('/work-time', 'WorkTimeController@index')->name('work-time');
 });

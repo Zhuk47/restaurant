@@ -6,10 +6,12 @@ use App\Category;
 use App\Food;
 use App\Order;
 use App\Table;
+use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
-    public function create(Table $table)
+    public function create(Table $table, Order $order)
     {
         if ($table->isFree == 0) {
             $order = new Order;
@@ -25,7 +27,8 @@ class OrderController extends Controller
                 'order' => $order
             ]);
         } else {
-            return redirect('waiter/hall');
+            return redirect('/waiter/table/' . $table->id . '/order/' . $table->orders()->
+                where('table_id', '=', $table->id)->value('id'));
         }
     }
 
@@ -42,6 +45,7 @@ class OrderController extends Controller
 
     public function update(Table $table, Order $order)
     {
+
         $categories = Category::orderBy('id', 'asc')->get();
 
         return view('order_upd', [
@@ -61,11 +65,10 @@ class OrderController extends Controller
     public function addFood(Table $table, Order $order, Food $food)
     {
         $order->foods()->attach($food->id);
-
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
-    public function confirm(Table $table, Order $order)
+    public function confirm(Table $table, Order $order, Request $request)
     {
         foreach ($order->foods as $food) {
             if ($food->pivot->confirmed == 0) {
@@ -73,10 +76,14 @@ class OrderController extends Controller
             }
         }
 
+        if ($request->comment) {
+            $order->comment = $request->comment;
+        }
         $order->price = $order->totalPrice();
+        $order->netPrice = $order->netTotalPrice();
         $order->save();
-
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
+
     }
 
     public function deleteFood(Table $table, Order $order, Food $food, $created_at)
@@ -93,8 +100,79 @@ class OrderController extends Controller
             $order->delete();
             return redirect('/waiter/hall');
         } else {
-            return redirect()->back()->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
+            return redirect('/waiter/table/' . $table->id . '/order/' . $order->id)->with('alert', 'Нельзя закрыть заказ, пока не готовы все блюда!');
         }
     }
 
+    public function history()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfDay()->toDateTimeString())->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
+
+    public function historyOnDate(Request $request)
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', $request->date." 00:00:00")->where('created_at', '<=', $request->date." 23:59:59")->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
+
+    public function historyOnWeek()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfWeek()->toDateTimeString())->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
+
+    public function historyAll()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
 }

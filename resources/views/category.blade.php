@@ -12,44 +12,44 @@
 
     <div class="container">
         <!-- Отображение ошибок проверки ввода -->
-    @include('common.errors')
+        @include('common.errors')
 
-    <!-- Форма новой категории -->
         <form action="{{ url('category') }}" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
-
-            <h5>Добавление категории</h5>
-            <!-- Имя категории -->
+        {{ csrf_field() }}
+            <div><h3>Добавление категории</h3></div>
             <div class="form-group">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <input type="text" name="name" id="category-name" class="form-control"
                            placeholder="Категория">
                 </div>
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i>Добавить
-                </button>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i>Добавить
+                    </button>
+                </div>
+                {{--@if(Session::has('alert'))--}}
+                    {{--<script type="text/javascript">--}}
+                        {{--setTimeout(function () {--}}
+                            {{--$('.alert').fadeOut('slow');--}}
+                        {{--}, 2000);--}}
+                    {{--</script>--}}
+                    {{--<div class="col-sm-4 alert alert-success">--}}
+                        {{--{{ session()->get('alert') }}--}}
+                    {{--</div>--}}
+                {{--@elseif(Session::has('delAlert'))--}}
+                    {{--<script type="text/javascript">--}}
+                        {{--setTimeout(function () {--}}
+                            {{--$('.alert').fadeOut('slow');--}}
+                        {{--}, 2000);--}}
+                    {{--</script>--}}
+                    {{--<div class="col-sm-4 alert alert-danger">--}}
+                        {{--{{ session()->get('delAlert') }}--}}
+                    {{--</div>--}}
+                {{--@endif--}}
             </div>
         </form>
-        @if(Session::has('alert'))
-            <script type="text/javascript">
-                setTimeout(function () {
-                    $('.alert').fadeOut('slow');
-                }, 2000);
-            </script>
-            <div class="alert alert-success">
-                {{ session()->get('alert') }}
-            </div>
-        @elseif(Session::has('delAlert'))
-            <script type="text/javascript">
-                setTimeout(function () {
-                    $('.alert').fadeOut('slow');
-                }, 2000);
-            </script>
-            <div class="alert alert-danger">
-                {{ session()->get('delAlert') }}
-            </div>
-        @endif
     </div>
+
     <!-- Текущие категории -->
     @if (count($categories) > 0)
         <div class="container layer">

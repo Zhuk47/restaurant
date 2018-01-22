@@ -16,6 +16,7 @@
         <link href={{ asset('../../public/css/stylesHall.css') }} rel="stylesheet">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     </head>
 
     <div class="container">
@@ -30,6 +31,7 @@
                         <th>Подтверждено</th>
                         <th>Заказ</th>
                         <th>Блюдо</th>
+                        <th>Комментарий к заказу</th>
                         <th>Состояние</th>
                     </tr>
                     </thead>
@@ -41,6 +43,7 @@
                                     <td>{{ $food->pivot->dateTimeInCook }}</td>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $food->name }}</td>
+                                    <td>{{ $order->comment }}</td>
                                     <td>
                                         <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
                                               method="POST">

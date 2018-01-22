@@ -75,7 +75,7 @@
                                 <label for="name" class="col-md-4 control-label">Дата рождения</label>
 
                                 <div class="col-md-6">
-                                    <input id="datebirth" type="text" class="form-control" name="datebirth"
+                                    <input id="datebirth" type="date" class="form-control" name="datebirth"
                                            value="{{ old('name') }}" required autofocus>
 
                                     @if ($errors->has('name'))
@@ -85,26 +85,26 @@
                                     @endif
                                 </div>
 
-                                <script type="text/javascript">
-                                    $(function () {
-                                        $("#datebirth").datepicker({
-                                            changeMonth: true,
-                                            changeYear: true,
-                                            dateFormat: 'dd-mm-yy',
-                                            monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
-                                                'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                                            dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                                            closeText: 'Закрыть',
-                                            prevText: '&#x3c;Пред',
-                                            nextText: 'След&#x3e;',
-                                            currentText: 'Сегодня',
-                                            yearRange: '1940:2000'
-                                        });
-                                        $("#format").change(function () {
-                                            $("#datebirth").datepicker("option", "dateFormat", $(this).val());
-                                        });
-                                    });
-                                </script>
+                                {{--<script type="text/javascript">--}}
+                                {{--$(function () {--}}
+                                {{--$("#datebirth").datepicker({--}}
+                                {{--changeMonth: true,--}}
+                                {{--changeYear: true,--}}
+                                {{--dateFormat: 'yy-mm-dd',--}}
+                                {{--monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',--}}
+                                {{--'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],--}}
+                                {{--dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],--}}
+                                {{--closeText: 'Закрыть',--}}
+                                {{--prevText: '&#x3c;Пред',--}}
+                                {{--nextText: 'След&#x3e;',--}}
+                                {{--currentText: 'Сегодня',--}}
+                                {{--yearRange: '1940:2000'--}}
+                                {{--});--}}
+                                {{--$("#format").change(function () {--}}
+                                {{--$("#datebirth").datepicker("option", "dateFormat", $(this).val());--}}
+                                {{--});--}}
+                                {{--});--}}
+                                {{--</script>--}}
                             </div>
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

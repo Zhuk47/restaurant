@@ -13,7 +13,7 @@
         <div class="container">
             <div class="panel-body">
                 <table class="table table-striped task-table">
-                    <!-- Заголовок таблицы -->
+                    <caption><h4><b>{{$food->name}}</b></h4></caption>
                     <thead>
                     <th>Начало действия</th>
                     <th>Окончание действия</th>
@@ -45,37 +45,22 @@
     <div class="container">
         <form action="{{ url('/food/'.$food->id.'/history') }}" method="POST" class="form-horizontal">
             {{ csrf_field() }}
-            <h5>Поиск цены по дате</h5>
+            <h5><b>Поиск цены по дате</b></h5>
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="text" name="date" id="date" class="form-control" placeholder="Дата">
+                    <input type="datetime-local" min="{{$min}}" name="date" id="date" class="form" placeholder="Дата и время">
+                    <button type="submit" class="btn btn-default">
+                        <i class="fa fa-plus"></i> Поиск
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Поиск
-                </button>
             </div>
         </form>
     </div>
 
-    <script type="text/javascript">
-        $(function () {
-            $("#date").datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'yy-mm-dd',
-                monthNamesShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь',
-                    'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                closeText: 'Закрыть',
-                prevText: '&#x3c;Пред',
-                nextText: 'След&#x3e;',
-                currentText: 'Сегодня',
-                yearRange: '2017:2018'
-            });
-            $("#format").change(function () {
-                $("#date").datepicker("option", "dateFormat", $(this).val());
-            });
-        });
-    </script>
+    <div class="container">
+        @if(Session::has('history_message'))
+            <b>{{Session::get('history_message')}}</b>
+        @endif
+    </div>
 
 @endsection
