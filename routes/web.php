@@ -140,6 +140,3 @@ Route::get('/menu', 'FoodController@menu')->name('menu');
 //    return view('work-time');
 //})->name('work-time');
 
-Route::group(['middleware' => ['LogUserActivity']], function () {
-    Route::get('/work-time', 'WorkTimeController@index')->name('work-time');
-});
