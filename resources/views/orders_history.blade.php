@@ -27,6 +27,14 @@
                 </button>
             </form>
         </div>
+        <div class="col-md-2">
+            <form action="{{ url('/orders/all') }}">
+                {{ csrf_field() }}
+                <button class="btn btn-default">
+                    История за всё время
+                </button>
+            </form>
+        </div>
         <div class="col-md-8">
             <form action="{{ url('/orders/date') }}" method="POST">
                 {{ csrf_field() }}
@@ -40,7 +48,7 @@
         </div>
 
     </div>
-    
+
     @if (count($orders) > 0)
         {{--<center><h4><b>История заказов</b></h4></center>--}}
         <b>

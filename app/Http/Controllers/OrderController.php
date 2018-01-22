@@ -158,4 +158,21 @@ class OrderController extends Controller
         ]);
     }
 
+    public function historyAll()
+    {
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->get();
+        $total = 0;
+        $netTotal = 0;
+        foreach ($orders as $order){
+            $total += $order->price;
+            $netTotal += $order->netPrice;
+        }
+        $clean = $total - $netTotal;
+        return view('orders_history', [
+            'orders' => $orders,
+            'total' => $total,
+            'netTotal' => $netTotal,
+            'clean' => $clean
+        ]);
+    }
 }
