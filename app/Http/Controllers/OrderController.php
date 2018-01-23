@@ -45,7 +45,6 @@ class OrderController extends Controller
 
     public function update(Table $table, Order $order)
     {
-
         $categories = Category::orderBy('id', 'asc')->get();
 
         return view('order_upd', [
@@ -66,28 +65,23 @@ class OrderController extends Controller
         }
     }
 
-    public function addFood(Table $table, Order $order, Food $food)
+    public function addFood(Table $table, Order $order, Food $food, Request $request)
     {
-        $order->foods()->attach($food->id);
+        $order->foods()->attach($food->id, array('comment' => $request->comment));
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
     }
 
-    public function confirm(Table $table, Order $order, Request $request)
+    public function confirm(Table $table, Order $order)
     {
         foreach ($order->foods as $food) {
             if ($food->pivot->confirmed == 0) {
                 $food->orders()->updateExistingPivot($order->id, ['confirmed' => 1, 'dateTimeInCook' => date('Y-m-d H:i:s')]);
             }
         }
-
-        if ($request->comment) {
-            $order->comment = $request->comment;
-        }
         $order->price = $order->totalPrice();
         $order->netPrice = $order->netTotalPrice();
         $order->save();
         return redirect('/waiter/table/' . $table->id . '/order/' . $order->id);
-
     }
 
     public function deleteFood(Table $table, Order $order, Food $food, $created_at)

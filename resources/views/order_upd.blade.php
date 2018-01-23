@@ -66,6 +66,7 @@
                                 <button class="submit btn btn-default" value="{{$food->id}}">
                                     {{ $food->name }} - {{ $food->mass }} г. - {{ $price->price }}
                                 </button>
+                                <input type="text" name="comment" id="food-comment" placeholder="Комментарий">
                             </form>
                         @endforeach
                     @endforeach
@@ -115,11 +116,6 @@
                 <div>
                     <form action="{{ url('/waiter/table/'.$table->id.'/order/'.$order->id) }}" method="POST">
                         {{ csrf_field() }}
-                        <input type="text" name="comment" id="order-comment" class="form-control"
-                               @if($order->comment == null)
-                               placeholder="Комментарии к заказу">
-                        @else placeholder="{{$order->comment}}">
-                        @endif
                         <button class="btn btn-success col-md-8" style="margin: 10px;">Confirm</button>
                     </form>
                     <div class="btn btn-primary col-md-8" style="margin: 10px;" id="print"> Печатать чек</div>

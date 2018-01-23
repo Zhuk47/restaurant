@@ -19,7 +19,7 @@ class Food extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order')->withPivot('confirmed', 'dateTimeInCook', 'created_at', 'deleted_at')->withTimestamps();
+        return $this->belongsToMany('App\Order')->withPivot('confirmed', 'dateTimeInCook', 'created_at', 'deleted_at', 'comment')->withTimestamps();
     }
 
     public function ingredients()

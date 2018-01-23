@@ -31,19 +31,19 @@
                         <th>Подтверждено</th>
                         <th>Заказ</th>
                         <th>Блюдо</th>
-                        <th>Комментарий к заказу</th>
+                        <th>Комментарий</th>
                         <th>Состояние</th>
                     </tr>
                     </thead>
                     @foreach($orders as $order)
                         @foreach($order->foods as $food)
-                            @if(!$food->pivot->deleted_at && $food->pivot->dateTimeInCook )
+                            @if(!$food->pivot->deleted_at && $food->pivot->dateTimeInCook)
                                 <tr>
-                                    <td>{{ $food->pivot->created_at }}</td>
-                                    <td>{{ $food->pivot->dateTimeInCook }}</td>
+                                    <td>{{ date('d-m-Y H:i:s', strtotime($food->pivot->created_at)) }}</td>
+                                    <td>{{ date('d-m-Y H:i:s', strtotime($food->pivot->dateTimeInCook)) }}</td>
                                     <td>{{ $order->id }}</td>
                                     <td>{{ $food->name }}</td>
-                                    <td>{{ $order->comment }}</td>
+                                    <td>{{ $food->pivot->comment }}</td>
                                     <td>
                                         <form action="{{ url('/cookboard/order/'.$order->id.'/food/'.$food->id.'/'. $food->pivot->created_at) }}"
                                               method="POST">
