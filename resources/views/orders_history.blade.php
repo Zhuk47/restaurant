@@ -81,7 +81,7 @@
                                 {{ $order->user->name }} {{ $order->user->surname }}
                             </td>
                             <td class="table-text">
-                                {{ $order->created_at }}
+                                {{ date('d-m-Y H:i:s', strtotime($order->created_at)) }}
                             </td>
                             @if($order->deleted_at == null)
                                 <td class="table-text">
@@ -89,7 +89,7 @@
                                 </td>
                             @elseif($order->deleted_at)
                                 <td class="table-text">
-                                    {{ $order->deleted_at }}
+                                    {{ date('d-m-Y H:i:s', strtotime($order->deleted_at)) }}
                                 </td>
                             @endif
                             <td class="table-text">

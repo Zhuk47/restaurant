@@ -24,10 +24,14 @@
                     @foreach ($prices as $price)
                         <tr>
                             <td class="table-text">
-                                {{ $price->created_at }}
+                                {{ date('d-m-Y H:i', strtotime($price->created_at.' + 1 min')) }}
                             </td>
-                            <td class="table-text">
-                                {{ $price->deleted_at }}
+                            <td class="date">
+                                @if($price->deleted_at)
+                                    {{ date('d-m-Y H:i', strtotime($price->deleted_at)) }}
+                                @elseif($price->deleted_at == null)
+                                    Действующая стоимость
+                                @endif
                             </td>
                             <td class="table-text">
                                 {{ $price->price }}
@@ -45,7 +49,8 @@
             <h5><b>Поиск цены по дате</b></h5>
             <div class="form-group">
                 <div class="col-sm-6">
-                    <input type="datetime-local" min="{{$min}}" name="date" id="date" class="form" placeholder="Дата и время">
+                    <input type="datetime-local" min="{{$min}}" name="date" id="date" class="form"
+                           placeholder="Дата и время">
                     <button type="submit" class="btn btn-default">
                         <i class="fa fa-plus"></i> Поиск
                     </button>

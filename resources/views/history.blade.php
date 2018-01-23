@@ -24,10 +24,14 @@
                     @foreach ($prices as $price)
                         <tr>
                             <td class="table-text">
-                                {{ $price->created_at }}
+                                {{ date('d-m-Y H:i', strtotime($price->created_at.' + 1 min')) }}
                             </td>
                             <td class="table-text">
-                                {{ $price->deleted_at }}
+                                @if($price->deleted_at)
+                                    {{ date('d-m-Y H:i', strtotime($price->deleted_at)) }}
+                                @elseif($price->deleted_at == null)
+                                    Действующая стоимость
+                                @endif
                             </td>
                             <td class="table-text">
                                 {{ $price->netCost }}

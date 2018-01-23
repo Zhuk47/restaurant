@@ -13,12 +13,12 @@
             <div class="row">
             </div>
             @foreach($tables as $table)
-                <div id="admintbl{{$table->id}}" class="col-md-2"
-                     style="height: 150px; margin: 10px; text-align: center;">
-                    <a href='hall/table/{{$table->id}}'>
+                <a href='hall/table/{{$table->id}}'>
+                    <div id="admintbl{{$table->id}}" class="col-md-2"
+                         style="height: 150px; margin: 10px; text-align: center;">
                         Номер стола: {{$table->id}}
-                    </a>
-                </div>
+                    </div>
+                </a>
             @endforeach
         </div>
         <script>
@@ -40,12 +40,11 @@
             <div class="row">
             </div>
             @foreach($tables as $table)
-                <div id="tbl{{$table->id}}" class="col-md-2"
-                     style="height: 150px; margin: 10px; text-align: center;">
-                    <a href='table/{{$table->id}}/new_order'>
+                <a href='table/{{$table->id}}/new_order'>
+                    <div id="tbl{{$table->id}}" class="col-md-2" style="height: 150px; margin: 10px; text-align: center;">
                         Номер стола: {{$table->id}}
-                    </a>
-                </div>
+                    </div>
+                </a>
             @endforeach
         </div>
         <script>

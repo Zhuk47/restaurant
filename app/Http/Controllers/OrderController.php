@@ -6,8 +6,8 @@ use App\Category;
 use App\Food;
 use App\Order;
 use App\Table;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -57,12 +57,12 @@ class OrderController extends Controller
 
     public function info(Table $table)
     {
-        if ($table->isFree !== 0) {
+        if ($table->isFree == 0) {
+            return redirect()->back();
+        } else {
             return view('/tableinfo', [
                 'table' => $table
             ]);
-        } else {
-            return redirect()->back();
         }
     }
 
@@ -113,7 +113,7 @@ class OrderController extends Controller
         $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfDay()->toDateTimeString())->get();
         $total = 0;
         $netTotal = 0;
-        foreach ($orders as $order) {
+        foreach ($orders as $order){
             $total += $order->price;
             $netTotal += $order->netPrice;
         }
@@ -128,10 +128,10 @@ class OrderController extends Controller
 
     public function historyOnDate(Request $request)
     {
-        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', $request->date . " 00:00:00")->where('created_at', '<=', $request->date . " 23:59:59")->get();
+        $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', $request->date." 00:00:00")->where('created_at', '<=', $request->date." 23:59:59")->get();
         $total = 0;
         $netTotal = 0;
-        foreach ($orders as $order) {
+        foreach ($orders as $order){
             $total += $order->price;
             $netTotal += $order->netPrice;
         }
@@ -149,7 +149,7 @@ class OrderController extends Controller
         $orders = Order::withTrashed()->orderBy('created_at', 'desc')->where('created_at', '>=', Carbon::now()->startOfWeek()->toDateTimeString())->get();
         $total = 0;
         $netTotal = 0;
-        foreach ($orders as $order) {
+        foreach ($orders as $order){
             $total += $order->price;
             $netTotal += $order->netPrice;
         }
@@ -167,7 +167,7 @@ class OrderController extends Controller
         $orders = Order::withTrashed()->orderBy('created_at', 'desc')->get();
         $total = 0;
         $netTotal = 0;
-        foreach ($orders as $order) {
+        foreach ($orders as $order){
             $total += $order->price;
             $netTotal += $order->netPrice;
         }
